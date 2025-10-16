@@ -1,4 +1,6 @@
-<<<<<<< HEAD
+# UmuhinziLink-Fro
+UmuhinziLink-Frontend
+
 # 🌱 UmuhinziLink - Connect Farmers to Digital Markets
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-umuhinzilink.vercel.app-green?style=for-the-badge&logo=vercel)](https://umuhinzilink.vercel.app)
@@ -163,7 +165,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-umuhinzilink.vercel.app-green?style=flat&logo=vercel)](https://umuhinzilink.vercel.app)
 
 </div>
-=======
-# UmuhinziLink-Fro
-UmuhinziLink-Frontend
->>>>>>> b0f71df9cf3055aea9a4d45aa79019990b6ebd35
