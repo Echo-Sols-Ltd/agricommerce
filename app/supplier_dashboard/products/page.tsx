@@ -14,7 +14,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Search,
-  ChevronDown,
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -46,15 +45,7 @@ const menuItems = [
 
 function ProductsPage() {
   const router = useRouter();
-  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [showForm, setShowForm] = useState(false);
-
-  const languages = [
-    { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'rw', name: 'Kinyarwanda', flag: '🇷🇼' },
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
-  ];
 
   const handleLogout = () => {
     logout(router);

@@ -11,7 +11,6 @@ import {
   LogOut,
   Mail,
   Search,
-  ChevronDown,
   MoreVertical,
   Eye,
   Edit,
@@ -46,16 +45,8 @@ const menuItems = [
 
 function OrdersPage() {
   const router = useRouter();
-  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [openActionDropdown, setOpenActionDropdown] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const languages = [
-    { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'rw', name: 'Kinyarwanda', flag: '🇷🇼' },
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
-  ];
 
   const handleLogout = () => {
     logout(router);

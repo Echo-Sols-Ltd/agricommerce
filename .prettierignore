@@ -3,6 +3,9 @@ node_modules/
 .pnp
 .pnp.js
 
+# Lock files
+pnpm-lock.yaml
+
 # Production builds
 .next/
 out/
