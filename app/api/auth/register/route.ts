@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          message: 'Missing required fields'
+          message: 'Missing required fields',
         },
         { status: 400 }
       );
@@ -23,8 +23,8 @@ export async function POST(request: NextRequest) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': '*/*',
-        'Origin': 'http://localhost:3000',
+        Accept: '*/*',
+        Origin: 'http://localhost:3000',
       },
       body: JSON.stringify(body),
     });
@@ -41,7 +41,6 @@ export async function POST(request: NextRequest) {
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       },
     });
-
   } catch (error: unknown) {
     console.error('Registration API error:', error);
 
@@ -51,7 +50,7 @@ export async function POST(request: NextRequest) {
       {
         success: false,
         message: 'Internal server error',
-        error: errorMessage
+        error: errorMessage,
       },
       {
         status: 500,

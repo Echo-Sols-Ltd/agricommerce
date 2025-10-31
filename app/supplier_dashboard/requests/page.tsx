@@ -1,8 +1,17 @@
-"use client";
+'use client';
 import React from 'react';
 import {
-  CheckCircle, LayoutGrid, FilePlus, ShoppingCart,
-  User, Phone, Settings, LogOut, Mail, Search, Filter
+  CheckCircle,
+  LayoutGrid,
+  FilePlus,
+  ShoppingCart,
+  User,
+  Phone,
+  Settings,
+  LogOut,
+  Mail,
+  Search,
+  Filter,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -13,30 +22,175 @@ import { Input } from '@/components/ui/input';
 const Logo = () => (
   <div className="flex items-center gap-2 py-2">
     <span className="font-extrabold text-xl tracking-tight">
-      <span className="text-white">Umuhinzi</span><span className="text-white">Link</span>
+      <span className="text-white">Umuhinzi</span>
+      <span className="text-white">Link</span>
     </span>
   </div>
 );
 
 const requestData = [
-  { id: "R001", farmer: "Christine Uwera", address: "123 Kicukiro Street, Kigali 250", date: "04 Aug 2024", input: "NPK fertilizer", quantity: "120", status: "Approved" },
-  { id: "R002", farmer: "Jean Ntawukuriryayo", address: "456 Remera Avenue, Gasabo 250", date: "03 Aug 2024", input: "Maize Seeds", quantity: "80", status: "Pending" },
-  { id: "R003", farmer: "Marie Mukamana", address: "789 Nyamirambo Road, Nyarugenge 250", date: "02 Aug 2024", input: "NPK fertilizer", quantity: "150", status: "Approved" },
-  { id: "R004", farmer: "Robert Nshimiye", address: "321 Kimisagara Street, Nyarugenge 250", date: "01 Aug 2024", input: "Maize Seeds", quantity: "100", status: "Pending" },
-  { id: "R005", farmer: "Alice Uwimana", address: "654 Gikondo Avenue, Kicukiro 250", date: "31 Jul 2024", input: "Fertilizer Seeds", quantity: "75", status: "Approved" },
-  { id: "R006", farmer: "Eric Cyiza", address: "987 Kanombe Road, Kicukiro 250", date: "30 Jul 2024", input: "Fertilizer Seeds", quantity: "90", status: "Pending" },
-  { id: "R007", farmer: "Grace Mukantwari", address: "147 Gisozi Street, Gasabo 250", date: "29 Jul 2024", input: "Fertilizer Seeds", quantity: "110", status: "Approved" },
-  { id: "R008", farmer: "Patrick Habimana", address: "258 Muhima Avenue, Nyarugenge 250", date: "28 Jul 2024", input: "Fertilizer Seeds", quantity: "85", status: "Pending" },
-  { id: "R009", farmer: "Alice Cyiza", address: "369 Kacyiru Road, Gasabo 250", date: "27 Jul 2024", input: "Fertilizer Seeds", quantity: "95", status: "Approved" },
-  { id: "R010", farmer: "Alice Cyiza", address: "741 Nyakabanda Street, Nyarugenge 250", date: "26 Jul 2024", input: "Fertilizer Seeds", quantity: "105", status: "Pending" },
-  { id: "R011", farmer: "Alice Cyiza", address: "852 Kimihurura Avenue, Gasabo 250", date: "25 Jul 2024", input: "Fertilizer Seeds", quantity: "125", status: "Approved" },
-  { id: "R012", farmer: "Alice Cyiza", address: "963 Rugando Road, Gasabo 250", date: "24 Jul 2024", input: "Fertilizer Seeds", quantity: "70", status: "Pending" },
-  { id: "R013", farmer: "Alice Cyiza", address: "159 Kabuga Street, Gasabo 250", date: "23 Jul 2024", input: "Fertilizer Seeds", quantity: "115", status: "Approved" },
-  { id: "R014", farmer: "Alice Cyiza", address: "357 Nyarutarama Avenue, Gasabo 250", date: "22 Jul 2024", input: "Fertilizer Seeds", quantity: "140", status: "Pending" },
-  { id: "R015", farmer: "Alice Cyiza", address: "468 Kinyinya Road, Gasabo 250", date: "21 Jul 2024", input: "Fertilizer Seeds", quantity: "160", status: "Approved" },
-  { id: "R016", farmer: "Alice Cyiza", address: "579 Jabana Street, Gasabo 250", date: "20 Jul 2024", input: "Fertilizer Seeds", quantity: "130", status: "Pending" },
-  { id: "R017", farmer: "Alice Cyiza", address: "681 Rusororo Avenue, Gasabo 250", date: "19 Jul 2024", input: "Fertilizer Seeds", quantity: "180", status: "Approved" },
-  { id: "R018", farmer: "Alice Cyiza", address: "792 Ndera Road, Gasabo 250", date: "18 Jul 2024", input: "Fertilizer Seeds", quantity: "200", status: "Pending" }
+  {
+    id: 'R001',
+    farmer: 'Christine Uwera',
+    address: '123 Kicukiro Street, Kigali 250',
+    date: '04 Aug 2024',
+    input: 'NPK fertilizer',
+    quantity: '120',
+    status: 'Approved',
+  },
+  {
+    id: 'R002',
+    farmer: 'Jean Ntawukuriryayo',
+    address: '456 Remera Avenue, Gasabo 250',
+    date: '03 Aug 2024',
+    input: 'Maize Seeds',
+    quantity: '80',
+    status: 'Pending',
+  },
+  {
+    id: 'R003',
+    farmer: 'Marie Mukamana',
+    address: '789 Nyamirambo Road, Nyarugenge 250',
+    date: '02 Aug 2024',
+    input: 'NPK fertilizer',
+    quantity: '150',
+    status: 'Approved',
+  },
+  {
+    id: 'R004',
+    farmer: 'Robert Nshimiye',
+    address: '321 Kimisagara Street, Nyarugenge 250',
+    date: '01 Aug 2024',
+    input: 'Maize Seeds',
+    quantity: '100',
+    status: 'Pending',
+  },
+  {
+    id: 'R005',
+    farmer: 'Alice Uwimana',
+    address: '654 Gikondo Avenue, Kicukiro 250',
+    date: '31 Jul 2024',
+    input: 'Fertilizer Seeds',
+    quantity: '75',
+    status: 'Approved',
+  },
+  {
+    id: 'R006',
+    farmer: 'Eric Cyiza',
+    address: '987 Kanombe Road, Kicukiro 250',
+    date: '30 Jul 2024',
+    input: 'Fertilizer Seeds',
+    quantity: '90',
+    status: 'Pending',
+  },
+  {
+    id: 'R007',
+    farmer: 'Grace Mukantwari',
+    address: '147 Gisozi Street, Gasabo 250',
+    date: '29 Jul 2024',
+    input: 'Fertilizer Seeds',
+    quantity: '110',
+    status: 'Approved',
+  },
+  {
+    id: 'R008',
+    farmer: 'Patrick Habimana',
+    address: '258 Muhima Avenue, Nyarugenge 250',
+    date: '28 Jul 2024',
+    input: 'Fertilizer Seeds',
+    quantity: '85',
+    status: 'Pending',
+  },
+  {
+    id: 'R009',
+    farmer: 'Alice Cyiza',
+    address: '369 Kacyiru Road, Gasabo 250',
+    date: '27 Jul 2024',
+    input: 'Fertilizer Seeds',
+    quantity: '95',
+    status: 'Approved',
+  },
+  {
+    id: 'R010',
+    farmer: 'Alice Cyiza',
+    address: '741 Nyakabanda Street, Nyarugenge 250',
+    date: '26 Jul 2024',
+    input: 'Fertilizer Seeds',
+    quantity: '105',
+    status: 'Pending',
+  },
+  {
+    id: 'R011',
+    farmer: 'Alice Cyiza',
+    address: '852 Kimihurura Avenue, Gasabo 250',
+    date: '25 Jul 2024',
+    input: 'Fertilizer Seeds',
+    quantity: '125',
+    status: 'Approved',
+  },
+  {
+    id: 'R012',
+    farmer: 'Alice Cyiza',
+    address: '963 Rugando Road, Gasabo 250',
+    date: '24 Jul 2024',
+    input: 'Fertilizer Seeds',
+    quantity: '70',
+    status: 'Pending',
+  },
+  {
+    id: 'R013',
+    farmer: 'Alice Cyiza',
+    address: '159 Kabuga Street, Gasabo 250',
+    date: '23 Jul 2024',
+    input: 'Fertilizer Seeds',
+    quantity: '115',
+    status: 'Approved',
+  },
+  {
+    id: 'R014',
+    farmer: 'Alice Cyiza',
+    address: '357 Nyarutarama Avenue, Gasabo 250',
+    date: '22 Jul 2024',
+    input: 'Fertilizer Seeds',
+    quantity: '140',
+    status: 'Pending',
+  },
+  {
+    id: 'R015',
+    farmer: 'Alice Cyiza',
+    address: '468 Kinyinya Road, Gasabo 250',
+    date: '21 Jul 2024',
+    input: 'Fertilizer Seeds',
+    quantity: '160',
+    status: 'Approved',
+  },
+  {
+    id: 'R016',
+    farmer: 'Alice Cyiza',
+    address: '579 Jabana Street, Gasabo 250',
+    date: '20 Jul 2024',
+    input: 'Fertilizer Seeds',
+    quantity: '130',
+    status: 'Pending',
+  },
+  {
+    id: 'R017',
+    farmer: 'Alice Cyiza',
+    address: '681 Rusororo Avenue, Gasabo 250',
+    date: '19 Jul 2024',
+    input: 'Fertilizer Seeds',
+    quantity: '180',
+    status: 'Approved',
+  },
+  {
+    id: 'R018',
+    farmer: 'Alice Cyiza',
+    address: '792 Ndera Road, Gasabo 250',
+    date: '18 Jul 2024',
+    input: 'Fertilizer Seeds',
+    quantity: '200',
+    status: 'Pending',
+  },
 ];
 
 const menuItems = [
@@ -50,7 +204,6 @@ const menuItems = [
   { label: 'Settings', href: '/supplier_dashboard/settings', icon: Settings },
   { label: 'Logout', href: '#', icon: LogOut, isLogout: true },
 ];
-
 
 function FarmerRequests() {
   const router = useRouter();
@@ -84,12 +237,13 @@ function FarmerRequests() {
                     <Link href={item.href} className="block">
                       <div
                         className={`flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer transition-all text-sm font-medium
-                          ${isActive
-                            ? "bg-white text-green-600 shadow-sm"
-                            : "text-white hover:bg-green-700"
+                          ${
+                            isActive
+                              ? 'bg-white text-green-600 shadow-sm'
+                              : 'text-white hover:bg-green-700'
                           }`}
                       >
-                        <Icon className={`w-4 h-4 ${isActive ? "text-green-600" : "text-white"}`} />
+                        <Icon className={`w-4 h-4 ${isActive ? 'text-green-600' : 'text-white'}`} />
                         <span>{item.label}</span>
                       </div>
                     </Link>
@@ -106,13 +260,16 @@ function FarmerRequests() {
           {/* Header */}
           <header className="fixed top-0 left-64 z-30 right-0 bg-white border-b h-16 flex items-center justify-between px-8 shadow-sm">
             {/* Search Section */}
-            <div className='w-1/2 relative'>
+            <div className="w-1/2 relative">
               <Input
-                type='text'
-                placeholder='Search...'
-                className='pl-4 pr-10 h-10 border-gray-300 focus:border-green-500 focus:ring-green-500 rounded-3xl'
+                type="text"
+                placeholder="Search..."
+                className="pl-4 pr-10 h-10 border-gray-300 focus:border-green-500 focus:ring-green-500 rounded-3xl"
               />
-              <Search size={18} className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400' />
+              <Search
+                size={18}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              />
             </div>
 
             {/* Right Section */}
@@ -125,12 +282,11 @@ function FarmerRequests() {
           </header>
 
           {/* Content with top margin for fixed header */}
-          <div className='mt-16'>
+          <div className="mt-16">
             {/* Header */}
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-xl font-semibold text-gray-900">Farmer Request</h1>
             </div>
-
 
             {/* Search and Filters */}
             <div className="flex justify-between items-center mb-4 gap-4">
@@ -163,17 +319,29 @@ function FarmerRequests() {
                   <thead>
                     <tr className="border-b border-gray-200 bg-gray-50">
                       <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">ID</th>
-                      <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">FARMER</th>
-                      <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">ADDRESS</th>
-                      <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">DATE</th>
-                      <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">INPUT</th>
-                      <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">QUANTITY</th>
-                      <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">ACTION</th>
+                      <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
+                        FARMER
+                      </th>
+                      <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
+                        ADDRESS
+                      </th>
+                      <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
+                        DATE
+                      </th>
+                      <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
+                        INPUT
+                      </th>
+                      <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
+                        QUANTITY
+                      </th>
+                      <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
+                        ACTION
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
                     {requestData.map((request, index) => (
-                      <tr key={request.id} className={index < 17 ? "border-b border-gray-100" : ""}>
+                      <tr key={request.id} className={index < 17 ? 'border-b border-gray-100' : ''}>
                         <td className="py-3 px-4 text-gray-900 text-sm">{request.id}</td>
                         <td className="py-3 px-4 text-gray-900 text-sm">{request.farmer}</td>
                         <td className="py-3 px-4 text-gray-500 text-sm">{request.address}</td>

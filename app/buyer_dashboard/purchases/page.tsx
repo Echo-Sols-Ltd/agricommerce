@@ -1,29 +1,48 @@
-"use client";
+'use client';
 import React from 'react';
-import { 
-  CheckCircle, MessageSquare, Mail, 
-   Phone, Settings, LogOut, ShoppingBag, 
-  Clock,  Eye, Calendar, Search, ChevronDown, DollarSign,
-  Apple, Wheat, Bean, Carrot, MessageCircle, RefreshCw,UserIcon,GridIcon,FilePlus
+import {
+  CheckCircle,
+  MessageSquare,
+  Mail,
+  Phone,
+  Settings,
+  LogOut,
+  ShoppingBag,
+  Clock,
+  Eye,
+  Calendar,
+  Search,
+  ChevronDown,
+  DollarSign,
+  Apple,
+  Wheat,
+  Bean,
+  Carrot,
+  MessageCircle,
+  RefreshCw,
+  UserIcon,
+  GridIcon,
+  FilePlus,
 } from 'lucide-react';
 import Link from 'next/link';
 
 const Logo = () => (
   <span className="font-extrabold text-2xl tracking-tight">
-    <span className="text-green-700">Umuhinzi</span><span className="text-black">Link</span>
+    <span className="text-green-700">Umuhinzi</span>
+    <span className="text-black">Link</span>
   </span>
 );
 
 const menuItems = [
-  { label: "Dashboard", href: "/buyer_dashboard", icon: CheckCircle },
-  { label: "My Purchase", href: "/buyer_dashboard/purchases", icon: GridIcon },
-  { label: "Browse product", href: "/buyer_dashboard/product", icon: FilePlus },
-  { label: "Saved items", href: "/buyer_dashboard/saved", icon: MessageSquare },
-  { label: "Message", href: "/buyer_dashboard/message", icon: Mail },
-  { label: "Profile", href: "/buyer_dashboard/profile", icon: UserIcon },
-  { label: "Contact", href: "/buyer_dashboard/contact", icon: Phone },
-  { label: "Settings", href: "/buyer_dashboard/settings", icon: Settings },
-  { label: "Logout", href: "/logout", icon: LogOut },
+  { label: 'Dashboard', href: '/buyer_dashboard', icon: CheckCircle },
+  { label: 'My Purchase', href: '/buyer_dashboard/purchases', icon: GridIcon },
+  { label: 'Browse product', href: '/buyer_dashboard/product', icon: FilePlus },
+  { label: 'Saved items', href: '/buyer_dashboard/saved', icon: MessageSquare },
+  { label: 'Message', href: '/buyer_dashboard/message', icon: Mail },
+  { label: 'Profile', href: '/buyer_dashboard/profile', icon: UserIcon },
+  { label: 'Contact', href: '/buyer_dashboard/contact', icon: Phone },
+  { label: 'Settings', href: '/buyer_dashboard/settings', icon: Settings },
+  { label: 'Logout', href: '/logout', icon: LogOut },
 ];
 
 export default function MyPurchases() {
@@ -33,7 +52,7 @@ export default function MyPurchases() {
       <header className="sticky top-0 z-30 bg-white border-b h-16 flex items-center px-8 shadow-sm">
         <Logo />
       </header>
-      
+
       <div className="flex flex-1 min-h-0">
         {/* Sidebar */}
         <aside className="w-64 bg-white border-r flex flex-col fixed left-0 top-16 h-[calc(100vh-4rem)] overflow-y-auto">
@@ -41,18 +60,19 @@ export default function MyPurchases() {
             {menuItems.map((item, index) => {
               const isActive = item.label === 'My Purchase';
               const Icon = item.icon;
-              const showDivider = index === 3 || index === 8; 
+              const showDivider = index === 3 || index === 8;
               return (
                 <div key={item.label}>
                   <Link href={item.href} className="block">
                     <div
                       className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all text-sm font-medium
-                        ${isActive
-                          ? "bg-green-600 text-white shadow-sm"
-                          : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                        ${
+                          isActive
+                            ? 'bg-green-600 text-white shadow-sm'
+                            : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                         }`}
                     >
-                      <Icon className={`w-5 h-5 ${isActive ? "text-white" : "text-gray-500"}`} />
+                      <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-gray-500'}`} />
                       <span>{item.label}</span>
                     </div>
                   </Link>
@@ -122,9 +142,15 @@ export default function MyPurchases() {
           {/* Filters */}
           <div className="flex justify-between items-center mb-6 gap-4">
             <div className="flex gap-2">
-              <button className="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium">All</button>
-              <button className="text-gray-600 px-4 py-2 rounded-lg text-sm hover:bg-gray-100 transition-colors">In Progress</button>
-              <button className="text-gray-600 px-4 py-2 rounded-lg text-sm hover:bg-gray-100 transition-colors">Completed</button>
+              <button className="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium">
+                All
+              </button>
+              <button className="text-gray-600 px-4 py-2 rounded-lg text-sm hover:bg-gray-100 transition-colors">
+                In Progress
+              </button>
+              <button className="text-gray-600 px-4 py-2 rounded-lg text-sm hover:bg-gray-100 transition-colors">
+                Completed
+              </button>
             </div>
             <div className="flex gap-3">
               <div className="relative">
@@ -156,14 +182,26 @@ export default function MyPurchases() {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-gray-200 bg-gray-50">
-                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Order ID</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Product</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Farmer</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Quantity</th>
+                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
+                      Order ID
+                    </th>
+                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
+                      Product
+                    </th>
+                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
+                      Farmer
+                    </th>
+                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
+                      Quantity
+                    </th>
                     <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Price</th>
                     <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Date</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Status</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Actions</th>
+                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
+                      Status
+                    </th>
+                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -182,7 +220,9 @@ export default function MyPurchases() {
                     <td className="py-4 px-4 text-gray-900">$125</td>
                     <td className="py-4 px-4 text-gray-900">Dec 15, 2024</td>
                     <td className="py-4 px-4">
-                      <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">Completed</span>
+                      <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">
+                        Completed
+                      </span>
                     </td>
                     <td className="py-4 px-4">
                       <div className="flex items-center gap-1">
@@ -213,7 +253,9 @@ export default function MyPurchases() {
                     <td className="py-4 px-4 text-gray-900">$180</td>
                     <td className="py-4 px-4 text-gray-900">Dec 18, 2024</td>
                     <td className="py-4 px-4">
-                      <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs font-medium">In Progress</span>
+                      <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs font-medium">
+                        In Progress
+                      </span>
                     </td>
                     <td className="py-4 px-4">
                       <div className="flex items-center gap-1">
@@ -244,7 +286,9 @@ export default function MyPurchases() {
                     <td className="py-4 px-4 text-gray-900">$75</td>
                     <td className="py-4 px-4 text-gray-900">Dec 20, 2024</td>
                     <td className="py-4 px-4">
-                      <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">Completed</span>
+                      <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">
+                        Completed
+                      </span>
                     </td>
                     <td className="py-4 px-4">
                       <div className="flex items-center gap-1">
@@ -275,7 +319,9 @@ export default function MyPurchases() {
                     <td className="py-4 px-4 text-gray-900">$90</td>
                     <td className="py-4 px-4 text-gray-900">Dec 22, 2024</td>
                     <td className="py-4 px-4">
-                      <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs font-medium">In Progress</span>
+                      <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs font-medium">
+                        In Progress
+                      </span>
                     </td>
                     <td className="py-4 px-4">
                       <div className="flex items-center gap-1">
@@ -303,9 +349,15 @@ export default function MyPurchases() {
               <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
                 &lt;
               </button>
-              <button className="bg-green-600 text-white px-3 py-2 rounded-md text-sm font-medium">1</button>
-              <button className="px-3 py-2 text-gray-600 hover:text-gray-900 transition-colors text-sm">2</button>
-              <button className="px-3 py-2 text-gray-600 hover:text-gray-900 transition-colors text-sm">3</button>
+              <button className="bg-green-600 text-white px-3 py-2 rounded-md text-sm font-medium">
+                1
+              </button>
+              <button className="px-3 py-2 text-gray-600 hover:text-gray-900 transition-colors text-sm">
+                2
+              </button>
+              <button className="px-3 py-2 text-gray-600 hover:text-gray-900 transition-colors text-sm">
+                3
+              </button>
               <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
                 &gt;
               </button>

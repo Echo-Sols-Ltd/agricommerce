@@ -1,5 +1,5 @@
-"use client";
-import Link from "next/link";
+'use client';
+import Link from 'next/link';
 import {
   Mail,
   LayoutGrid,
@@ -12,7 +12,7 @@ import {
   User,
   Bell,
   Lock,
-} from "lucide-react";
+} from 'lucide-react';
 
 const Logo = () => (
   <span className="font-extrabold text-2xl tracking-tight">
@@ -22,15 +22,15 @@ const Logo = () => (
 );
 
 const menuItems = [
-  { label: "Dashboard", href: "/farmer_dashboard", icon: CheckCircle },
-  { label: "My Produce", href: "/farmer_dashboard/products", icon: LayoutGrid },
-  { label: "Requests", href: "/farmer_dashboard/requests", icon: FilePlus },
-  { label: "Orders", href: "/farmer_dashboard/orders", icon: ShoppingCart },
-  { label: "Messages", href: "/messages", icon: MessageSquare },
-  { label: "Profile", href: "/farmer_dashboard/profile", icon: User },
-  { label: "Contact", href: "/farmer_dashboard/contact", icon: Mail },
-  { label: "Settings", href: "/farmer_dashboard/settings", icon: Settings },
-  { label: "Logout", href: "/logout", icon: LogOut },
+  { label: 'Dashboard', href: '/farmer_dashboard', icon: CheckCircle },
+  { label: 'My Produce', href: '/farmer_dashboard/products', icon: LayoutGrid },
+  { label: 'Requests', href: '/farmer_dashboard/requests', icon: FilePlus },
+  { label: 'Orders', href: '/farmer_dashboard/orders', icon: ShoppingCart },
+  { label: 'Messages', href: '/messages', icon: MessageSquare },
+  { label: 'Profile', href: '/farmer_dashboard/profile', icon: User },
+  { label: 'Contact', href: '/farmer_dashboard/contact', icon: Mail },
+  { label: 'Settings', href: '/farmer_dashboard/settings', icon: Settings },
+  { label: 'Logout', href: '/logout', icon: LogOut },
 ];
 
 export default function SettingsPage() {
@@ -44,22 +44,22 @@ export default function SettingsPage() {
       <div className="flex flex-1 min-h-0">
         {/* Sidebar */}
         <aside className="w-64 bg-white border-r flex flex-col fixed left-0 top-16 h-[calc(100vh-4rem)] overflow-y-auto">
-          <div className="p-6">
-          </div>
+          <div className="p-6"></div>
           <nav className="flex-1 px-4 space-y-2">
             {menuItems.map((m, index) => {
-              const isActive = m.label === "Settings";
+              const isActive = m.label === 'Settings';
               const showDivider = index === 4 || index === 8;
               return (
                 <div key={m.label}>
                   <Link href={m.href} className="block">
                     <div
-                      className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all text-sm font-medium ${isActive
-                        ? "bg-green-600 text-white shadow-sm"
-                        : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-                        }`}
+                      className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all text-sm font-medium ${
+                        isActive
+                          ? 'bg-green-600 text-white shadow-sm'
+                          : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                      }`}
                     >
-                      <m.icon className={`w-5 h-5 ${isActive ? "text-white" : "text-gray-500"}`} />
+                      <m.icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-gray-500'}`} />
                       <span>{m.label}</span>
                     </div>
                   </Link>
@@ -156,7 +156,9 @@ export default function SettingsPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Confirm New Password</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Confirm New Password
+                </label>
                 <input
                   type="password"
                   className="mt-1 w-full border px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-green-300"

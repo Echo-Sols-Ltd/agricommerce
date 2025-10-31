@@ -1,10 +1,26 @@
-"use client";
+'use client';
 
 import { useState } from 'react';
 import {
-  LayoutGrid, FilePlus, BarChart2, MessageSquare,
-  ShoppingCart, User, Settings, CloudSun, Mail, Leaf, Package,
-  Search, Bell, ChevronDown, TrendingUp, Users, LogOut, Clock, DollarSign
+  LayoutGrid,
+  FilePlus,
+  BarChart2,
+  MessageSquare,
+  ShoppingCart,
+  User,
+  Settings,
+  CloudSun,
+  Mail,
+  Leaf,
+  Package,
+  Search,
+  Bell,
+  ChevronDown,
+  TrendingUp,
+  Users,
+  LogOut,
+  Clock,
+  DollarSign,
 } from 'lucide-react';
 import { XAxis, YAxis, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import Link from 'next/link';
@@ -41,7 +57,7 @@ const chartData = [
   { name: 'Sep', value: 380000 },
   { name: 'Oct', value: 360000 },
   { name: 'Nov', value: 400000 },
-  { name: 'Dec', value: 420000 }
+  { name: 'Dec', value: 420000 },
 ];
 
 // Recent items data
@@ -54,7 +70,7 @@ const recentItems = [
     price: '25,000',
     location: 'Kigali',
     status: 'Active',
-    action: 'Edit'
+    action: 'Edit',
   },
   {
     id: 2,
@@ -64,7 +80,7 @@ const recentItems = [
     price: '35,000',
     location: 'Northern',
     status: 'Active',
-    action: 'View'
+    action: 'View',
   },
   {
     id: 3,
@@ -74,7 +90,7 @@ const recentItems = [
     price: '20,000',
     location: 'Eastern',
     status: 'Sold',
-    action: 'View'
+    action: 'View',
   },
   {
     id: 4,
@@ -84,7 +100,7 @@ const recentItems = [
     price: '45,000',
     location: 'Southern',
     status: 'Pending',
-    action: 'Edit'
+    action: 'Edit',
   },
   {
     id: 5,
@@ -94,7 +110,7 @@ const recentItems = [
     price: '25,000',
     location: 'Kigali',
     status: 'Active',
-    action: 'Edit'
+    action: 'Edit',
   },
   {
     id: 2,
@@ -104,7 +120,7 @@ const recentItems = [
     price: '40,000',
     location: 'Musanze',
     status: 'Sold',
-    action: 'View'
+    action: 'View',
   },
   {
     id: 3,
@@ -114,8 +130,8 @@ const recentItems = [
     price: '15,000',
     location: 'Rubavu',
     status: 'Pending',
-    action: 'Edit'
-  }
+    action: 'Edit',
+  },
 ];
 
 function Dashboard() {
@@ -130,12 +146,9 @@ function Dashboard() {
       <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center mr-3">
         <Leaf className="w-5 h-5 text-green-600" />
       </div>
-      <span className="font-bold text-xl text-white">
-        UmuhinziLink
-      </span>
+      <span className="font-bold text-xl text-white">UmuhinziLink</span>
     </div>
   );
-
 
   return (
     <div className="flex flex-col min-h-screen bg-[#F8FAFC]">
@@ -162,12 +175,13 @@ function Dashboard() {
                     <Link href={item.href} className="block">
                       <div
                         className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all text-sm font-medium
-                          ${isActive
-                            ? "bg-white text-green-600 shadow-sm rounded-lg"
-                            : "text-white hover:bg-green-700"
+                          ${
+                            isActive
+                              ? 'bg-white text-green-600 shadow-sm rounded-lg'
+                              : 'text-white hover:bg-green-700'
                           }`}
                       >
-                        <Icon className={`w-5 h-5 ${isActive ? "text-green-600" : "text-white"}`} />
+                        <Icon className={`w-5 h-5 ${isActive ? 'text-green-600' : 'text-white'}`} />
                         <span>{item.label}</span>
                       </div>
                     </Link>
@@ -214,7 +228,9 @@ function Dashboard() {
             <div>
               <p className="text-sm text-gray-500 mb-1">Tuesday, 16 July 2024</p>
               <h1 className="text-2xl font-bold text-gray-900 mb-1">Good Morning 👋</h1>
-              <p className="text-gray-600">Here&apos;s what&apos;s happening with your farm today.</p>
+              <p className="text-gray-600">
+                Here&apos;s what&apos;s happening with your farm today.
+              </p>
             </div>
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -227,7 +243,7 @@ function Dashboard() {
                   icon: <TrendingUp className="w-6 h-6 text-green-600" />,
                   iconBg: 'bg-green-100',
                   changeColor: 'text-green-500',
-                  currency: 'RWF'
+                  currency: 'RWF',
                 },
                 {
                   id: 'total-orders',
@@ -236,7 +252,7 @@ function Dashboard() {
                   change: '+8%',
                   icon: <ShoppingCart className="w-6 h-6 text-blue-600" />,
                   iconBg: 'bg-blue-100',
-                  changeColor: 'text-green-500'
+                  changeColor: 'text-green-500',
                 },
                 {
                   id: 'active-products',
@@ -245,7 +261,7 @@ function Dashboard() {
                   change: '+4',
                   icon: <Package className="w-6 h-6 text-purple-600" />,
                   iconBg: 'bg-purple-100',
-                  changeColor: 'text-green-500'
+                  changeColor: 'text-green-500',
                 },
                 {
                   id: 'pending-orders',
@@ -254,7 +270,7 @@ function Dashboard() {
                   change: '-2',
                   icon: <Clock className="w-6 h-6 text-yellow-600" />,
                   iconBg: 'bg-yellow-100',
-                  changeColor: 'text-red-500'
+                  changeColor: 'text-red-500',
                 },
                 {
                   id: 'total-revenue',
@@ -264,12 +280,17 @@ function Dashboard() {
                   icon: <DollarSign className="w-6 h-6 text-green-600" />,
                   iconBg: 'bg-green-50',
                   changeColor: 'text-green-500',
-                  currency: 'RWF'
-                }
-              ].map((card) => (
-                <div key={card.id} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                  currency: 'RWF',
+                },
+              ].map(card => (
+                <div
+                  key={card.id}
+                  className="bg-white rounded-xl p-6 shadow-sm border border-gray-100"
+                >
                   <div className="flex items-center justify-between mb-4">
-                    <div className={`w-12 h-12 ${card.iconBg} rounded-xl flex items-center justify-center`}>
+                    <div
+                      className={`w-12 h-12 ${card.iconBg} rounded-xl flex items-center justify-center`}
+                    >
                       {card.icon}
                     </div>
                     <span className={`${card.changeColor} text-sm font-medium`}>{card.change}</span>
@@ -314,14 +335,7 @@ function Dashboard() {
               </div>
               <div className="relative w-24 h-24 mx-auto mb-4">
                 <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 100 100">
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="40"
-                    stroke="#e5e7eb"
-                    strokeWidth="8"
-                    fill="none"
-                  />
+                  <circle cx="50" cy="50" r="40" stroke="#e5e7eb" strokeWidth="8" fill="none" />
                   <circle
                     cx="50"
                     cy="50"
@@ -378,15 +392,22 @@ function Dashboard() {
               <div className="space-y-3">
                 <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded-lg">
                   <p className="font-medium text-gray-900 mb-1">🌱 Planting Season</p>
-                  <p className="text-sm text-gray-600">It&apos;s the perfect time to plant seeds. Prepare early for the best harvest results.</p>
+                  <p className="text-sm text-gray-600">
+                    It&apos;s the perfect time to plant seeds. Prepare early for the best harvest
+                    results.
+                  </p>
                 </div>
                 <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-lg">
                   <p className="font-medium text-gray-900 mb-1">🌧️ Weather Alert</p>
-                  <p className="text-sm text-gray-600">Rain expected in the next 3 days. Prepare protection for your crops.</p>
+                  <p className="text-sm text-gray-600">
+                    Rain expected in the next 3 days. Prepare protection for your crops.
+                  </p>
                 </div>
                 <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-lg">
                   <p className="font-medium text-gray-900 mb-1">💰 Market Price</p>
-                  <p className="text-sm text-gray-600">Tomato prices increased by 15% this month. Great time to sell if you have stock.</p>
+                  <p className="text-sm text-gray-600">
+                    Tomato prices increased by 15% this month. Great time to sell if you have stock.
+                  </p>
                 </div>
               </div>
             </div>
@@ -426,9 +447,9 @@ function Dashboard() {
                         backgroundColor: '#fff',
                         border: '1px solid #e5e7eb',
                         borderRadius: '8px',
-                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
                       }}
-                      formatter={(value) => [value.toLocaleString(), 'Value']}
+                      formatter={value => [value.toLocaleString(), 'Value']}
                     />
                     <Area
                       type="monotone"
@@ -444,7 +465,9 @@ function Dashboard() {
 
             {/* Current Regions to Work With */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Current regions to work with</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Current regions to work with
+              </h3>
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
@@ -493,16 +516,26 @@ function Dashboard() {
                 <thead>
                   <tr className="text-left bg-gray-50">
                     <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">Item</th>
-                    <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">Date Created</th>
-                    <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">Quantity</th>
+                    <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">
+                      Date Created
+                    </th>
+                    <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">
+                      Quantity
+                    </th>
                     <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">Price</th>
-                    <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">Location</th>
-                    <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">Status</th>
-                    <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">Action</th>
+                    <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">
+                      Location
+                    </th>
+                    <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">
+                      Status
+                    </th>
+                    <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">
+                      Action
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {recentItems.map((item) => (
+                  {recentItems.map(item => (
                     <tr key={item.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4">
                         <div className="flex items-center space-x-3">
@@ -512,19 +545,31 @@ function Dashboard() {
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-600">{item.date}</td>
                       <td className="px-6 py-4 text-sm text-gray-900">{item.quantity}</td>
-                      <td className="px-6 py-4 text-sm font-medium text-gray-900">RWF {item.price}</td>
+                      <td className="px-6 py-4 text-sm font-medium text-gray-900">
+                        RWF {item.price}
+                      </td>
                       <td className="px-6 py-4 text-sm text-gray-600">{item.location}</td>
                       <td className="px-6 py-4">
-                        <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${item.status === 'Active' ? 'bg-green-100 text-green-700' :
-                          item.status === 'Sold' ? 'bg-blue-100 text-blue-700' :
-                            'bg-yellow-100 text-yellow-700'
-                          }`}>
+                        <span
+                          className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
+                            item.status === 'Active'
+                              ? 'bg-green-100 text-green-700'
+                              : item.status === 'Sold'
+                                ? 'bg-blue-100 text-blue-700'
+                                : 'bg-yellow-100 text-yellow-700'
+                          }`}
+                        >
                           {item.status}
                         </span>
                       </td>
                       <td className="px-6 py-4">
-                        <button className={`text-sm font-medium ${item.action === 'Edit' ? 'text-blue-600 hover:text-blue-900' : 'text-green-600 hover:text-green-900'
-                          }`}>
+                        <button
+                          className={`text-sm font-medium ${
+                            item.action === 'Edit'
+                              ? 'text-blue-600 hover:text-blue-900'
+                              : 'text-green-600 hover:text-green-900'
+                          }`}
+                        >
                           {item.action}
                         </button>
                       </td>

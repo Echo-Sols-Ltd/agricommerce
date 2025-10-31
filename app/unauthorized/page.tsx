@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { getCurrentUser, logout, redirectToDashboard } from "@/lib/auth";
-import { AlertTriangle, Home, LogOut } from "lucide-react";
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { getCurrentUser, logout, redirectToDashboard } from '@/lib/auth';
+import { AlertTriangle, Home, LogOut } from 'lucide-react';
 
 export default function Unauthorized() {
   const router = useRouter();
@@ -18,7 +18,7 @@ export default function Unauthorized() {
     if (user) {
       redirectToDashboard(router, user.role);
     } else {
-      router.push("/signin");
+      router.push('/signin');
     }
   };
 
@@ -31,12 +31,8 @@ export default function Unauthorized() {
       <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8 text-center">
         <div className="mb-6">
           <AlertTriangle className="h-16 w-16 text-red-500 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Access Denied
-          </h1>
-          <p className="text-gray-600">
-            You don&apos;t have permission to access this page.
-          </p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Access Denied</h1>
+          <p className="text-gray-600">You don&apos;t have permission to access this page.</p>
         </div>
 
         {user && (
@@ -58,7 +54,7 @@ export default function Unauthorized() {
             <Home className="h-4 w-4 mr-2" />
             Go to Dashboard
           </Button>
-          
+
           <Button
             onClick={handleLogout}
             variant="outline"

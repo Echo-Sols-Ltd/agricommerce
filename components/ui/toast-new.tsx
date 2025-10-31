@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { Toaster as HotToaster, ToastBar, toast as hotToast, ToastOptions } from 'react-hot-toast';
 import { X, CheckCircle, AlertCircle, Info } from 'lucide-react';
@@ -21,14 +21,16 @@ export const Toaster = () => {
           icon: <AlertCircle className="h-5 w-5 text-red-500" />,
         },
         loading: {
-          icon: <div className="h-5 w-5 animate-spin rounded-full border-2 border-blue-500 border-t-transparent" />,
+          icon: (
+            <div className="h-5 w-5 animate-spin rounded-full border-2 border-blue-500 border-t-transparent" />
+          ),
         },
         custom: {
           icon: <Info className="h-5 w-5 text-blue-500" />,
         },
       }}
     >
-      {(t) => (
+      {t => (
         <ToastBar toast={t}>
           {({ icon, message }) => (
             <div className="flex items-start">
@@ -61,7 +63,9 @@ export const Toaster = () => {
 // For backward compatibility
 export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   React.useEffect(() => {
-    console.warn('ToastProvider is deprecated. Use the `toast` function directly from `components/ui/toast`.');
+    console.warn(
+      'ToastProvider is deprecated. Use the `toast` function directly from `components/ui/toast`.'
+    );
   }, []);
 
   return <>{children}</>;

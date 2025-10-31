@@ -1,42 +1,42 @@
-"use client";
-import React, { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
-import { BiLogoFacebookCircle, BiLogoGoogle } from "react-icons/bi";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Switch } from "@/components/ui/switch";
-import { Button } from "@/components/ui/button";
-import { toast } from "@/components/ui/use-toast";
-import { data } from "../signin/navbar";
+'use client';
+import React, { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
+import { BiLogoFacebookCircle, BiLogoGoogle } from 'react-icons/bi';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Switch } from '@/components/ui/switch';
+import { Button } from '@/components/ui/button';
+import { toast } from '@/components/ui/use-toast';
+import { data } from '../signin/navbar';
 
 export default function SignUp() {
   const router = useRouter();
 
   const socialLinks = [
-    { icon: <BiLogoFacebookCircle size={25} />, link: "https://facebook.com" },
-    { icon: <BiLogoGoogle size={25} />, link: "https://google.com" },
+    { icon: <BiLogoFacebookCircle size={25} />, link: 'https://facebook.com' },
+    { icon: <BiLogoGoogle size={25} />, link: 'https://google.com' },
   ];
 
   const [formData, setFormData] = useState({
-    names: "",
-    email: "",
-    phoneNumber: "",
-    password: "",
+    names: '',
+    email: '',
+    phoneNumber: '',
+    password: '',
     agreeToTerms: false,
-    role: "FARMER", // default
+    role: 'FARMER', // default
   });
 
   const [showPassword, setShowPassword] = useState(false);
   const [fieldErrors, setFieldErrors] = useState({
-    names: "",
-    email: "",
-    phoneNumber: "",
-    password: "",
-    agreeToTerms: "",
-    role: ""
+    names: '',
+    email: '',
+    phoneNumber: '',
+    password: '',
+    agreeToTerms: '',
+    role: '',
   });
   const [touched, setTouched] = useState({
     names: false,
@@ -44,102 +44,102 @@ export default function SignUp() {
     phoneNumber: false,
     password: false,
     agreeToTerms: false,
-    role: false
+    role: false,
   });
   const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === 'checkbox' ? checked : value,
     }));
 
     // Clear field error when user starts typing
     if (fieldErrors[name as keyof typeof fieldErrors]) {
-      setFieldErrors((prev) => ({ ...prev, [name]: "" }));
+      setFieldErrors(prev => ({ ...prev, [name]: '' }));
     }
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const { name } = e.target;
-    setTouched((prev) => ({ ...prev, [name]: true }));
+    setTouched(prev => ({ ...prev, [name]: true }));
     validateField(name, formData[name as keyof typeof formData]);
   };
 
   const validateField = (name: string, value: string | boolean) => {
-    let error = "";
+    let error = '';
 
     const stringValue = typeof value === 'string' ? value : '';
 
     switch (name) {
-      case "names":
+      case 'names':
         if (!stringValue.trim()) {
-          error = "Full name is required";
+          error = 'Full name is required';
         } else if (stringValue.trim().length < 2) {
-          error = "Name must be at least 2 characters long";
+          error = 'Name must be at least 2 characters long';
         }
         break;
-      case "email":
+      case 'email':
         if (!stringValue.trim()) {
-          error = "Email is required";
+          error = 'Email is required';
         } else {
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           if (!emailRegex.test(stringValue.trim())) {
-            error = "Please enter a valid email address";
+            error = 'Please enter a valid email address';
           }
         }
         break;
-      case "phoneNumber":
+      case 'phoneNumber':
         if (!stringValue.trim()) {
-          error = "Phone number is required";
+          error = 'Phone number is required';
         } else {
           const phoneRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
-          const phoneValue = stringValue.replace(/[^0-9+]/g, "");
+          const phoneValue = stringValue.replace(/[^0-9+]/g, '');
           if (!phoneRegex.test(phoneValue)) {
-            error = "Please enter a valid phone number";
+            error = 'Please enter a valid phone number';
           } else if (phoneValue.length < 10) {
-            error = "Phone number must be at least 10 digits";
+            error = 'Phone number must be at least 10 digits';
           }
         }
         break;
-      case "password":
+      case 'password':
         if (!stringValue) {
-          error = "Password is required";
+          error = 'Password is required';
         } else if (stringValue.length < 8) {
-          error = "Password must be at least 8 characters long";
+          error = 'Password must be at least 8 characters long';
         } else if (!/[A-Z]/.test(stringValue)) {
-          error = "Password must contain at least one uppercase letter";
+          error = 'Password must contain at least one uppercase letter';
         } else if (!/[0-9]/.test(stringValue)) {
-          error = "Password must contain at least one number";
+          error = 'Password must contain at least one number';
         } else if (!/[!@#$%^&*]/.test(stringValue)) {
-          error = "Password must contain at least one special character";
+          error = 'Password must contain at least one special character';
         }
         break;
-      case "agreeToTerms":
+      case 'agreeToTerms':
         if (value !== true) {
-          error = "You must agree to the terms and conditions";
+          error = 'You must agree to the terms and conditions';
         }
         break;
       default:
         break;
     }
 
-    setFieldErrors((prev) => ({
+    setFieldErrors(prev => ({
       ...prev,
       [name]: error,
     }));
 
-    return error === "";
+    return error === '';
   };
 
   const validateForm = () => {
-    const namesValid = validateField("names", formData.names);
-    const emailValid = validateField("email", formData.email);
-    const phoneValid = validateField("phoneNumber", formData.phoneNumber);
-    const passwordValid = validateField("password", formData.password);
-    const termsValid = validateField("agreeToTerms", formData.agreeToTerms);
-    const roleValid = validateField("role", formData.role);
+    const namesValid = validateField('names', formData.names);
+    const emailValid = validateField('email', formData.email);
+    const phoneValid = validateField('phoneNumber', formData.phoneNumber);
+    const passwordValid = validateField('password', formData.password);
+    const termsValid = validateField('agreeToTerms', formData.agreeToTerms);
+    const roleValid = validateField('role', formData.role);
 
     setTouched({
       names: true,
@@ -147,7 +147,7 @@ export default function SignUp() {
       phoneNumber: true,
       password: true,
       agreeToTerms: true,
-      role: true
+      role: true,
     });
 
     return namesValid && emailValid && phoneValid && passwordValid && termsValid && roleValid;
@@ -160,9 +160,9 @@ export default function SignUp() {
     // Validate form data
     if (!validateForm()) {
       toast({
-        title: "Validation Error",
+        title: 'Validation Error',
         description: 'Please fix the errors below and try again.',
-        variant: "error"
+        variant: 'error',
       });
       setLoading(false);
       return;
@@ -174,23 +174,23 @@ export default function SignUp() {
       email: formData.email,
       phoneNumber: formData.phoneNumber,
       password: formData.password,
-      role: formData.role
+      role: formData.role,
     };
 
     // Debug: Log the request body to ensure role is included
-    console.log("Request body being sent:", requestBody);
-    console.log("Current form data:", formData);
+    console.log('Request body being sent:', requestBody);
+    console.log('Current form data:', formData);
 
     try {
       // Use the Next.js API route to avoid CORS issues
 
       const res = await fetch(`/api/auth/register`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-        body: JSON.stringify(requestBody)
+        body: JSON.stringify(requestBody),
       });
 
       const response = await res.json();
@@ -199,7 +199,7 @@ export default function SignUp() {
         throw new Error(response.message || `Registration failed: ${res.status}`);
       }
 
-      console.log("Account created successfully:", response);
+      console.log('Account created successfully:', response);
 
       // Store auth data immediately if available
       if (response.success && response.data?.token) {
@@ -211,16 +211,16 @@ export default function SignUp() {
         // Show success message
         const userName = response.data.user?.names || 'User';
         toast({
-          title: "Welcome!",
+          title: 'Welcome!',
           description: `Welcome, ${userName}! You're being redirected...`,
-          variant: "success"
+          variant: 'success',
         });
       } else {
         // If no token but registration was successful, redirect to login
         toast({
-          title: "Registration Successful",
+          title: 'Registration Successful',
           description: 'Registration successful! Please log in with your new credentials.',
-          variant: "success"
+          variant: 'success',
         });
         router.push('/signin');
       }
@@ -229,12 +229,16 @@ export default function SignUp() {
       const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
       const errorMessageLower = errorMessage.toLowerCase();
 
-      if (errorMessageLower.includes('failed to fetch') || errorMessageLower.includes('networkerror')) {
+      if (
+        errorMessageLower.includes('failed to fetch') ||
+        errorMessageLower.includes('networkerror')
+      ) {
         // Network error - show toast with appropriate message
         toast({
-          title: "Network Error",
-          description: "Unable to reach the registration server. Please check your connection and try again.",
-          variant: "error"
+          title: 'Network Error',
+          description:
+            'Unable to reach the registration server. Please check your connection and try again.',
+          variant: 'error',
         });
       } else if (errorMessageLower.includes('email')) {
         setFieldErrors(prev => ({ ...prev, email: errorMessage }));
@@ -248,9 +252,9 @@ export default function SignUp() {
       } else {
         // For all other errors, show a generic error toast
         toast({
-          title: "Registration Failed",
+          title: 'Registration Failed',
           description: errorMessage,
-          variant: "error"
+          variant: 'error',
         });
       }
     } finally {
@@ -259,9 +263,9 @@ export default function SignUp() {
   };
 
   const accountTypes = [
-    { value: "FARMER", label: "Farmer" },
-    { value: "SUPPLIER", label: "Supplier" },
-    { value: "BUYER", label: "Buyer" }
+    { value: 'FARMER', label: 'Farmer' },
+    { value: 'SUPPLIER', label: 'Supplier' },
+    { value: 'BUYER', label: 'Buyer' },
   ];
 
   return (
@@ -339,10 +343,11 @@ export default function SignUp() {
               onChange={handleInputChange}
               onBlur={handleBlur}
               disabled={loading}
-              className={`text-gray-700 font-medium text-sm border ${touched.names && fieldErrors.names
-                ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                : "border-gray-300 focus:border-green-500 focus:ring-green-500"
-                }`}
+              className={`text-gray-700 font-medium text-sm border ${
+                touched.names && fieldErrors.names
+                  ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                  : 'border-gray-300 focus:border-green-500 focus:ring-green-500'
+              }`}
               required
             />
             {touched.names && fieldErrors.names && (
@@ -366,10 +371,11 @@ export default function SignUp() {
               onChange={handleInputChange}
               onBlur={handleBlur}
               disabled={loading}
-              className={`text-gray-700 font-medium text-sm border ${touched.email && fieldErrors.email
-                ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                : "border-gray-300 focus:border-green-500 focus:ring-green-500"
-                }`}
+              className={`text-gray-700 font-medium text-sm border ${
+                touched.email && fieldErrors.email
+                  ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                  : 'border-gray-300 focus:border-green-500 focus:ring-green-500'
+              }`}
               required
             />
             {touched.email && fieldErrors.email && (
@@ -393,10 +399,11 @@ export default function SignUp() {
               onChange={handleInputChange}
               onBlur={handleBlur}
               disabled={loading}
-              className={`text-gray-700 font-medium text-sm border ${touched.phoneNumber && fieldErrors.phoneNumber
-                ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                : "border-gray-300 focus:border-green-500 focus:ring-green-500"
-                }`}
+              className={`text-gray-700 font-medium text-sm border ${
+                touched.phoneNumber && fieldErrors.phoneNumber
+                  ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                  : 'border-gray-300 focus:border-green-500 focus:ring-green-500'
+              }`}
               required
             />
             {touched.phoneNumber && fieldErrors.phoneNumber && (
@@ -412,14 +419,12 @@ export default function SignUp() {
               Account Type
             </Label>
             <div className="flex gap-4 mt-2 mb-5">
-              {accountTypes.map((type) => (
+              {accountTypes.map(type => (
                 <div key={type.value} className="flex items-center gap-2">
                   <Switch
                     id={type.value}
                     checked={formData.role === type.value}
-                    onCheckedChange={() =>
-                      setFormData((prev) => ({ ...prev, role: type.value }))
-                    }
+                    onCheckedChange={() => setFormData(prev => ({ ...prev, role: type.value }))}
                     className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-200"
                   />
                   <span className="text-gray-700 text-sm">{type.label}</span>
@@ -435,16 +440,17 @@ export default function SignUp() {
             <Input
               id="password"
               name="password"
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               placeholder="••••••••"
               value={formData.password}
               onChange={handleInputChange}
               onBlur={handleBlur}
               disabled={loading}
-              className={`text-gray-700 font-medium text-sm border pr-10 ${touched.password && fieldErrors.password
-                ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                : "border-gray-300 focus:border-green-500 focus:ring-green-500"
-                }`}
+              className={`text-gray-700 font-medium text-sm border pr-10 ${
+                touched.password && fieldErrors.password
+                  ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                  : 'border-gray-300 focus:border-green-500 focus:ring-green-500'
+              }`}
               required
             />
             <button
@@ -467,9 +473,7 @@ export default function SignUp() {
             <Switch
               id="agreeToTerms"
               checked={formData.agreeToTerms}
-              onCheckedChange={(checked) =>
-                setFormData((prev) => ({ ...prev, agreeToTerms: checked }))
-              }
+              onCheckedChange={checked => setFormData(prev => ({ ...prev, agreeToTerms: checked }))}
               className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-200"
             />
             <Label htmlFor="agreeToTerms" className="text-gray-700 font-medium text-sm">
@@ -482,11 +486,11 @@ export default function SignUp() {
             className="w-full bg-green-600 hover:bg-green-700 text-white font-medium text-sm"
             disabled={loading}
           >
-            {loading ? "Creating Account..." : "Sign Up"}
+            {loading ? 'Creating Account...' : 'Sign Up'}
           </Button>
 
           <p className="text-gray-700 text-sm text-center">
-            Already have an account?{" "}
+            Already have an account?{' '}
             <Link href="/signin" className="text-green-600 font-semibold">
               Sign in
             </Link>

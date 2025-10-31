@@ -1,32 +1,38 @@
-"use client"
+'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
-import { TrendingUp, TrendingDown, Brain, BarChart3 } from "lucide-react"
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts"
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Badge } from '@/components/ui/badge';
+import { TrendingUp, TrendingDown, Brain, BarChart3 } from 'lucide-react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 
 const priceData = [
-  { month: "Jan", price: 300 },
-  { month: "Feb", price: 320 },
-  { month: "Mar", price: 280 },
-  { month: "Apr", price: 350 },
-  { month: "May", price: 380 },
-  { month: "Jun", price: 420 },
-  { month: "Jul", price: 450 },
-  { month: "Aug", price: 480 },
-  { month: "Sep", price: 460 },
-  { month: "Oct", price: 490 },
-  { month: "Nov", price: 520 },
-  { month: "Dec", price: 540 },
-]
+  { month: 'Jan', price: 300 },
+  { month: 'Feb', price: 320 },
+  { month: 'Mar', price: 280 },
+  { month: 'Apr', price: 350 },
+  { month: 'May', price: 380 },
+  { month: 'Jun', price: 420 },
+  { month: 'Jul', price: 450 },
+  { month: 'Aug', price: 480 },
+  { month: 'Sep', price: 460 },
+  { month: 'Oct', price: 490 },
+  { month: 'Nov', price: 520 },
+  { month: 'Dec', price: 540 },
+];
 
 const topBuyers = [
-  { name: "Kigali Agro Market", location: "Kigali City", crop: "Maize", price: "450 RWF/kg" },
-  { name: "Rwanda Export Co.", location: "Huye District", crop: "Beans", price: "800 RWF/kg" },
-  { name: "Fresh Produce Ltd", location: "Musanze District", crop: "Bananas", price: "300 RWF/kg" },
-]
+  { name: 'Kigali Agro Market', location: 'Kigali City', crop: 'Maize', price: '450 RWF/kg' },
+  { name: 'Rwanda Export Co.', location: 'Huye District', crop: 'Beans', price: '800 RWF/kg' },
+  { name: 'Fresh Produce Ltd', location: 'Musanze District', crop: 'Bananas', price: '300 RWF/kg' },
+];
 
 export default function MarketAnalytics() {
   return (
@@ -84,7 +90,9 @@ export default function MarketAnalytics() {
               <TrendingUp className="h-5 w-5 text-green-600" />
               Price Trends
             </CardTitle>
-            <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">+12% this month</Badge>
+            <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+              +12% this month
+            </Badge>
           </div>
         </CardHeader>
         <CardContent>
@@ -99,8 +107,8 @@ export default function MarketAnalytics() {
                   dataKey="price"
                   stroke="#22c55e"
                   strokeWidth={3}
-                  dot={{ fill: "#22c55e", strokeWidth: 2, r: 6 }}
-                  activeDot={{ r: 8, fill: "#22c55e" }}
+                  dot={{ fill: '#22c55e', strokeWidth: 2, r: 6 }}
+                  activeDot={{ r: 8, fill: '#22c55e' }}
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -131,7 +139,9 @@ export default function MarketAnalytics() {
                       <td className="p-2">
                         <div className="flex items-center gap-2">
                           <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
-                            <span className="text-xs font-medium text-blue-600">{buyer.name.charAt(0)}</span>
+                            <span className="text-xs font-medium text-blue-600">
+                              {buyer.name.charAt(0)}
+                            </span>
                           </div>
                           <span className="font-medium">{buyer.name}</span>
                         </div>
@@ -214,7 +224,8 @@ export default function MarketAnalytics() {
               <div>
                 <h4 className="font-medium text-blue-900 dark:text-blue-100">Best Time to Sell</h4>
                 <p className="text-sm text-blue-700 dark:text-blue-300">
-                  Based on current trends, the optimal selling window for your maize is in the next 2-3 weeks.
+                  Based on current trends, the optimal selling window for your maize is in the next
+                  2-3 weeks.
                 </p>
                 <Badge className="mt-2 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
                   Confidence: 85%
@@ -240,5 +251,5 @@ export default function MarketAnalytics() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

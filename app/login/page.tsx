@@ -1,92 +1,95 @@
-"use client"
+'use client';
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Loader2, User, Phone, Lock, Smartphone } from "lucide-react"
-import Link from "next/link"
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Loader2, User, Phone, Lock, Smartphone } from 'lucide-react';
+import Link from 'next/link';
 
 // Mock user data for farmers
 const mockUsers = [
   {
     id: 1,
-    name: "Marie Uwimana",
-    phone: "+250788123456",
-    password: "farmer123",
-    location: "Nyagatare",
-    crops: ["Maize", "Beans"],
-    avatar: "/african-woman-farmer.png"
+    name: 'Marie Uwimana',
+    phone: '+250788123456',
+    password: 'farmer123',
+    location: 'Nyagatare',
+    crops: ['Maize', 'Beans'],
+    avatar: '/african-woman-farmer.png',
   },
   {
     id: 2,
-    name: "Jean Baptiste Nkurunziza",
-    phone: "+250788654321", 
-    password: "farmer456",
-    location: "Nyagatare",
-    crops: ["Beans", "Potatoes"],
-    avatar: "/african-woman-farmer.png" // We'll use this for now since we don't have a male farmer image
+    name: 'Jean Baptiste Nkurunziza',
+    phone: '+250788654321',
+    password: 'farmer456',
+    location: 'Nyagatare',
+    crops: ['Beans', 'Potatoes'],
+    avatar: '/african-woman-farmer.png', // We'll use this for now since we don't have a male farmer image
   },
   {
     id: 3,
-    name: "Agnes Mukamana",
-    phone: "+250788987654",
-    password: "farmer789",
-    location: "Nyagatare", 
-    crops: ["Vegetables", "Tomatoes"],
-    avatar: "/african-woman-farmer.png"
-  }
-]
+    name: 'Agnes Mukamana',
+    phone: '+250788987654',
+    password: 'farmer789',
+    location: 'Nyagatare',
+    crops: ['Vegetables', 'Tomatoes'],
+    avatar: '/african-woman-farmer.png',
+  },
+];
 
 export default function LoginPage() {
-  const [phone, setPhone] = useState("")
-  const [password, setPassword] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState("")
-  const router = useRouter()
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError("")
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
 
     // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
     // Check if user exists in mock data
-    const user = mockUsers.find(u => u.phone === phone && u.password === password)
-    
+    const user = mockUsers.find(u => u.phone === phone && u.password === password);
+
     if (user) {
       // Store user data in localStorage (in a real app, you'd use proper authentication)
-      localStorage.setItem("currentUser", JSON.stringify(user))
-      router.push("/dashboard")
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      router.push('/dashboard');
     } else {
-      setError("Invalid phone number or password. Try: +250788123456 / farmer123")
+      setError('Invalid phone number or password. Try: +250788123456 / farmer123');
     }
-    
-    setIsLoading(false)
-  }
+
+    setIsLoading(false);
+  };
 
   const handleDemoLogin = () => {
-    setPhone("+250788123456")
-    setPassword("farmer123")
-  }
+    setPhone('+250788123456');
+    setPassword('farmer123');
+  };
 
   return (
     <div className="min-h-screen bg-[linear-gradient(135deg,#f0fdf4_0%,#dcfce7_100%)] dark:bg-[linear-gradient(135deg,#052e16_0%,#14532d_100%)] flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-6">
         {/* Logo and Header */}
         <div className="text-center space-y-2">
-          <Link href="/" className="flex items-center justify-center gap-2 text-2xl font-bold text-green-600">
+          <Link
+            href="/"
+            className="flex items-center justify-center gap-2 text-2xl font-bold text-green-600"
+          >
             <div className="relative h-10 w-10">
-              <Image 
-                src="/favicon.png" 
-                alt="UmuhinziLink Logo" 
-                fill 
+              <Image
+                src="/favicon.png"
+                alt="UmuhinziLink Logo"
+                fill
                 className="object-contain"
                 priority
               />
@@ -117,7 +120,7 @@ export default function LoginPage() {
                     type="tel"
                     placeholder="+250788123456"
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    onChange={e => setPhone(e.target.value)}
                     className="pl-10"
                     required
                   />
@@ -133,7 +136,7 @@ export default function LoginPage() {
                     type="password"
                     placeholder="Enter your password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={e => setPassword(e.target.value)}
                     className="pl-10"
                     required
                   />
@@ -146,9 +149,9 @@ export default function LoginPage() {
                 </Alert>
               )}
 
-              <Button 
-                type="submit" 
-                className="w-full bg-green-600 hover:bg-green-700" 
+              <Button
+                type="submit"
+                className="w-full bg-green-600 hover:bg-green-700"
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -157,7 +160,7 @@ export default function LoginPage() {
                     Signing in...
                   </>
                 ) : (
-                  "Sign In"
+                  'Sign In'
                 )}
               </Button>
             </form>
@@ -173,12 +176,7 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <Button 
-                type="button" 
-                variant="outline" 
-                className="w-full"
-                onClick={handleDemoLogin}
-              >
+              <Button type="button" variant="outline" className="w-full" onClick={handleDemoLogin}>
                 <User className="mr-2 h-4 w-4" />
                 Try Demo Account
               </Button>
@@ -207,11 +205,14 @@ export default function LoginPage() {
 
         {/* Back to Home */}
         <div className="text-center">
-          <Link href="/" className="text-sm text-muted-foreground hover:text-green-600 transition-colors">
+          <Link
+            href="/"
+            className="text-sm text-muted-foreground hover:text-green-600 transition-colors"
+          >
             ← Back to Home
           </Link>
         </div>
       </div>
     </div>
-  )
+  );
 }

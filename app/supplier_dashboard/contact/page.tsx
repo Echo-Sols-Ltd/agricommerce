@@ -1,5 +1,5 @@
-"use client";
-import Link from "next/link";
+'use client';
+import Link from 'next/link';
 import {
   Mail,
   Phone,
@@ -11,8 +11,8 @@ import {
   Settings,
   LogOut,
   CheckCircle,
-  User
-} from "lucide-react";
+  User,
+} from 'lucide-react';
 
 const Logo = () => (
   <span className="font-extrabold text-2xl tracking-tight">
@@ -22,15 +22,15 @@ const Logo = () => (
 );
 
 const menuItems = [
-  { label: "Dashboard", href: "/supplier_dashboard", icon: CheckCircle },
-  { label: "My Products", href: "/supplier_dashboard/products", icon: LayoutGrid },
-  { label: "Requests", href: "/supplier_dashboard/requests", icon: FilePlus },
-  { label: "Orders", href: "/supplier_dashboard/orders", icon: ShoppingCart },
-  { label: "Messages", href: "/messages", icon: MessageSquare },
-  { label: "Profile", href: "/supplier_dashboard/profile", icon: User },
-  { label: "Contact", href: "/supplier_dashboard/contact", icon: Mail },
-  { label: "Settings", href: "/supplier_dashboard/settings", icon: Settings },
-  { label: "Logout", href: "/logout", icon: LogOut },
+  { label: 'Dashboard', href: '/supplier_dashboard', icon: CheckCircle },
+  { label: 'My Products', href: '/supplier_dashboard/products', icon: LayoutGrid },
+  { label: 'Requests', href: '/supplier_dashboard/requests', icon: FilePlus },
+  { label: 'Orders', href: '/supplier_dashboard/orders', icon: ShoppingCart },
+  { label: 'Messages', href: '/messages', icon: MessageSquare },
+  { label: 'Profile', href: '/supplier_dashboard/profile', icon: User },
+  { label: 'Contact', href: '/supplier_dashboard/contact', icon: Mail },
+  { label: 'Settings', href: '/supplier_dashboard/settings', icon: Settings },
+  { label: 'Logout', href: '/logout', icon: LogOut },
 ];
 
 export default function SupplierContactPage() {
@@ -47,7 +47,7 @@ export default function SupplierContactPage() {
           <div className="p-6"></div>
           <nav className="flex-1 px-4 space-y-2">
             {menuItems.map((m, index) => {
-              const isActive = m.label === "Contact";
+              const isActive = m.label === 'Contact';
               const showDivider = index === 4 || index === 8;
               return (
                 <div key={m.label}>
@@ -55,11 +55,11 @@ export default function SupplierContactPage() {
                     <div
                       className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all text-sm font-medium ${
                         isActive
-                          ? "bg-green-600 text-white shadow-sm"
-                          : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                          ? 'bg-green-600 text-white shadow-sm'
+                          : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                       }`}
                     >
-                      <m.icon className={`w-5 h-5 ${isActive ? "text-white" : "text-gray-500"}`} />
+                      <m.icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-gray-500'}`} />
                       <span>{m.label}</span>
                     </div>
                   </Link>
@@ -80,7 +80,8 @@ export default function SupplierContactPage() {
               <div>
                 <h2 className="text-lg font-semibold text-gray-800 mb-2">Get in Touch</h2>
                 <p className="text-gray-600">
-                  Have questions or need help? You can reach us through any of the following methods:
+                  Have questions or need help? You can reach us through any of the following
+                  methods:
                 </p>
               </div>
 

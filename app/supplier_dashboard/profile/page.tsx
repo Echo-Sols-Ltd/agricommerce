@@ -1,5 +1,5 @@
-"use client";
-import React, { useState, useEffect } from "react";
+'use client';
+import React, { useState, useEffect } from 'react';
 import {
   User,
   Phone,
@@ -16,11 +16,11 @@ import {
   LogOut,
   Package,
   Store,
-} from "lucide-react";
-import Link from "next/link";
+} from 'lucide-react';
+import Link from 'next/link';
 
 const inputClass =
-  "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition";
+  'w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition';
 
 const Logo = () => (
   <span className="font-extrabold text-2xl tracking-tight">
@@ -43,45 +43,45 @@ const menuItems = [
 
 export default function SupplierProfile() {
   const [profile, setProfile] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    email: "",
-    district: "",
-    sector: "",
-    businessName: "",
-    businessType: "",
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    email: '',
+    district: '',
+    sector: '',
+    businessName: '',
+    businessType: '',
   });
 
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    const savedProfile = localStorage.getItem("supplierProfile");
+    const savedProfile = localStorage.getItem('supplierProfile');
     if (savedProfile) {
       setProfile(JSON.parse(savedProfile));
     } else {
       setProfile({
-        firstName: "Jane",
-        lastName: "Smith",
-        phoneNumber: "0789000000",
-        email: "jane.smith@supplyco.com",
-        district: "Kicukiro",
-        sector: "Kagarama",
-        businessName: "Agro Supply Co.",
-        businessType: "Agricultural Inputs",
+        firstName: 'Jane',
+        lastName: 'Smith',
+        phoneNumber: '0789000000',
+        email: 'jane.smith@supplyco.com',
+        district: 'Kicukiro',
+        sector: 'Kagarama',
+        businessName: 'Agro Supply Co.',
+        businessType: 'Agricultural Inputs',
       });
     }
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setProfile((prev) => ({ ...prev, [name]: value }));
+    setProfile(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSave = () => {
-    localStorage.setItem("supplierProfile", JSON.stringify(profile));
+    localStorage.setItem('supplierProfile', JSON.stringify(profile));
     setIsEditing(false);
-    alert("Supplier profile updated successfully!");
+    alert('Supplier profile updated successfully!');
   };
 
   return (
@@ -97,7 +97,7 @@ export default function SupplierProfile() {
           <div>
             <nav className="mt-4 space-y-2 px-4">
               {menuItems.map((m, index) => {
-                const isActive = m.label === "Profile";
+                const isActive = m.label === 'Profile';
                 const showDivider = index === 3 || index === 8;
                 return (
                   <div key={m.label}>
@@ -105,21 +105,17 @@ export default function SupplierProfile() {
                       <div
                         className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all text-sm font-medium ${
                           isActive
-                            ? "bg-green-600 text-white shadow-sm"
-                            : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                            ? 'bg-green-600 text-white shadow-sm'
+                            : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                         }`}
                       >
                         <m.icon
-                          className={`w-5 h-5 ${
-                            isActive ? "text-white" : "text-gray-500"
-                          }`}
+                          className={`w-5 h-5 ${isActive ? 'text-white' : 'text-gray-500'}`}
                         />
                         <span>{m.label}</span>
                       </div>
                     </Link>
-                    {showDivider && (
-                      <div className="border-t border-gray-200 my-2 mx-4"></div>
-                    )}
+                    {showDivider && <div className="border-t border-gray-200 my-2 mx-4"></div>}
                   </div>
                 );
               })}
@@ -276,17 +272,9 @@ function Field({
 }) {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">
-        {label}
-      </label>
+      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
       {isEditing ? (
-        <input
-          type="text"
-          name={name}
-          value={value}
-          onChange={onChange}
-          className={inputClass}
-        />
+        <input type="text" name={name} value={value} onChange={onChange} className={inputClass} />
       ) : (
         <div className="flex items-center gap-2 text-gray-900 bg-gray-50 border border-gray-200 rounded-md px-3 py-2">
           {icon}

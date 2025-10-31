@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 import {
   LayoutGrid,
   MessageSquare,
@@ -15,54 +15,58 @@ import {
   Package,
   Leaf,
   Send,
-  LogOut
-} from "lucide-react";
-import Link from "next/link";
+  LogOut,
+} from 'lucide-react';
+import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { logout } from '@/lib/auth';
 
 const menuItems = [
-  { label: "Dashboard", href: "/farmer_dashboard", icon: LayoutGrid },
-  { label: "Products", href: "/farmer_dashboard/products", icon: Package },
-  { label: "Input Request", href: "/farmer_dashboard/requests", icon: FilePlus },
-  { label: "AI Tips", href: "/farmer_dashboard/ai", icon: MessageSquare },
-  { label: "Market Analytics", href: "/farmer_dashboard/market_analysis", icon: BarChart2 },
-  { label: "Messages", href: "/farmer_dashboard/message", icon: Mail },
-  { label: "Notifications", href: "/farmer_dashboard/notifications", icon: Bell },
-  { label: "Profile", href: "/farmer_dashboard/profile", icon: User },
-  { label: "Orders", href: "/farmer_dashboard/orders", icon: ShoppingCart },
-  { label: "Settings", href: "/farmer_dashboard/settings", icon: Settings },
-  { label: "Logout", href: "#", icon: LogOut, isLogout: true },
+  { label: 'Dashboard', href: '/farmer_dashboard', icon: LayoutGrid },
+  { label: 'Products', href: '/farmer_dashboard/products', icon: Package },
+  { label: 'Input Request', href: '/farmer_dashboard/requests', icon: FilePlus },
+  { label: 'AI Tips', href: '/farmer_dashboard/ai', icon: MessageSquare },
+  { label: 'Market Analytics', href: '/farmer_dashboard/market_analysis', icon: BarChart2 },
+  { label: 'Messages', href: '/farmer_dashboard/message', icon: Mail },
+  { label: 'Notifications', href: '/farmer_dashboard/notifications', icon: Bell },
+  { label: 'Profile', href: '/farmer_dashboard/profile', icon: User },
+  { label: 'Orders', href: '/farmer_dashboard/orders', icon: ShoppingCart },
+  { label: 'Settings', href: '/farmer_dashboard/settings', icon: Settings },
+  { label: 'Logout', href: '#', icon: LogOut, isLogout: true },
 ];
 
 const tips = [
   {
-    title: "Maize Planting Tips",
-    description: "Get comprehensive tips on when and how to plant maize for optimal yields and healthy crop development.",
-    image: "/maize-field.jpg",
-    tags: ["Planting", "Maize"],
-    views: 1234
+    title: 'Maize Planting Tips',
+    description:
+      'Get comprehensive tips on when and how to plant maize for optimal yields and healthy crop development.',
+    image: '/maize-field.jpg',
+    tags: ['Planting', 'Maize'],
+    views: 1234,
   },
   {
-    title: "Maize Planting Tips",
-    description: "Get comprehensive tips on when and how to plant maize for optimal yields and healthy crop development.",
-    image: "/maize-field.jpg",
-    tags: ["Planting", "Maize"],
-    views: 1234
+    title: 'Maize Planting Tips',
+    description:
+      'Get comprehensive tips on when and how to plant maize for optimal yields and healthy crop development.',
+    image: '/maize-field.jpg',
+    tags: ['Planting', 'Maize'],
+    views: 1234,
   },
   {
-    title: "Maize Planting Tips",
-    description: "Get comprehensive tips on when and how to plant maize for optimal yields and healthy crop development.",
-    image: "/maize-field.jpg",
-    tags: ["Planting", "Maize"],
-    views: 1234
+    title: 'Maize Planting Tips',
+    description:
+      'Get comprehensive tips on when and how to plant maize for optimal yields and healthy crop development.',
+    image: '/maize-field.jpg',
+    tags: ['Planting', 'Maize'],
+    views: 1234,
   },
   {
-    title: "Maize Planting Tips",
-    description: "Get comprehensive tips on when and how to plant maize for optimal yields and healthy crop development.",
-    image: "/maize-field.jpg",
-    tags: ["Planting", "Maize"],
-    views: 1234
+    title: 'Maize Planting Tips',
+    description:
+      'Get comprehensive tips on when and how to plant maize for optimal yields and healthy crop development.',
+    image: '/maize-field.jpg',
+    tags: ['Planting', 'Maize'],
+    views: 1234,
   },
 ];
 
@@ -71,9 +75,7 @@ const Logo = () => (
     <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center mr-3">
       <Leaf className="w-5 h-5 text-green-600" />
     </div>
-    <span className="font-bold text-xl text-white">
-      UmuhinziLink
-    </span>
+    <span className="font-bold text-xl text-white">UmuhinziLink</span>
   </div>
 );
 
@@ -109,12 +111,13 @@ export default function AiDashboard() {
                   <Link href={item.href} className="block">
                     <div
                       className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all text-sm font-medium
-                        ${isActive
-                          ? "bg-white text-green-600 shadow-sm rounded-lg"
-                          : "text-white hover:bg-green-700"
+                        ${
+                          isActive
+                            ? 'bg-white text-green-600 shadow-sm rounded-lg'
+                            : 'text-white hover:bg-green-700'
                         }`}
                     >
-                      <Icon className={`w-5 h-5 ${isActive ? "text-green-600" : "text-white"}`} />
+                      <Icon className={`w-5 h-5 ${isActive ? 'text-green-600' : 'text-white'}`} />
                       <span>{item.label}</span>
                     </div>
                   </Link>
@@ -140,7 +143,10 @@ export default function AiDashboard() {
               <AlertTriangle className="w-6 h-6" />
               <div>
                 <span className="font-semibold">Urgent Weather Alert</span>
-                <p className="text-sm opacity-90 mt-1">Heavy rainfall expected in the next 3 days. Prepare your crops and watch out for pests.</p>
+                <p className="text-sm opacity-90 mt-1">
+                  Heavy rainfall expected in the next 3 days. Prepare your crops and watch out for
+                  pests.
+                </p>
               </div>
             </div>
             <div className="text-right">
@@ -163,7 +169,10 @@ export default function AiDashboard() {
               {/* Tips Grid */}
               <div className="space-y-4">
                 {tips.map((tip, index) => (
-                  <div key={index} className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-start space-x-4">
+                  <div
+                    key={index}
+                    className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-start space-x-4"
+                  >
                     <div className="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
                       <img src={tip.image} alt={tip.title} className="w-full h-full object-cover" />
                     </div>
@@ -173,7 +182,10 @@ export default function AiDashboard() {
                       <div className="flex items-center justify-between">
                         <div className="flex space-x-2">
                           {tip.tags.map((tag, i) => (
-                            <span key={i} className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded">
+                            <span
+                              key={i}
+                              className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded"
+                            >
                               {tag}
                             </span>
                           ))}
@@ -182,8 +194,18 @@ export default function AiDashboard() {
                       </div>
                     </div>
                     <button className="text-gray-400 hover:text-gray-600">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
+                        />
                       </svg>
                     </button>
                   </div>
@@ -198,10 +220,11 @@ export default function AiDashboard() {
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                   <span className="font-semibold text-gray-900">Ask AI Assistant</span>
                 </div>
-                
+
                 <div className="space-y-4 mb-4 max-h-64 overflow-y-auto">
                   <div className="text-sm text-gray-600">
-                    Hi! I&apos;m your AI farming assistant. Ask me anything about farming, crops, or agricultural best practices.
+                    Hi! I&apos;m your AI farming assistant. Ask me anything about farming, crops, or
+                    agricultural best practices.
                   </div>
                   <div className="bg-gray-50 rounded-lg p-3">
                     <div className="text-xs text-gray-500 mb-1">You</div>
@@ -209,7 +232,12 @@ export default function AiDashboard() {
                   </div>
                   <div className="bg-green-50 rounded-lg p-3">
                     <div className="text-xs text-gray-500 mb-1">AI Assistant</div>
-                    <div className="text-sm">For maize planting, start by testing your soil pH (should be 6.0-7.0). Clear weeds, till the soil to 20-25cm depth, and add organic matter like compost. Ensure good drainage and apply recommended fertilizers based on soil test results.</div>
+                    <div className="text-sm">
+                      For maize planting, start by testing your soil pH (should be 6.0-7.0). Clear
+                      weeds, till the soil to 20-25cm depth, and add organic matter like compost.
+                      Ensure good drainage and apply recommended fertilizers based on soil test
+                      results.
+                    </div>
                   </div>
                 </div>
 

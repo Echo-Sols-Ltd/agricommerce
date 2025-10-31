@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 import {
   FilePlus,
   MessageSquare,
@@ -13,69 +13,69 @@ import {
   Trash2,
   CheckCircle,
   LayoutGrid as GridIcon,
-} from "lucide-react";
-import Link from "next/link";
+} from 'lucide-react';
+import Link from 'next/link';
 
 const menuItems = [
-  { label: "Dashboard", href: "/buyer_dashboard", icon: CheckCircle },
-  { label: "My Purchase", href: "/buyer_dashboard/purchases", icon: GridIcon },
-  { label: "Browse product", href: "/buyer_dashboard/product", icon: FilePlus },
-  { label: "Saved items", href: "/buyer_dashboard/saved", icon: MessageSquare },
-  { label: "Message", href: "/buyer_dashboard/message", icon: Mail },
-  { label: "Profile", href: "/buyer_dashboard/profile", icon: UserIcon },
-  { label: "Contact", href: "/buyer_dashboard/contact", icon: Phone },
-  { label: "Settings", href: "/buyer_dashboard/settings", icon: Settings },
-  { label: "Logout", href: "/logout", icon: LogOut },
+  { label: 'Dashboard', href: '/buyer_dashboard', icon: CheckCircle },
+  { label: 'My Purchase', href: '/buyer_dashboard/purchases', icon: GridIcon },
+  { label: 'Browse product', href: '/buyer_dashboard/product', icon: FilePlus },
+  { label: 'Saved items', href: '/buyer_dashboard/saved', icon: MessageSquare },
+  { label: 'Message', href: '/buyer_dashboard/message', icon: Mail },
+  { label: 'Profile', href: '/buyer_dashboard/profile', icon: UserIcon },
+  { label: 'Contact', href: '/buyer_dashboard/contact', icon: Phone },
+  { label: 'Settings', href: '/buyer_dashboard/settings', icon: Settings },
+  { label: 'Logout', href: '/logout', icon: LogOut },
 ];
 
 const products = [
   {
-    name: "Fresh Tomatoes",
-    price: "$3.50/kg",
-    available: "250 kg",
-    farmer: "John Mutesi",
-    location: "Kigali",
-    image: "/tomatoes.png",
+    name: 'Fresh Tomatoes',
+    price: '$3.50/kg',
+    available: '250 kg',
+    farmer: 'John Mutesi',
+    location: 'Kigali',
+    image: '/tomatoes.png',
   },
   {
-    name: "Organic Carrots",
-    price: "$2.80/kg",
-    available: "180 kg",
-    farmer: "Marie Uwimana",
-    location: "Musanze",
-    image: "/carrots.png",
+    name: 'Organic Carrots',
+    price: '$2.80/kg',
+    available: '180 kg',
+    farmer: 'Marie Uwimana',
+    location: 'Musanze',
+    image: '/carrots.png',
   },
   {
-    name: "Fresh Spinach",
-    price: "$4.20/kg",
-    available: "95 kg",
-    farmer: "David Nkurunziza",
-    location: "Huye",
-    image: "/spinach.png",
+    name: 'Fresh Spinach',
+    price: '$4.20/kg',
+    available: '95 kg',
+    farmer: 'David Nkurunziza',
+    location: 'Huye',
+    image: '/spinach.png',
   },
   {
-    name: "Sweet Bananas",
-    price: "$1.90/kg",
-    available: "320 kg",
-    farmer: "Grace Mukamana",
-    location: "Rubavu",
-    image: "/banana.png",
+    name: 'Sweet Bananas',
+    price: '$1.90/kg',
+    available: '320 kg',
+    farmer: 'Grace Mukamana',
+    location: 'Rubavu',
+    image: '/banana.png',
   },
   {
-    name: "Irish Potatoes",
-    price: "$1.50/kg",
-    available: "500 kg",
-    farmer: "Paul Habimana",
-    location: "Nyabihu",
-    image: "/potatoes.png",
+    name: 'Irish Potatoes',
+    price: '$1.50/kg',
+    available: '500 kg',
+    farmer: 'Paul Habimana',
+    location: 'Nyabihu',
+    image: '/potatoes.png',
   },
   {
-    name: "Premium Avocados",
-    price: "$5.80/kg",
-    available: "75 kg",
-    farmer: "Alice Nyiramana",
-    location: "Karongi",
-    image: "/avocados.png",
+    name: 'Premium Avocados',
+    price: '$5.80/kg',
+    available: '75 kg',
+    farmer: 'Alice Nyiramana',
+    location: 'Karongi',
+    image: '/avocados.png',
   },
 ];
 
@@ -87,7 +87,7 @@ const Logo = () => (
 );
 
 export default function Dashboard() {
-  const [sortBy, setSortBy] = useState("Newest");
+  const [sortBy, setSortBy] = useState('Newest');
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -101,7 +101,7 @@ export default function Dashboard() {
         <aside className="w-64 bg-white border-r h-full flex flex-col">
           <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
             {menuItems.map((item, index) => {
-              const isActive = item.label === "Saved items";
+              const isActive = item.label === 'Saved items';
               const Icon = item.icon;
               const showDivider = index === 3 || index === 8;
               return (
@@ -109,12 +109,13 @@ export default function Dashboard() {
                   <Link href={item.href} className="block">
                     <div
                       className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all text-sm font-medium
-                        ${isActive
-                          ? "bg-green-600 text-white shadow-sm"
-                          : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                        ${
+                          isActive
+                            ? 'bg-green-600 text-white shadow-sm'
+                            : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                         }`}
                     >
-                      <Icon className={`w-5 h-5 ${isActive ? "text-white" : "text-gray-500"}`} />
+                      <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-gray-500'}`} />
                       <span>{item.label}</span>
                     </div>
                   </Link>
@@ -133,7 +134,7 @@ export default function Dashboard() {
             <select
               className="border border-gray-300 rounded-lg py-2 px-3 text-sm"
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
+              onChange={e => setSortBy(e.target.value)}
             >
               <option>Newest</option>
               <option>Price: Low to High</option>
@@ -144,33 +145,20 @@ export default function Dashboard() {
           {/* Products Grid */}
           <main className="flex-1 overflow-auto p-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {products.map((p) => (
-                <div
-                  key={p.name}
-                  className="bg-white rounded-lg shadow-sm border overflow-hidden"
-                >
+              {products.map(p => (
+                <div key={p.name} className="bg-white rounded-lg shadow-sm border overflow-hidden">
                   <div className="relative">
-                    <img
-                      src={p.image}
-                      alt={p.name}
-                      className="h-48 w-full object-cover"
-                    />
+                    <img src={p.image} alt={p.name} className="h-48 w-full object-cover" />
                     <button className="absolute top-3 right-3 bg-white p-1 rounded-full shadow">
                       <Heart className="w-5 h-5 text-red-500" />
                     </button>
                   </div>
                   <div className="p-4">
                     <div className="flex justify-between items-center">
-                      <h3 className="font-semibold text-lg text-gray-900">
-                        {p.name}
-                      </h3>
-                      <p className="text-green-600 font-bold text-sm">
-                        {p.price}
-                      </p>
+                      <h3 className="font-semibold text-lg text-gray-900">{p.name}</h3>
+                      <p className="text-green-600 font-bold text-sm">{p.price}</p>
                     </div>
-                    <p className="text-sm text-gray-500 mt-1">
-                      Available: {p.available}
-                    </p>
+                    <p className="text-sm text-gray-500 mt-1">Available: {p.available}</p>
                     <div className="flex items-center text-sm text-gray-500 mt-1">
                       <UserIcon className="w-4 h-4 mr-1" /> {p.farmer}
                       <span className="mx-1">•</span>

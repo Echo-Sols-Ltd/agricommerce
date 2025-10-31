@@ -1,10 +1,20 @@
-"use client"
+'use client';
 
 import React, { useState } from 'react';
 import {
-  CheckCircle, LayoutGrid, FilePlus, ShoppingCart,
-  User, Phone, Settings, LogOut, Mail, Users,
-  TrendingUp, Search, ChevronDown,
+  CheckCircle,
+  LayoutGrid,
+  FilePlus,
+  ShoppingCart,
+  User,
+  Phone,
+  Settings,
+  LogOut,
+  Mail,
+  Users,
+  TrendingUp,
+  Search,
+  ChevronDown,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -15,7 +25,8 @@ import { Input } from '@/components/ui/input';
 const Logo = () => (
   <div className="flex items-center gap-2 py-2">
     <span className="font-extrabold text-xl tracking-tight">
-      <span className="text-white">Umuhinzi</span><span className="text-white">Link</span>
+      <span className="text-white">Umuhinzi</span>
+      <span className="text-white">Link</span>
     </span>
   </div>
 );
@@ -31,7 +42,6 @@ const menuItems = [
   { label: 'Settings', href: '/supplier_dashboard/settings', icon: Settings },
   { label: 'Logout', href: '#', icon: LogOut, isLogout: true },
 ];
-
 
 function Dashboard() {
   const router = useRouter();
@@ -73,12 +83,13 @@ function Dashboard() {
                     <Link href={item.href} className="block">
                       <div
                         className={`flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer transition-all text-sm font-medium
-                          ${isActive
-                            ? "bg-white text-green-600 shadow-sm"
-                            : "text-white hover:bg-green-700"
+                          ${
+                            isActive
+                              ? 'bg-white text-green-600 shadow-sm'
+                              : 'text-white hover:bg-green-700'
                           }`}
                       >
-                        <Icon className={`w-4 h-4 ${isActive ? "text-green-600" : "text-white"}`} />
+                        <Icon className={`w-4 h-4 ${isActive ? 'text-green-600' : 'text-white'}`} />
                         <span>{item.label}</span>
                       </div>
                     </Link>
@@ -95,13 +106,16 @@ function Dashboard() {
           {/* Header */}
           <header className="fixed top-0 left-64 z-30 right-0 bg-white border-b h-16 flex items-center justify-between px-8 shadow-sm">
             {/* Search Section */}
-            <div className='w-1/2 relative'>
+            <div className="w-1/2 relative">
               <Input
-                type='text'
-                placeholder='Search...'
-                className='pl-4 pr-10 h-10 border-gray-300 focus:border-green-500 focus:ring-green-500 rounded-3xl'
+                type="text"
+                placeholder="Search..."
+                className="pl-4 pr-10 h-10 border-gray-300 focus:border-green-500 focus:ring-green-500 rounded-3xl"
               />
-              <Search size={18} className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400' />
+              <Search
+                size={18}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              />
             </div>
 
             {/* Right Section */}
@@ -112,14 +126,18 @@ function Dashboard() {
                   onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
                   className="flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors"
                 >
-                  <span className="text-lg">{languages.find(lang => lang.code === selectedLanguage)?.flag}</span>
-                  <span className="font-medium text-gray-700">{languages.find(lang => lang.code === selectedLanguage)?.name}</span>
+                  <span className="text-lg">
+                    {languages.find(lang => lang.code === selectedLanguage)?.flag}
+                  </span>
+                  <span className="font-medium text-gray-700">
+                    {languages.find(lang => lang.code === selectedLanguage)?.name}
+                  </span>
                   <ChevronDown size={16} className="text-gray-500" />
                 </button>
 
                 {isLanguageDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
-                    {languages.map((language) => (
+                    {languages.map(language => (
                       <button
                         key={language.code}
                         onClick={() => {
@@ -149,10 +167,12 @@ function Dashboard() {
             </div>
           </header>
           {/* Welcome banner */}
-          <div className='mt-16'>
+          <div className="mt-16">
             <div className="bg-green-600 text-white p-6 rounded-lg mb-6">
               <h1 className="text-2xl font-bold mb-2">Welcome back, Agri Supply Co.!</h1>
-              <p className="text-green-100">Manage your agricultural inputs and connect with farmers across Rwanda</p>
+              <p className="text-green-100">
+                Manage your agricultural inputs and connect with farmers across Rwanda
+              </p>
             </div>
             {/* Stats cards */}
             <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-6">
@@ -225,18 +245,29 @@ function Dashboard() {
                   <h2 className="text-lg font-bold text-gray-900">Market Trends Prices</h2>
                   <div className="flex items-center gap-2 text-sm text-gray-500">
                     <span>in 2024</span>
-                    <button className="text-green-600 text-sm font-medium hover:text-green-700 cursor-pointer">View All</button>
+                    <button className="text-green-600 text-sm font-medium hover:text-green-700 cursor-pointer">
+                      View All
+                    </button>
                   </div>
                 </div>
                 <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center relative">
                   {/* Simulated Chart Area */}
                   <div className="w-full h-full relative">
-                    <div className="absolute bottom-4 left-4 text-lg font-bold text-gray-900">220,342,123</div>
+                    <div className="absolute bottom-4 left-4 text-lg font-bold text-gray-900">
+                      220,342,123
+                    </div>
                     <svg className="w-full h-full" viewBox="0 0 400 200">
-                      <path d="M20 180 Q60 160 100 140 T180 120 T260 100 T340 80 T380 60"
-                        stroke="#10b981" strokeWidth="3" fill="none" />
-                      <path d="M20 180 Q60 160 100 140 T180 120 T260 100 T340 80 T380 60 L380 180 L20 180 Z"
-                        fill="url(#gradient)" opacity="0.3" />
+                      <path
+                        d="M20 180 Q60 160 100 140 T180 120 T260 100 T340 80 T380 60"
+                        stroke="#10b981"
+                        strokeWidth="3"
+                        fill="none"
+                      />
+                      <path
+                        d="M20 180 Q60 160 100 140 T180 120 T260 100 T340 80 T380 60 L380 180 L20 180 Z"
+                        fill="url(#gradient)"
+                        opacity="0.3"
+                      />
                       <defs>
                         <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
                           <stop offset="0%" stopColor="#10b981" stopOpacity="0.8" />
@@ -251,10 +282,16 @@ function Dashboard() {
               <div className="space-y-6">
                 {/* Listed Inputs vs Sales Level */}
                 <div className="bg-white p-4 rounded-lg shadow-sm border">
-                  <h3 className="text-sm font-medium text-gray-900 mb-3">Listed Inputs vs Sales Level</h3>
+                  <h3 className="text-sm font-medium text-gray-900 mb-3">
+                    Listed Inputs vs Sales Level
+                  </h3>
                   <div className="h-32 bg-gray-50 rounded flex items-end justify-center gap-1 p-2">
                     {[40, 60, 80, 45, 70, 55, 90, 35].map((height, i) => (
-                      <div key={i} className={`w-4 bg-blue-500 rounded-t`} style={{ height: `${height}%` }}></div>
+                      <div
+                        key={i}
+                        className={`w-4 bg-blue-500 rounded-t`}
+                        style={{ height: `${height}%` }}
+                      ></div>
                     ))}
                   </div>
                 </div>
@@ -263,10 +300,18 @@ function Dashboard() {
                   <h3 className="text-sm font-medium text-gray-900 mb-3">Customer Satisfaction</h3>
                   <div className="h-32 bg-gray-50 rounded flex items-center justify-center relative">
                     <svg className="w-full h-full" viewBox="0 0 120 80">
-                      <path d="M10 60 Q30 40 50 45 T90 35 T110 30"
-                        stroke="#10b981" strokeWidth="2" fill="none" />
-                      <path d="M10 65 Q30 50 50 55 T90 45 T110 40"
-                        stroke="#3b82f6" strokeWidth="2" fill="none" />
+                      <path
+                        d="M10 60 Q30 40 50 45 T90 35 T110 30"
+                        stroke="#10b981"
+                        strokeWidth="2"
+                        fill="none"
+                      />
+                      <path
+                        d="M10 65 Q30 50 50 55 T90 45 T110 40"
+                        stroke="#3b82f6"
+                        strokeWidth="2"
+                        fill="none"
+                      />
                     </svg>
                     <div className="absolute bottom-2 left-2 flex gap-3 text-xs">
                       <div className="flex items-center gap-1">
@@ -292,9 +337,15 @@ function Dashboard() {
                   <thead>
                     <tr className="border-b border-gray-200">
                       <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">#</th>
-                      <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Name</th>
-                      <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Popularity</th>
-                      <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Sales</th>
+                      <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
+                        Name
+                      </th>
+                      <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
+                        Popularity
+                      </th>
+                      <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
+                        Sales
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -303,11 +354,16 @@ function Dashboard() {
                       <td className="py-4 px-4 text-gray-900">Home Decor Range</td>
                       <td className="py-4 px-4">
                         <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-green-500 h-2 rounded-full" style={{ width: '85%' }}></div>
+                          <div
+                            className="bg-green-500 h-2 rounded-full"
+                            style={{ width: '85%' }}
+                          ></div>
                         </div>
                       </td>
                       <td className="py-4 px-4">
-                        <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium">45%</span>
+                        <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium">
+                          45%
+                        </span>
                       </td>
                     </tr>
                     <tr className="border-b border-gray-100">
@@ -315,11 +371,16 @@ function Dashboard() {
                       <td className="py-4 px-4 text-gray-900">Disney Princess Pink Bag 18&quot;</td>
                       <td className="py-4 px-4">
                         <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-green-500 h-2 rounded-full" style={{ width: '70%' }}></div>
+                          <div
+                            className="bg-green-500 h-2 rounded-full"
+                            style={{ width: '70%' }}
+                          ></div>
                         </div>
                       </td>
                       <td className="py-4 px-4">
-                        <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium">29%</span>
+                        <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium">
+                          29%
+                        </span>
                       </td>
                     </tr>
                     <tr className="border-b border-gray-100">
@@ -327,11 +388,16 @@ function Dashboard() {
                       <td className="py-4 px-4 text-gray-900">Bathroom Essentials</td>
                       <td className="py-4 px-4">
                         <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-green-500 h-2 rounded-full" style={{ width: '60%' }}></div>
+                          <div
+                            className="bg-green-500 h-2 rounded-full"
+                            style={{ width: '60%' }}
+                          ></div>
                         </div>
                       </td>
                       <td className="py-4 px-4">
-                        <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium">18%</span>
+                        <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium">
+                          18%
+                        </span>
                       </td>
                     </tr>
                     <tr>
@@ -339,11 +405,16 @@ function Dashboard() {
                       <td className="py-4 px-4 text-gray-900">Apple Smartwatch</td>
                       <td className="py-4 px-4">
                         <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-green-500 h-2 rounded-full" style={{ width: '45%' }}></div>
+                          <div
+                            className="bg-green-500 h-2 rounded-full"
+                            style={{ width: '45%' }}
+                          ></div>
                         </div>
                       </td>
                       <td className="py-4 px-4">
-                        <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium">25%</span>
+                        <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium">
+                          25%
+                        </span>
                       </td>
                     </tr>
                   </tbody>

@@ -1,6 +1,20 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import { Plus, Search, Send, CheckCircle, LayoutGrid, FilePlus, ShoppingCart, User, Phone, Settings, LogOut, Mail, ChevronDown } from "lucide-react";
+'use client';
+import React, { useState, useEffect } from 'react';
+import {
+  Plus,
+  Search,
+  Send,
+  CheckCircle,
+  LayoutGrid,
+  FilePlus,
+  ShoppingCart,
+  User,
+  Phone,
+  Settings,
+  LogOut,
+  Mail,
+  ChevronDown,
+} from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { SupplierGuard } from '@/components/auth/AuthGuard';
@@ -29,7 +43,8 @@ interface Conversation {
 const Logo = () => (
   <div className="flex items-center gap-2 py-2">
     <span className="font-extrabold text-xl tracking-tight">
-      <span className="text-white">Umuhinzi</span><span className="text-white">Link</span>
+      <span className="text-white">Umuhinzi</span>
+      <span className="text-white">Link</span>
     </span>
   </div>
 );
@@ -47,10 +62,10 @@ const menuItems = [
 ];
 
 const mockContacts: Contact[] = [
-  { id: 1, name: "Harvest Hill Farm", role: "Farmer" },
-  { id: 2, name: "Green Valley Co-op", role: "Farmer" },
-  { id: 3, name: "AgroBuy Exporters", role: "Buyer" },
-  { id: 4, name: "Urban Market Traders", role: "Buyer" },
+  { id: 1, name: 'Harvest Hill Farm', role: 'Farmer' },
+  { id: 2, name: 'Green Valley Co-op', role: 'Farmer' },
+  { id: 3, name: 'AgroBuy Exporters', role: 'Buyer' },
+  { id: 4, name: 'Urban Market Traders', role: 'Buyer' },
 ];
 
 function SupplierMessages() {
@@ -59,9 +74,9 @@ function SupplierMessages() {
   const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [activeChat, setActiveChat] = useState<Conversation | null>(null);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   const languages = [
     { code: 'en', name: 'English', flag: '🇺🇸' },
@@ -74,37 +89,40 @@ function SupplierMessages() {
   };
 
   useEffect(() => {
-    const stored = localStorage.getItem("supplierConversations");
+    const stored = localStorage.getItem('supplierConversations');
     if (stored) setConversations(JSON.parse(stored));
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("supplierConversations", JSON.stringify(conversations));
+    localStorage.setItem('supplierConversations', JSON.stringify(conversations));
   }, [conversations]);
 
   const sendMessage = () => {
     if (!message.trim() || !activeChat) return;
-    const updated = conversations.map((conv) =>
+    const updated = conversations.map(conv =>
       conv.id === activeChat.id
         ? {
             ...conv,
             messages: [
               ...conv.messages,
               {
-                sender: "Supplier",
+                sender: 'Supplier',
                 text: message,
-                timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+                timestamp: new Date().toLocaleTimeString([], {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                }),
               },
             ],
           }
         : conv
     );
     setConversations(updated);
-    setMessage("");
+    setMessage('');
   };
 
   const startConversation = (contact: Contact) => {
-    const existing = conversations.find((c) => c.name === contact.name);
+    const existing = conversations.find(c => c.name === contact.name);
     if (existing) {
       setActiveChat(existing);
     } else {
@@ -118,7 +136,7 @@ function SupplierMessages() {
       setActiveChat(newConv);
     }
     setIsModalOpen(false);
-    setSearch("");
+    setSearch('');
   };
 
   return (
@@ -146,12 +164,13 @@ function SupplierMessages() {
                     <Link href={item.href} className="block">
                       <div
                         className={`flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer transition-all text-sm font-medium
-                          ${isActive
-                            ? "bg-white text-green-600 shadow-sm"
-                            : "text-white hover:bg-green-700"
+                          ${
+                            isActive
+                              ? 'bg-white text-green-600 shadow-sm'
+                              : 'text-white hover:bg-green-700'
                           }`}
                       >
-                        <Icon className={`w-4 h-4 ${isActive ? "text-green-600" : "text-white"}`} />
+                        <Icon className={`w-4 h-4 ${isActive ? 'text-green-600' : 'text-white'}`} />
                         <span>{item.label}</span>
                       </div>
                     </Link>
@@ -168,15 +187,18 @@ function SupplierMessages() {
           {/* Header */}
           <header className="fixed top-0 left-64 z-30 right-0 bg-white border-b h-16 flex items-center justify-between px-8 shadow-sm">
             {/* Search Section */}
-            <div className='w-1/2 relative'>
+            <div className="w-1/2 relative">
               <Input
-                type='text'
-                placeholder='Search...'
-                className='pl-4 pr-10 h-10 border-gray-300 focus:border-green-500 focus:ring-green-500 rounded-3xl'
+                type="text"
+                placeholder="Search..."
+                className="pl-4 pr-10 h-10 border-gray-300 focus:border-green-500 focus:ring-green-500 rounded-3xl"
               />
-              <Search size={18} className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400' />
+              <Search
+                size={18}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              />
             </div>
-            
+
             {/* Right Section */}
             <div className="flex items-center gap-6">
               {/* Language Dropdown */}
@@ -185,14 +207,18 @@ function SupplierMessages() {
                   onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
                   className="flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors"
                 >
-                  <span className="text-lg">{languages.find(lang => lang.code === selectedLanguage)?.flag}</span>
-                  <span className="font-medium text-gray-700">{languages.find(lang => lang.code === selectedLanguage)?.name}</span>
+                  <span className="text-lg">
+                    {languages.find(lang => lang.code === selectedLanguage)?.flag}
+                  </span>
+                  <span className="font-medium text-gray-700">
+                    {languages.find(lang => lang.code === selectedLanguage)?.name}
+                  </span>
                   <ChevronDown size={16} className="text-gray-500" />
                 </button>
-                
+
                 {isLanguageDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
-                    {languages.map((language) => (
+                    {languages.map(language => (
                       <button
                         key={language.code}
                         onClick={() => {
@@ -244,17 +270,17 @@ function SupplierMessages() {
                     placeholder="Search..."
                     className="flex-1 p-2 bg-transparent outline-none text-sm text-gray-800"
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    onChange={e => setSearch(e.target.value)}
                   />
                 </div>
               </div>
 
               <div className="flex-1 overflow-y-auto">
-                {conversations.map((conv) => (
+                {conversations.map(conv => (
                   <div
                     key={conv.id}
                     className={`p-4 cursor-pointer hover:bg-gray-50 border-b border-gray-200 ${
-                      activeChat?.id === conv.id ? "bg-green-50" : ""
+                      activeChat?.id === conv.id ? 'bg-green-50' : ''
                     }`}
                     onClick={() => setActiveChat(conv)}
                   >
@@ -267,58 +293,58 @@ function SupplierMessages() {
 
             {/* Chat Area */}
             <div className="flex-1 flex flex-col">
-        {activeChat ? (
-          <>
-            <div className="p-4 border-b border-gray-200 bg-white flex items-center shadow-sm">
-              <div>
-                <div className="font-medium">{activeChat.name}</div>
-                <div className="text-xs text-gray-500">{activeChat.role}</div>
-              </div>
-            </div>
-
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50">
-              {activeChat.messages.map((msg: Message, i: number) => (
-                <div
-                  key={i}
-                  className={`flex ${
-                    msg.sender === "Supplier" ? "justify-end" : "justify-start"
-                  }`}
-                >
-                  <div
-                    className={`px-4 py-2 rounded-lg max-w-xs text-sm shadow-sm ${
-                      msg.sender === "Supplier"
-                        ? "bg-green-600 text-white rounded-br-none"
-                        : "bg-white border border-gray-200 text-gray-800 rounded-bl-none"
-                    }`}
-                  >
-                    {msg.text}
-                    <div className="text-[10px] mt-1 opacity-70">{msg.timestamp}</div>
+              {activeChat ? (
+                <>
+                  <div className="p-4 border-b border-gray-200 bg-white flex items-center shadow-sm">
+                    <div>
+                      <div className="font-medium">{activeChat.name}</div>
+                      <div className="text-xs text-gray-500">{activeChat.role}</div>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
 
-            <div className="p-4 border-t border-gray-200 bg-white flex">
-              <input
-                type="text"
-                className="flex-1 border border-gray-200 rounded-l-lg p-2 text-sm outline-none text-gray-800"
-                placeholder="Type your message..."
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-              />
-              <button
-                className="bg-green-600 text-white px-4 rounded-r-lg hover:bg-green-700 transition"
-                onClick={sendMessage}
-              >
-                <Send size={16} />
-              </button>
-            </div>
-          </>
-            ) : (
-              <div className="flex-1 flex items-center justify-center text-gray-400">
-                Select a conversation
-              </div>
-            )}
+                  <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50">
+                    {activeChat.messages.map((msg: Message, i: number) => (
+                      <div
+                        key={i}
+                        className={`flex ${
+                          msg.sender === 'Supplier' ? 'justify-end' : 'justify-start'
+                        }`}
+                      >
+                        <div
+                          className={`px-4 py-2 rounded-lg max-w-xs text-sm shadow-sm ${
+                            msg.sender === 'Supplier'
+                              ? 'bg-green-600 text-white rounded-br-none'
+                              : 'bg-white border border-gray-200 text-gray-800 rounded-bl-none'
+                          }`}
+                        >
+                          {msg.text}
+                          <div className="text-[10px] mt-1 opacity-70">{msg.timestamp}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="p-4 border-t border-gray-200 bg-white flex">
+                    <input
+                      type="text"
+                      className="flex-1 border border-gray-200 rounded-l-lg p-2 text-sm outline-none text-gray-800"
+                      placeholder="Type your message..."
+                      value={message}
+                      onChange={e => setMessage(e.target.value)}
+                    />
+                    <button
+                      className="bg-green-600 text-white px-4 rounded-r-lg hover:bg-green-700 transition"
+                      onClick={sendMessage}
+                    >
+                      <Send size={16} />
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="flex-1 flex items-center justify-center text-gray-400">
+                  Select a conversation
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -333,12 +359,12 @@ function SupplierMessages() {
                 placeholder="Search..."
                 className="w-full p-2 border border-gray-200 rounded mb-4 text-sm text-gray-800"
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={e => setSearch(e.target.value)}
               />
               <div className="max-h-60 overflow-y-auto space-y-2">
                 {mockContacts
-                  .filter((c) => c.name.toLowerCase().includes(search.toLowerCase()))
-                  .map((contact) => (
+                  .filter(c => c.name.toLowerCase().includes(search.toLowerCase()))
+                  .map(contact => (
                     <div
                       key={contact.id}
                       className="p-3 border border-gray-200 rounded cursor-pointer hover:bg-gray-50 transition"

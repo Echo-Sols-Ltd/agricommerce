@@ -1,68 +1,74 @@
-"use client"
+'use client';
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
-import { Edit, Trash2, Check } from "lucide-react"
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Badge } from '@/components/ui/badge';
+import { Edit, Trash2, Check } from 'lucide-react';
 
 const products = [
   {
     id: 1,
-    name: "Fresh Tomatoes",
-    image: "/tomatoes.jpg",
-    quantity: "50 kg",
-    price: "50 RWF/kg",
-    location: "Kigali",
-    status: "Available",
+    name: 'Fresh Tomatoes',
+    image: '/tomatoes.jpg',
+    quantity: '50 kg',
+    price: '50 RWF/kg',
+    location: 'Kigali',
+    status: 'Available',
   },
   {
     id: 2,
-    name: "Green Beans",
-    image: "/green-beans.jpg",
-    quantity: "30 kg",
-    price: "35 RWF/kg",
-    location: "Musanze",
-    status: "Available",
+    name: 'Green Beans',
+    image: '/green-beans.jpg',
+    quantity: '30 kg',
+    price: '35 RWF/kg',
+    location: 'Musanze',
+    status: 'Available',
   },
   {
     id: 3,
-    name: "Sweet Corn",
-    image: "/fresh-yellow-corn.png",
-    quantity: "100 pieces",
-    price: "50 RWF/piece",
-    location: "Huye",
-    status: "Available",
+    name: 'Sweet Corn',
+    image: '/fresh-yellow-corn.png',
+    quantity: '100 pieces',
+    price: '50 RWF/piece',
+    location: 'Huye',
+    status: 'Available',
   },
   {
     id: 4,
-    name: "Fresh Carrots",
-    image: "/fresh-orange-carrots.png",
-    quantity: "25 kg",
-    price: "60 RWF/kg",
-    location: "Nyagatare",
-    status: "Available",
+    name: 'Fresh Carrots',
+    image: '/fresh-orange-carrots.png',
+    quantity: '25 kg',
+    price: '60 RWF/kg',
+    location: 'Nyagatare',
+    status: 'Available',
   },
   {
     id: 5,
-    name: "Fresh Cabbage",
-    image: "/fresh-cabbage.png",
-    quantity: "40 heads",
-    price: "25 RWF/head",
-    location: "Rubavu",
-    status: "Available",
+    name: 'Fresh Cabbage',
+    image: '/fresh-cabbage.png',
+    quantity: '40 heads',
+    price: '25 RWF/head',
+    location: 'Rubavu',
+    status: 'Available',
   },
   {
     id: 6,
-    name: "Irish Potatoes",
-    image: "/irish-potatoes.png",
-    quantity: "80 kg",
-    price: "50 RWF/kg",
-    location: "Ruhengeri",
-    status: "Available",
+    name: 'Irish Potatoes',
+    image: '/irish-potatoes.png',
+    quantity: '80 kg',
+    price: '50 RWF/kg',
+    location: 'Ruhengeri',
+    status: 'Available',
   },
-]
+];
 
 export default function MyProducts() {
   return (
@@ -104,10 +110,14 @@ export default function MyProducts() {
 
       {/* Products Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products.map((product) => (
+        {products.map(product => (
           <Card key={product.id} className="overflow-hidden">
             <div className="relative">
-              <img src={product.image || "/placeholder.svg"} alt={product.name} className="w-full h-48 object-cover" />
+              <img
+                src={product.image || '/placeholder.svg'}
+                alt={product.name}
+                className="w-full h-48 object-cover"
+              />
               <Badge className="absolute top-2 right-2 bg-green-600 text-white">Available</Badge>
             </div>
             <CardContent className="p-4 space-y-3">
@@ -171,5 +181,5 @@ export default function MyProducts() {
         </Button>
       </div>
     </div>
-  )
+  );
 }

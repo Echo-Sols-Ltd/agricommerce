@@ -5,32 +5,39 @@ This directory contains GitHub Actions workflows for the UmuhinziLink project to
 ## 📋 Available Workflows
 
 ### 1. 🚀 CI/CD Pipeline (`ci.yml`)
+
 **Triggers:** Push/PR to `web_fro` branch, manual dispatch
 
 **What it does:**
+
 - ✅ **Code Quality Checks** - TypeScript, ESLint, Prettier
 - 🏗️ **Build & Test** - Next.js build verification, test execution
 - 🔒 **Security Audit** - Dependency vulnerability scanning
 - 🚀 **Deployment Readiness** - Final validation for production
 
 **Jobs:**
+
 1. `code-quality` - Linting and type checking
 2. `build-and-test` - Application build and testing
 3. `security-audit` - Security vulnerability scanning
 4. `deployment-check` - Final deployment validation
 
 ### 2. 🧹 Code Quality (`code-quality.yml`)
+
 **Triggers:** Push/PR to `web_fro` or `main` branches
 
 **What it does:**
+
 - 🎯 TypeScript compilation check
 - 🧹 ESLint analysis
 - 💅 Prettier formatting validation
 
 ### 3. 🔒 Security Audit (`security.yml`)
+
 **Triggers:** Push/PR to `web_fro`, daily at 2 AM UTC, manual dispatch
 
 **What it does:**
+
 - 🔒 NPM security audit (critical/high/moderate vulnerabilities)
 - 📋 Dependency analysis and outdated package detection
 - 🔍 Dependency review for PRs
@@ -39,12 +46,14 @@ This directory contains GitHub Actions workflows for the UmuhinziLink project to
 ## 🎯 Benefits
 
 ### For Developers:
+
 - **Early Error Detection** - Catch TypeScript/ESLint errors before merge
 - **Consistent Code Quality** - Automated formatting and linting checks
 - **Security Awareness** - Immediate alerts for vulnerable dependencies
 - **Fast Feedback** - Quick validation of changes
 
 ### For the Project:
+
 - **Production Safety** - Ensures only quality code reaches production
 - **Security Compliance** - Regular vulnerability scanning
 - **Build Reliability** - Verified deployable builds
@@ -63,6 +72,7 @@ Add these badges to your main README.md:
 ## 🔧 Configuration
 
 ### Branch Protection Rules (Recommended)
+
 To enforce quality gates, configure branch protection for `web_fro`:
 
 1. Go to **Settings** → **Branches**
@@ -76,7 +86,9 @@ To enforce quality gates, configure branch protection for `web_fro`:
      - `security-audit`
 
 ### Environment Variables
+
 No additional environment variables required. All workflows use:
+
 - Node.js 18
 - NPM for package management
 - Standard Next.js build process
@@ -84,16 +96,19 @@ No additional environment variables required. All workflows use:
 ## 🚨 Handling Failures
 
 ### Code Quality Failures:
+
 - **TypeScript errors** - Fix compilation issues
 - **ESLint errors** - Address linting violations
 - **Prettier issues** - Run `npx prettier --write .`
 
 ### Build Failures:
+
 - Check build logs in GitHub Actions
 - Verify all dependencies are properly installed
 - Ensure environment variables are set correctly
 
 ### Security Issues:
+
 - **Critical/High vulnerabilities** - Update affected packages immediately
 - **Moderate vulnerabilities** - Plan updates in next sprint
 - **Outdated dependencies** - Regular maintenance updates
@@ -101,6 +116,7 @@ No additional environment variables required. All workflows use:
 ## 🔄 Manual Triggers
 
 All workflows support manual triggering:
+
 1. Go to **Actions** tab in GitHub
 2. Select the workflow
 3. Click **Run workflow**
@@ -109,11 +125,13 @@ All workflows support manual triggering:
 ## 📈 Monitoring
 
 ### Workflow Runs:
+
 - Monitor in GitHub **Actions** tab
 - Check status badges in README
 - Review security audit reports
 
 ### Notifications:
+
 - GitHub will notify on workflow failures
 - Security alerts appear in **Security** tab
 - PR checks show inline status
@@ -121,11 +139,13 @@ All workflows support manual triggering:
 ## 🛠️ Maintenance
 
 ### Regular Tasks:
+
 - Review security audit results weekly
 - Update outdated dependencies monthly
 - Monitor workflow performance and adjust as needed
 
 ### Troubleshooting:
+
 - Check workflow logs for detailed error messages
 - Verify Node.js and NPM versions
 - Ensure all required files are committed

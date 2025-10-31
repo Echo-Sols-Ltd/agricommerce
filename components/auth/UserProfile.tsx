@@ -1,26 +1,26 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { getCurrentUser, logout, type User } from "@/lib/auth";
-import { Button } from "@/components/ui/button";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuLabel, 
-  DropdownMenuSeparator, 
-  DropdownMenuTrigger 
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User as UserIcon, Settings, LogOut, Shield } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { getCurrentUser, logout, type User } from '@/lib/auth';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { User as UserIcon, Settings, LogOut, Shield } from 'lucide-react';
 
 interface UserProfileProps {
   showFullProfile?: boolean;
   className?: string;
 }
 
-export default function UserProfile({ showFullProfile = false, className = "" }: UserProfileProps) {
+export default function UserProfile({ showFullProfile = false, className = '' }: UserProfileProps) {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
 
@@ -41,16 +41,16 @@ export default function UserProfile({ showFullProfile = false, className = "" }:
       .slice(0, 2);
   };
 
-  const getRoleBadgeColor = (role: User["role"]) => {
+  const getRoleBadgeColor = (role: User['role']) => {
     switch (role) {
-      case "BUYER":
-        return "bg-blue-100 text-blue-800";
-      case "FARMER":
-        return "bg-green-100 text-green-800";
-      case "SUPPLIER":
-        return "bg-purple-100 text-purple-800";
+      case 'BUYER':
+        return 'bg-blue-100 text-blue-800';
+      case 'FARMER':
+        return 'bg-green-100 text-green-800';
+      case 'SUPPLIER':
+        return 'bg-purple-100 text-purple-800';
       default:
-        return "bg-gray-100 text-gray-800";
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
@@ -75,19 +75,30 @@ export default function UserProfile({ showFullProfile = false, className = "" }:
           <div>
             <h3 className="text-lg font-semibold text-gray-900">{user.names}</h3>
             <p className="text-sm text-gray-600">{user.email}</p>
-            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getRoleBadgeColor(user.role)}`}>
+            <span
+              className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getRoleBadgeColor(user.role)}`}
+            >
               <Shield className="h-3 w-3 mr-1" />
               {user.role}
             </span>
           </div>
         </div>
-        
+
         <div className="space-y-2 text-sm text-gray-600">
-          <p><span className="font-medium">Phone:</span> {user.phoneNumber}</p>
-          <p><span className="font-medium">Language:</span> {user.language}</p>
-          <p><span className="font-medium">Verified:</span> {user.verified ? "Yes" : "No"}</p>
+          <p>
+            <span className="font-medium">Phone:</span> {user.phoneNumber}
+          </p>
+          <p>
+            <span className="font-medium">Language:</span> {user.language}
+          </p>
+          <p>
+            <span className="font-medium">Verified:</span> {user.verified ? 'Yes' : 'No'}
+          </p>
           {user.address && (
-            <p><span className="font-medium">Location:</span> {user.address.district}, {user.address.province}</p>
+            <p>
+              <span className="font-medium">Location:</span> {user.address.district},{' '}
+              {user.address.province}
+            </p>
           )}
         </div>
 
@@ -96,9 +107,9 @@ export default function UserProfile({ showFullProfile = false, className = "" }:
             <Settings className="h-4 w-4 mr-2" />
             Settings
           </Button>
-          <Button 
-            variant="outline" 
-            size="sm" 
+          <Button
+            variant="outline"
+            size="sm"
             onClick={handleLogout}
             className="flex-1 text-red-600 border-red-300 hover:bg-red-50"
           >
@@ -127,7 +138,9 @@ export default function UserProfile({ showFullProfile = false, className = "" }:
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">{user.names}</p>
             <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
-            <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getRoleBadgeColor(user.role)} mt-1`}>
+            <span
+              className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getRoleBadgeColor(user.role)} mt-1`}
+            >
               <Shield className="h-3 w-3 mr-1" />
               {user.role}
             </span>
