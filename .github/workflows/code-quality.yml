@@ -37,7 +37,7 @@ jobs:
       - name: 💅 Prettier Check
         run: |
           echo "💅 Checking formatting..."
-          npx prettier --check "**/*.{ts,tsx,js,jsx,json,md,yml,yaml}" --ignore-path .gitignore
+          npx prettier --check "**/*.{ts,tsx,js,jsx,json,md,yml,yaml}"
 
       - name: 📊 Report Results
         if: always()
