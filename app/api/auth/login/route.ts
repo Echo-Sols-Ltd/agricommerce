@@ -22,14 +22,14 @@ export async function POST(request: NextRequest) {
       return new NextResponse(
         JSON.stringify({
           success: false,
-          message: 'Email and password are required'
+          message: 'Email and password are required',
         }),
         {
           status: 400,
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
-          }
+          },
         }
       );
     }
@@ -41,8 +41,8 @@ export async function POST(request: NextRequest) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Origin': 'http://localhost:3000',
+        Accept: 'application/json',
+        Origin: 'http://localhost:3000',
       },
       body: JSON.stringify(body),
     });
@@ -68,7 +68,6 @@ export async function POST(request: NextRequest) {
       status: response.status,
       headers,
     });
-
   } catch (error: unknown) {
     console.error('Login API error:', error);
 
@@ -78,7 +77,7 @@ export async function POST(request: NextRequest) {
       JSON.stringify({
         success: false,
         message: 'Internal server error',
-        error: errorMessage
+        error: errorMessage,
       }),
       {
         status: 500,

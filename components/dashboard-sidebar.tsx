@@ -1,10 +1,10 @@
-"use client"
+'use client';
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "@/components/theme-toggle"
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { ThemeToggle } from '@/components/theme-toggle';
 import {
   Sidebar,
   SidebarContent,
@@ -13,7 +13,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarFooter,
-} from "@/components/ui/sidebar"
+} from '@/components/ui/sidebar';
 import {
   LayoutDashboard,
   Package,
@@ -26,58 +26,58 @@ import {
   Phone,
   Settings,
   LogOut,
-} from "lucide-react"
+} from 'lucide-react';
 
 const menuItems = [
   {
-    title: "Dashboard",
-    url: "/dashboard",
+    title: 'Dashboard',
+    url: '/dashboard',
     icon: LayoutDashboard,
   },
   {
-    title: "My Products",
-    url: "/dashboard/products",
+    title: 'My Products',
+    url: '/dashboard/products',
     icon: Package,
   },
   {
-    title: "Input Request",
-    url: "/dashboard/credit",
+    title: 'Input Request',
+    url: '/dashboard/credit',
     icon: CreditCard,
   },
   {
-    title: "AI Tips",
-    url: "/dashboard/ai-tips",
+    title: 'AI Tips',
+    url: '/dashboard/ai-tips',
     icon: Lightbulb,
   },
   {
-    title: "Market Analytics",
-    url: "/dashboard/analytics",
+    title: 'Market Analytics',
+    url: '/dashboard/analytics',
     icon: BarChart3,
   },
   {
-    title: "Message",
-    url: "/dashboard/messages",
+    title: 'Message',
+    url: '/dashboard/messages',
     icon: MessageSquare,
   },
   {
-    title: "Orders",
-    url: "/dashboard/orders",
+    title: 'Orders',
+    url: '/dashboard/orders',
     icon: ShoppingCart,
   },
   {
-    title: "Profile",
-    url: "/dashboard/profile",
+    title: 'Profile',
+    url: '/dashboard/profile',
     icon: User,
   },
   {
-    title: "Contact",
-    url: "/dashboard/contact",
+    title: 'Contact',
+    url: '/dashboard/contact',
     icon: Phone,
   },
-]
+];
 
 export function DashboardSidebar() {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
     <Sidebar className="border-r">
@@ -89,14 +89,15 @@ export function DashboardSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu>
-          {menuItems.map((item) => (
+          {menuItems.map(item => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
                 asChild
                 isActive={pathname === item.url}
                 className={cn(
-                  "w-full justify-start",
-                  pathname === item.url && "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300",
+                  'w-full justify-start',
+                  pathname === item.url &&
+                    'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300'
                 )}
               >
                 <Link href={item.url}>
@@ -129,5 +130,5 @@ export function DashboardSidebar() {
         </Button>
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

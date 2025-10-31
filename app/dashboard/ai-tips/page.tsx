@@ -1,63 +1,69 @@
-"use client"
+'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { AlertTriangle, Bookmark, Eye, Send, Brain, Wheat } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { AlertTriangle, Bookmark, Eye, Send, Brain, Wheat } from 'lucide-react';
 
 const tips = [
   {
     id: 1,
-    title: "Maize Planting Tips",
-    date: "Jan 15, 2024",
+    title: 'Maize Planting Tips',
+    date: 'Jan 15, 2024',
     content:
       "Igihe cy'itemberere rya ibigori ni ukwezi kwa mbere rugira inyungu y'amazi menshi. Kuraguza ubutaka bwawe kandi ushyire ifumbire y'ibinyobwa byawe kugira ngo ubone umusaruro mwiza.",
-    category: "Planting",
-    subcategory: "Maize",
-    views: "234 views",
+    category: 'Planting',
+    subcategory: 'Maize',
+    views: '234 views',
     bookmarked: true,
   },
   {
     id: 2,
-    title: "Bean Fertilizer Application",
-    date: "Jan 14, 2024",
+    title: 'Bean Fertilizer Application',
+    date: 'Jan 14, 2024',
     content:
       "Ibibabi bifite ubushobozi bwo gufata azote mu kirere. Ntushyire ifumbire y'azote nyinshi y'azote ariko ushyire phosphorus na potassium. Byongera umusaruro w'ibibabi byawe.",
-    category: "Fertilizing",
-    subcategory: "Beans",
-    views: "189 views",
+    category: 'Fertilizing',
+    subcategory: 'Beans',
+    views: '189 views',
     bookmarked: false,
   },
   {
     id: 3,
-    title: "Potato Pest Control",
-    date: "Jan 13, 2024",
+    title: 'Potato Pest Control',
+    date: 'Jan 13, 2024',
     content:
       "Reba neza amababi y'ibirayi kugira ngo ubone udukoko duto. Koresha imiti y'ibinyobwa cyangwa ubufite ubushobozi bwo kurwanya udukoko duto. Kuraguza ubufite bwanyu buri cyumweru.",
-    category: "Pest Control",
-    subcategory: "Potatoes",
-    views: "156 views",
+    category: 'Pest Control',
+    subcategory: 'Potatoes',
+    views: '156 views',
     bookmarked: false,
   },
   {
     id: 4,
-    title: "Water Management for Maize",
-    date: "Jan 12, 2024",
+    title: 'Water Management for Maize',
+    date: 'Jan 12, 2024',
     content:
       "Ibigori bikeneye amazi menshi mu gihe cy'itemberere. Koresha uburyo bwo kubika amazi kandi utitondere amazi menshi mu gihe cy'umusaruro. Koresha uburyo bwo kubika amazi.",
-    category: "Irrigation",
-    subcategory: "Maize",
-    views: "203 views",
+    category: 'Irrigation',
+    subcategory: 'Maize',
+    views: '203 views',
     bookmarked: true,
   },
-]
+];
 
 const savedTips = [
-  { title: "Bean Fertilizer", date: "Jan 14" },
-  { title: "Maize Planting", date: "Jan 10" },
-]
+  { title: 'Bean Fertilizer', date: 'Jan 14' },
+  { title: 'Maize Planting', date: 'Jan 10' },
+];
 
 export default function AITips() {
   return (
@@ -110,9 +116,12 @@ export default function AITips() {
           <div className="flex items-start gap-3">
             <AlertTriangle className="h-5 w-5 text-orange-600 mt-0.5" />
             <div className="flex-1">
-              <h3 className="font-semibold text-orange-900 dark:text-orange-100">Urgent Weather Alert</h3>
+              <h3 className="font-semibold text-orange-900 dark:text-orange-100">
+                Urgent Weather Alert
+              </h3>
               <p className="text-sm text-orange-800 dark:text-orange-200 mt-1">
-                Imvura nyinshi itegerejwe mu minsi 3 iri imbere. Kuraguza ibigori byawe kandi witondere amazi udukoko.
+                Imvura nyinshi itegerejwe mu minsi 3 iri imbere. Kuraguza ibigori byawe kandi
+                witondere amazi udukoko.
               </p>
             </div>
             <div className="text-right">
@@ -126,7 +135,7 @@ export default function AITips() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Tips List */}
         <div className="lg:col-span-2 space-y-4">
-          {tips.map((tip) => (
+          {tips.map(tip => (
             <Card key={tip.id}>
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-3">
@@ -140,7 +149,9 @@ export default function AITips() {
                     </div>
                   </div>
                   <Button variant="ghost" size="sm">
-                    <Bookmark className={`h-4 w-4 ${tip.bookmarked ? "fill-current text-yellow-600" : ""}`} />
+                    <Bookmark
+                      className={`h-4 w-4 ${tip.bookmarked ? 'fill-current text-yellow-600' : ''}`}
+                    />
                   </Button>
                 </div>
 
@@ -199,7 +210,10 @@ export default function AITips() {
             </CardHeader>
             <CardContent className="space-y-3">
               {savedTips.map((tip, index) => (
-                <div key={index} className="flex items-center gap-3 p-2 bg-green-50 dark:bg-green-950/20 rounded">
+                <div
+                  key={index}
+                  className="flex items-center gap-3 p-2 bg-green-50 dark:bg-green-950/20 rounded"
+                >
                   <div className="w-2 h-2 bg-green-600 rounded-full"></div>
                   <div className="flex-1">
                     <p className="font-medium text-sm">{tip.title}</p>
@@ -236,5 +250,5 @@ export default function AITips() {
         </div>
       </div>
     </div>
-  )
+  );
 }

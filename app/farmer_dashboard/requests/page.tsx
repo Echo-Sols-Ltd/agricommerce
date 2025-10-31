@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 import {
   LayoutGrid,
   FilePlus,
@@ -14,85 +14,133 @@ import {
   Package,
   Leaf,
   ChevronDown,
-  X
-} from "lucide-react";
-import Link from "next/link";
+  X,
+} from 'lucide-react';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const Dashboard = () => {
   const pathname = usePathname();
-  
+
   const requests = [
     {
-      id: "00001",
-      name: "Christina Brooks",
-      address: "089 Kutch Green Apt. 448",
-      date: "04 Sep 2019",
-      formInput: "NPK Fertilizer",
-      status: "Completed",
+      id: '00001',
+      name: 'Christina Brooks',
+      address: '089 Kutch Green Apt. 448',
+      date: '04 Sep 2019',
+      formInput: 'NPK Fertilizer',
+      status: 'Completed',
     },
     {
-      id: "00002",
-      name: "Rosie Pearson",
-      address: "979 Immanuel Ferry Suite 526",
-      date: "28 May 2019",
-      formInput: "Maize Seeds",
-      status: "Processing",
+      id: '00002',
+      name: 'Rosie Pearson',
+      address: '979 Immanuel Ferry Suite 526',
+      date: '28 May 2019',
+      formInput: 'Maize Seeds',
+      status: 'Processing',
     },
     {
-      id: "00003",
-      name: "Darrell Caldwell",
-      address: "8587 Frida Ports",
-      date: "23 Nov 2019",
-      formInput: "NPK Fertilizer",
-      status: "Rejected",
+      id: '00003',
+      name: 'Darrell Caldwell',
+      address: '8587 Frida Ports',
+      date: '23 Nov 2019',
+      formInput: 'NPK Fertilizer',
+      status: 'Rejected',
     },
     {
-      id: "00004",
-      name: "Gilbert Johnston",
-      address: "768 Destiny Lake Suite 600",
-      date: "05 Feb 2019",
-      formInput: "Maize Seeds",
-      status: "Completed",
+      id: '00004',
+      name: 'Gilbert Johnston',
+      address: '768 Destiny Lake Suite 600',
+      date: '05 Feb 2019',
+      formInput: 'Maize Seeds',
+      status: 'Completed',
     },
     {
-      id: "00005",
-      name: "Alan Cain",
-      address: "042 Mylene Throughway",
-      date: "29 Jul 2019",
-      formInput: "Tomato Seeds",
-      status: "Processing",
+      id: '00005',
+      name: 'Alan Cain',
+      address: '042 Mylene Throughway',
+      date: '29 Jul 2019',
+      formInput: 'Tomato Seeds',
+      status: 'Processing',
     },
   ];
 
   const menuItems = [
-    { label: "Dashboard", href: "/farmer_dashboard", icon: LayoutGrid },
-    { label: "Products", href: "/farmer_dashboard/products", icon: Package },
-    { label: "Input Request", href: "/farmer_dashboard/requests", icon: FilePlus },
-    { label: "AI Tips", href: "/farmer_dashboard/ai", icon: MessageSquare },
-    { label: "Market Analytics", href: "/farmer_dashboard/market_analysis", icon: BarChart2 },
-    { label: "Messages", href: "/farmer_dashboard/message", icon: Mail },
-    { label: "Notifications", href: "/farmer_dashboard/notifications", icon: Bell },
-    { label: "Profile", href: "/farmer_dashboard/profile", icon: User },
-    { label: "Orders", href: "/farmer_dashboard/orders", icon: ShoppingCart },
-    { label: "Settings", href: "/farmer_dashboard/settings", icon: Settings },
+    { label: 'Dashboard', href: '/farmer_dashboard', icon: LayoutGrid },
+    { label: 'Products', href: '/farmer_dashboard/products', icon: Package },
+    { label: 'Input Request', href: '/farmer_dashboard/requests', icon: FilePlus },
+    { label: 'AI Tips', href: '/farmer_dashboard/ai', icon: MessageSquare },
+    { label: 'Market Analytics', href: '/farmer_dashboard/market_analysis', icon: BarChart2 },
+    { label: 'Messages', href: '/farmer_dashboard/message', icon: Mail },
+    { label: 'Notifications', href: '/farmer_dashboard/notifications', icon: Bell },
+    { label: 'Profile', href: '/farmer_dashboard/profile', icon: User },
+    { label: 'Orders', href: '/farmer_dashboard/orders', icon: ShoppingCart },
+    { label: 'Settings', href: '/farmer_dashboard/settings', icon: Settings },
   ];
 
   const products = [
-    { id: 1, name: "NPK Fertilizer", price: "$320.4", stock: "Stock 321", image: "/npk-fertilizer.png" },
-    { id: 2, name: "NPK Fertilizer", price: "$320.4", stock: "Stock 321", image: "/npk-fertilizer.png" },
-    { id: 3, name: "NPK Fertilizer", price: "$320.4", stock: "Stock 321", image: "/npk-fertilizer.png" },
-    { id: 4, name: "NPK Fertilizer", price: "$320.4", stock: "Stock 321", image: "/npk-fertilizer.png" },
-    { id: 5, name: "NPK Fertilizer", price: "$320.4", stock: "Stock 321", image: "/npk-fertilizer.png" },
-    { id: 6, name: "NPK Fertilizer", price: "$320.4", stock: "Stock 321", image: "/npk-fertilizer.png" },
-    { id: 7, name: "NPK Fertilizer", price: "$320.4", stock: "Stock 321", image: "/npk-fertilizer.png" },
-    { id: 8, name: "NPK Fertilizer", price: "$320.4", stock: "Stock 321", image: "/npk-fertilizer.png" },
+    {
+      id: 1,
+      name: 'NPK Fertilizer',
+      price: '$320.4',
+      stock: 'Stock 321',
+      image: '/npk-fertilizer.png',
+    },
+    {
+      id: 2,
+      name: 'NPK Fertilizer',
+      price: '$320.4',
+      stock: 'Stock 321',
+      image: '/npk-fertilizer.png',
+    },
+    {
+      id: 3,
+      name: 'NPK Fertilizer',
+      price: '$320.4',
+      stock: 'Stock 321',
+      image: '/npk-fertilizer.png',
+    },
+    {
+      id: 4,
+      name: 'NPK Fertilizer',
+      price: '$320.4',
+      stock: 'Stock 321',
+      image: '/npk-fertilizer.png',
+    },
+    {
+      id: 5,
+      name: 'NPK Fertilizer',
+      price: '$320.4',
+      stock: 'Stock 321',
+      image: '/npk-fertilizer.png',
+    },
+    {
+      id: 6,
+      name: 'NPK Fertilizer',
+      price: '$320.4',
+      stock: 'Stock 321',
+      image: '/npk-fertilizer.png',
+    },
+    {
+      id: 7,
+      name: 'NPK Fertilizer',
+      price: '$320.4',
+      stock: 'Stock 321',
+      image: '/npk-fertilizer.png',
+    },
+    {
+      id: 8,
+      name: 'NPK Fertilizer',
+      price: '$320.4',
+      stock: 'Stock 321',
+      image: '/npk-fertilizer.png',
+    },
   ];
 
   const statusStyles = {
-    Completed: "text-green-700 bg-green-100",
-    Processing: "text-blue-700 bg-blue-100",
-    Rejected: "text-red-700 bg-red-100",
+    Completed: 'text-green-700 bg-green-100',
+    Processing: 'text-blue-700 bg-blue-100',
+    Rejected: 'text-red-700 bg-red-100',
   };
 
   const Logo = () => (
@@ -100,9 +148,7 @@ const Dashboard = () => {
       <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center mr-3">
         <Leaf className="w-5 h-5 text-green-600" />
       </div>
-      <span className="font-bold text-xl text-white">
-        UmuhinziLink
-      </span>
+      <span className="font-bold text-xl text-white">UmuhinziLink</span>
     </div>
   );
 
@@ -121,12 +167,9 @@ const Dashboard = () => {
                 <Link href={item.href} className="block">
                   <div
                     className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all text-sm font-medium
-                      ${isActive
-                        ? "bg-white text-green-600 shadow-sm rounded-lg"
-                        : "text-white"
-                      }`}
+                      ${isActive ? 'bg-white text-green-600 shadow-sm rounded-lg' : 'text-white'}`}
                   >
-                    <Icon className={`w-5 h-5 ${isActive ? "text-green-600" : "text-white"}`} />
+                    <Icon className={`w-5 h-5 ${isActive ? 'text-green-600' : 'text-white'}`} />
                     <span>{item.label}</span>
                   </div>
                 </Link>
@@ -183,18 +226,23 @@ const Dashboard = () => {
             </div>
             <div className="flex items-center space-x-2">
               <span className="text-sm text-gray-600">Filter</span>
-              <button className="bg-green-500 text-white px-3 py-1 rounded text-sm">
-                Filter
-              </button>
+              <button className="bg-green-500 text-white px-3 py-1 rounded text-sm">Filter</button>
             </div>
           </div>
 
           {/* Products Grid */}
           <div className="grid grid-cols-4 gap-6 mb-8">
-            {products.map((product) => (
-              <div key={product.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            {products.map(product => (
+              <div
+                key={product.id}
+                className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+              >
                 <div className="aspect-square bg-gray-50 flex items-center justify-center p-4">
-                  <img src={product.image} alt={product.name} className="w-full h-full object-contain" />
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <div className="p-4">
                   <h3 className="font-semibold text-gray-900 mb-1">{product.name}</h3>
@@ -221,15 +269,23 @@ const Dashboard = () => {
                   <tr className="text-left bg-gray-50">
                     <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">ID</th>
                     <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">NAME</th>
-                    <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">ADDRESS</th>
+                    <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">
+                      ADDRESS
+                    </th>
                     <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">DATE</th>
-                    <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">Form Input</th>
-                    <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">STATUS</th>
-                    <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">ACTION</th>
+                    <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">
+                      Form Input
+                    </th>
+                    <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">
+                      STATUS
+                    </th>
+                    <th className="px-6 py-3 text-sm font-medium text-gray-500 uppercase">
+                      ACTION
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {requests.map((request) => (
+                  {requests.map(request => (
                     <tr key={request.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 text-sm font-medium text-gray-900">{request.id}</td>
                       <td className="px-6 py-4 text-sm text-gray-900">{request.name}</td>
@@ -237,9 +293,11 @@ const Dashboard = () => {
                       <td className="px-6 py-4 text-sm text-gray-600">{request.date}</td>
                       <td className="px-6 py-4 text-sm text-gray-900">{request.formInput}</td>
                       <td className="px-6 py-4">
-                        <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
-                          statusStyles[request.status as keyof typeof statusStyles]
-                        }`}>
+                        <span
+                          className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
+                            statusStyles[request.status as keyof typeof statusStyles]
+                          }`}
+                        >
                           {request.status}
                         </span>
                       </td>

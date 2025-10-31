@@ -1,6 +1,6 @@
 // /pages/buyer_dashboard/contact.tsx
-"use client";
-import Link from "next/link";
+'use client';
+import Link from 'next/link';
 import {
   Mail,
   Phone,
@@ -13,7 +13,7 @@ import {
   LogOut,
   CheckCircle,
   User,
-} from "lucide-react";
+} from 'lucide-react';
 
 const Logo = () => (
   <span className="font-extrabold text-2xl tracking-tight">
@@ -23,15 +23,15 @@ const Logo = () => (
 );
 
 const menuItems = [
-  { label: "Dashboard", href: "/buyer_dashboard", icon: CheckCircle },
-  { label: "Browse Produce", href: "/buyer_dashboard/browse", icon: LayoutGrid },
-  { label: "My Orders", href: "/buyer_dashboard/orders", icon: ShoppingCart },
-  { label: "Requests", href: "/buyer_dashboard/requests", icon: FilePlus },
-  { label: "Messages", href: "/messages", icon: MessageSquare },
-  { label: "Profile", href: "/buyer_dashboard/profile", icon: User },
-  { label: "Contact", href: "/buyer_dashboard/contact", icon: Mail },
-  { label: "Settings", href: "/buyer_dashboard/settings", icon: Settings },
-  { label: "Logout", href: "/logout", icon: LogOut },
+  { label: 'Dashboard', href: '/buyer_dashboard', icon: CheckCircle },
+  { label: 'Browse Produce', href: '/buyer_dashboard/browse', icon: LayoutGrid },
+  { label: 'My Orders', href: '/buyer_dashboard/orders', icon: ShoppingCart },
+  { label: 'Requests', href: '/buyer_dashboard/requests', icon: FilePlus },
+  { label: 'Messages', href: '/messages', icon: MessageSquare },
+  { label: 'Profile', href: '/buyer_dashboard/profile', icon: User },
+  { label: 'Contact', href: '/buyer_dashboard/contact', icon: Mail },
+  { label: 'Settings', href: '/buyer_dashboard/settings', icon: Settings },
+  { label: 'Logout', href: '/logout', icon: LogOut },
 ];
 
 export default function ContactPage() {
@@ -47,7 +47,7 @@ export default function ContactPage() {
         <aside className="w-64 bg-white border-r flex flex-col fixed left-0 top-16 h-[calc(100vh-4rem)] overflow-y-auto">
           <nav className="flex-1 px-4 space-y-2 mt-4">
             {menuItems.map((m, index) => {
-              const isActive = m.label === "Contact";
+              const isActive = m.label === 'Contact';
               const showDivider = index === 4 || index === 8;
               return (
                 <div key={m.label}>
@@ -55,21 +55,15 @@ export default function ContactPage() {
                     <div
                       className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all text-sm font-medium ${
                         isActive
-                          ? "bg-green-600 text-white shadow-sm"
-                          : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                          ? 'bg-green-600 text-white shadow-sm'
+                          : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                       }`}
                     >
-                      <m.icon
-                        className={`w-5 h-5 ${
-                          isActive ? "text-white" : "text-gray-500"
-                        }`}
-                      />
+                      <m.icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-gray-500'}`} />
                       <span>{m.label}</span>
                     </div>
                   </Link>
-                  {showDivider && (
-                    <div className="border-t border-gray-200 my-2 mx-4"></div>
-                  )}
+                  {showDivider && <div className="border-t border-gray-200 my-2 mx-4"></div>}
                 </div>
               );
             })}
@@ -84,12 +78,10 @@ export default function ContactPage() {
             {/* Contact Info */}
             <div className="bg-white rounded-xl shadow-sm border p-6 space-y-6">
               <div>
-                <h2 className="text-lg font-semibold text-gray-800 mb-2">
-                  Get in Touch
-                </h2>
+                <h2 className="text-lg font-semibold text-gray-800 mb-2">Get in Touch</h2>
                 <p className="text-gray-600">
-                  Have questions or need help? You can reach us through any of
-                  the following methods:
+                  Have questions or need help? You can reach us through any of the following
+                  methods:
                 </p>
               </div>
 
@@ -109,14 +101,10 @@ export default function ContactPage() {
 
             {/* Contact Form */}
             <form className="bg-white rounded-xl shadow-sm border p-6 space-y-4">
-              <h2 className="text-lg font-semibold text-gray-800 mb-2">
-                Send us a Message
-              </h2>
+              <h2 className="text-lg font-semibold text-gray-800 mb-2">Send us a Message</h2>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Your Name
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Your Name</label>
                 <input
                   type="text"
                   className="mt-1 w-full border px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-green-300"
@@ -125,9 +113,7 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Your Email
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Your Email</label>
                 <input
                   type="email"
                   className="mt-1 w-full border px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-green-300"
@@ -136,9 +122,7 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Subject
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Subject</label>
                 <input
                   type="text"
                   className="mt-1 w-full border px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-green-300"
@@ -147,9 +131,7 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Message
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Message</label>
                 <textarea
                   rows={4}
                   className="mt-1 w-full border px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-green-300"

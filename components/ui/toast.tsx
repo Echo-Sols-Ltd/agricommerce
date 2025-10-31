@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { Toaster as HotToaster, ToastBar, toast as hotToast, ToastOptions } from 'react-hot-toast';
 import { X, CheckCircle, AlertCircle, Info } from 'lucide-react';
@@ -25,11 +25,7 @@ export const ToastDescription = ({ children }: { children: ReactNode }) => (
 
 const ToastClose = React.forwardRef<HTMLButtonElement, React.ComponentPropsWithoutRef<'button'>>(
   ({ className, ...props }, ref) => (
-    <button
-      ref={ref}
-      className={className}
-      {...props}
-    >
+    <button ref={ref} className={className} {...props}>
       <span className="sr-only">Close</span>
       <X className="h-5 w-5" />
     </button>
@@ -50,13 +46,7 @@ const ToastActionElement = React.forwardRef<
     altText: string;
   }
 >(({ className, altText, ...props }, ref) => (
-  <Button
-    ref={ref}
-    className={className}
-    variant="outline"
-    size="sm"
-    {...props}
-  >
+  <Button ref={ref} className={className} variant="outline" size="sm" {...props}>
     {altText}
   </Button>
 ));
@@ -100,7 +90,9 @@ export const Toaster = () => {
           },
         },
         loading: {
-          icon: <div className="h-5 w-5 animate-spin rounded-full border-2 border-blue-500 border-t-transparent" />,
+          icon: (
+            <div className="h-5 w-5 animate-spin rounded-full border-2 border-blue-500 border-t-transparent" />
+          ),
           style: {
             background: '#eff6ff',
             color: '#1e40af',
@@ -115,7 +107,7 @@ export const Toaster = () => {
         },
       }}
     >
-      {(t) => (
+      {t => (
         <ToastBar toast={t}>
           {({ icon, message }) => (
             <div className="flex items-start">
@@ -148,7 +140,9 @@ export const Toaster = () => {
 // For backward compatibility
 export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   React.useEffect(() => {
-    console.warn('ToastProvider is deprecated. Use the `toast` function directly from `components/ui/toast`.');
+    console.warn(
+      'ToastProvider is deprecated. Use the `toast` function directly from `components/ui/toast`.'
+    );
   }, []);
 
   return <>{children}</>;

@@ -1,10 +1,21 @@
-
-"use client";
+'use client';
 
 import { usePathname } from 'next/navigation';
 import {
-  LayoutGrid, MessageSquare, Settings, FilePlus, BarChart2, ShoppingCart, User, Mail, Bell, Package, ChevronLeft, ChevronRight, Star,
-  Leaf
+  LayoutGrid,
+  MessageSquare,
+  Settings,
+  FilePlus,
+  BarChart2,
+  ShoppingCart,
+  User,
+  Mail,
+  Bell,
+  Package,
+  ChevronLeft,
+  ChevronRight,
+  Star,
+  Leaf,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -22,21 +33,126 @@ const menuItems = [
 ];
 
 const products = [
-  { id: 1, name: 'Fresh Spinach', category: 'Fresh Vegetables', price: '2.50', rating: 4.5, image: '/spinach.png' },
-  { id: 2, name: 'Fresh Tomatoes', category: 'Fresh Vegetables', price: '3.00', rating: 4.8, image: '/tomatoes.png' },
-  { id: 3, name: 'Fresh Tomatoes', category: 'Fresh Vegetables', price: '3.00', rating: 4.6, image: '/tomatoes.png' },
-  { id: 4, name: 'Fresh Tomatoes', category: 'Fresh Vegetables', price: '3.00', rating: 4.7, image: '/tomatoes.png' },
-  { id: 5, name: 'Fresh Tomatoes', category: 'Fresh Vegetables', price: '3.00', rating: 4.9, image: '/tomatoes.png' },
-  { id: 6, name: 'Fresh Spinach', category: 'Fresh Vegetables', price: '2.50', rating: 4.5, image: '/spinach.png' },
-  { id: 7, name: 'Fresh Tomatoes', category: 'Fresh Vegetables', price: '3.00', rating: 4.8, image: '/tomatoes.png' },
-  { id: 8, name: 'Fresh Tomatoes', category: 'Fresh Vegetables', price: '3.00', rating: 4.6, image: '/tomatoes.png' },
-  { id: 9, name: 'Fresh Tomatoes', category: 'Fresh Vegetables', price: '3.00', rating: 4.7, image: '/tomatoes.png' },
-  { id: 10, name: 'Fresh Tomatoes', category: 'Fresh Vegetables', price: '3.00', rating: 4.9, image: '/tomatoes.png' },
-  { id: 11, name: 'Fresh Spinach', category: 'Fresh Vegetables', price: '2.50', rating: 4.5, image: '/spinach.png' },
-  { id: 12, name: 'Fresh Tomatoes', category: 'Fresh Vegetables', price: '3.00', rating: 4.8, image: '/tomatoes.png' },
-  { id: 13, name: 'Fresh Tomatoes', category: 'Fresh Vegetables', price: '3.00', rating: 4.6, image: '/tomatoes.png' },
-  { id: 14, name: 'Fresh Tomatoes', category: 'Fresh Vegetables', price: '3.00', rating: 4.7, image: '/tomatoes.png' },
-  { id: 15, name: 'Fresh Tomatoes', category: 'Fresh Vegetables', price: '3.00', rating: 4.9, image: '/tomatoes.png' }
+  {
+    id: 1,
+    name: 'Fresh Spinach',
+    category: 'Fresh Vegetables',
+    price: '2.50',
+    rating: 4.5,
+    image: '/spinach.png',
+  },
+  {
+    id: 2,
+    name: 'Fresh Tomatoes',
+    category: 'Fresh Vegetables',
+    price: '3.00',
+    rating: 4.8,
+    image: '/tomatoes.png',
+  },
+  {
+    id: 3,
+    name: 'Fresh Tomatoes',
+    category: 'Fresh Vegetables',
+    price: '3.00',
+    rating: 4.6,
+    image: '/tomatoes.png',
+  },
+  {
+    id: 4,
+    name: 'Fresh Tomatoes',
+    category: 'Fresh Vegetables',
+    price: '3.00',
+    rating: 4.7,
+    image: '/tomatoes.png',
+  },
+  {
+    id: 5,
+    name: 'Fresh Tomatoes',
+    category: 'Fresh Vegetables',
+    price: '3.00',
+    rating: 4.9,
+    image: '/tomatoes.png',
+  },
+  {
+    id: 6,
+    name: 'Fresh Spinach',
+    category: 'Fresh Vegetables',
+    price: '2.50',
+    rating: 4.5,
+    image: '/spinach.png',
+  },
+  {
+    id: 7,
+    name: 'Fresh Tomatoes',
+    category: 'Fresh Vegetables',
+    price: '3.00',
+    rating: 4.8,
+    image: '/tomatoes.png',
+  },
+  {
+    id: 8,
+    name: 'Fresh Tomatoes',
+    category: 'Fresh Vegetables',
+    price: '3.00',
+    rating: 4.6,
+    image: '/tomatoes.png',
+  },
+  {
+    id: 9,
+    name: 'Fresh Tomatoes',
+    category: 'Fresh Vegetables',
+    price: '3.00',
+    rating: 4.7,
+    image: '/tomatoes.png',
+  },
+  {
+    id: 10,
+    name: 'Fresh Tomatoes',
+    category: 'Fresh Vegetables',
+    price: '3.00',
+    rating: 4.9,
+    image: '/tomatoes.png',
+  },
+  {
+    id: 11,
+    name: 'Fresh Spinach',
+    category: 'Fresh Vegetables',
+    price: '2.50',
+    rating: 4.5,
+    image: '/spinach.png',
+  },
+  {
+    id: 12,
+    name: 'Fresh Tomatoes',
+    category: 'Fresh Vegetables',
+    price: '3.00',
+    rating: 4.8,
+    image: '/tomatoes.png',
+  },
+  {
+    id: 13,
+    name: 'Fresh Tomatoes',
+    category: 'Fresh Vegetables',
+    price: '3.00',
+    rating: 4.6,
+    image: '/tomatoes.png',
+  },
+  {
+    id: 14,
+    name: 'Fresh Tomatoes',
+    category: 'Fresh Vegetables',
+    price: '3.00',
+    rating: 4.7,
+    image: '/tomatoes.png',
+  },
+  {
+    id: 15,
+    name: 'Fresh Tomatoes',
+    category: 'Fresh Vegetables',
+    price: '3.00',
+    rating: 4.9,
+    image: '/tomatoes.png',
+  },
 ];
 
 export default function Products() {
@@ -47,9 +163,7 @@ export default function Products() {
       <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center mr-3">
         <Leaf className="w-5 h-5 text-green-600" />
       </div>
-      <span className="font-bold text-xl text-white">
-        UmuhinziLink
-      </span>
+      <span className="font-bold text-xl text-white">UmuhinziLink</span>
     </div>
   );
 
@@ -68,12 +182,9 @@ export default function Products() {
                 <Link href={item.href} className="block">
                   <div
                     className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all text-sm font-medium
-                      ${isActive
-                        ? "bg-white text-green-600 shadow-sm rounded-lg"
-                        : "text-white"
-                      }`}
+                      ${isActive ? 'bg-white text-green-600 shadow-sm rounded-lg' : 'text-white'}`}
                   >
-                    <Icon className={`w-5 h-5 ${isActive ? "text-green-600" : "text-white"}`} />
+                    <Icon className={`w-5 h-5 ${isActive ? 'text-green-600' : 'text-white'}`} />
                     <span>{item.label}</span>
                   </div>
                 </Link>
@@ -120,10 +231,17 @@ export default function Products() {
 
           {/* Products Grid */}
           <div className="grid grid-cols-5 gap-6">
-            {products.map((product) => (
-              <div key={product.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+            {products.map(product => (
+              <div
+                key={product.id}
+                className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow"
+              >
                 <div className="aspect-square bg-gray-50 flex items-center justify-center p-4">
-                  <img src={product.image} alt={product.name} className="w-full h-full object-contain" />
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <div className="p-4">
                   <h3 className="font-semibold text-gray-900 mb-1">{product.name}</h3>

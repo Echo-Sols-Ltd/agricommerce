@@ -8,21 +8,16 @@ export default function Hero() {
         {/* Text Section */}
         <div>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
-            Connect Farmers to{" "}
-            <span className="text-green-600">Digital Markets</span>
+            Connect Farmers to <span className="text-green-600">Digital Markets</span>
           </h1>
           <p className="mt-4 text-gray-700 max-w-lg">
-            Empowering smallholder farmers in Rwanda with Technology to access
-            markets, get AI-powered farming advice and secure agricultural
-            loans
+            Empowering smallholder farmers in Rwanda with Technology to access markets, get
+            AI-powered farming advice and secure agricultural loans
           </p>
 
           {/* Buttons */}
           <div className="mt-6 flex space-x-4">
-            <a
-              href="#"
-              className="bg-green-600 text-white px-5 py-2 rounded-md hover:bg-green-700"
-            >
+            <a href="#" className="bg-green-600 text-white px-5 py-2 rounded-md hover:bg-green-700">
               Get Started
             </a>
             <a
@@ -50,7 +45,6 @@ export default function Hero() {
           </div>
         </div>
 
-       
         <div className="flex justify-center">
           <div className="relative w-full h-64 md:h-96">
             <Image

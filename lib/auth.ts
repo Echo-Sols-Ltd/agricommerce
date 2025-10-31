@@ -16,7 +16,7 @@ export interface User {
   } | null;
   phoneNumber: string;
   password: string;
-  role: "BUYER" | "FARMER" | "SUPPLIER";
+  role: 'BUYER' | 'FARMER' | 'SUPPLIER';
 }
 
 export interface AuthData {
@@ -38,29 +38,29 @@ export interface RegisterResponse {
 
 // Role-based dashboard routes
 export const DASHBOARD_ROUTES = {
-  BUYER: "/buyer_dashboard",
-  FARMER: "/farmer_dashboard", 
-  SUPPLIER: "/supplier_dashboard"
+  BUYER: '/buyer_dashboard',
+  FARMER: '/farmer_dashboard',
+  SUPPLIER: '/supplier_dashboard',
 } as const;
 
 // Authentication storage keys
 export const AUTH_KEYS = {
-  TOKEN: "authToken",
-  USER: "user", 
-  ROLE: "userRole"
+  TOKEN: 'authToken',
+  USER: 'user',
+  ROLE: 'userRole',
 } as const;
 
 /**
  * Get the current user from localStorage
  */
 export function getCurrentUser(): User | null {
-  if (typeof window === "undefined") return null;
-  
+  if (typeof window === 'undefined') return null;
+
   try {
     const userStr = localStorage.getItem(AUTH_KEYS.USER);
     return userStr ? JSON.parse(userStr) : null;
   } catch (error) {
-    console.error("Error parsing user data:", error);
+    console.error('Error parsing user data:', error);
     return null;
   }
 }
@@ -69,16 +69,16 @@ export function getCurrentUser(): User | null {
  * Get the current auth token from localStorage
  */
 export function getAuthToken(): string | null {
-  if (typeof window === "undefined") return null;
+  if (typeof window === 'undefined') return null;
   return localStorage.getItem(AUTH_KEYS.TOKEN);
 }
 
 /**
  * Get the current user role from localStorage
  */
-export function getUserRole(): User["role"] | null {
-  if (typeof window === "undefined") return null;
-  return localStorage.getItem(AUTH_KEYS.ROLE) as User["role"] | null;
+export function getUserRole(): User['role'] | null {
+  if (typeof window === 'undefined') return null;
+  return localStorage.getItem(AUTH_KEYS.ROLE) as User['role'] | null;
 }
 
 /**
@@ -92,8 +92,8 @@ export function isAuthenticated(): boolean {
  * Store authentication data in localStorage
  */
 export function storeAuthData(authData: AuthData): void {
-  if (typeof window === "undefined") return;
-  
+  if (typeof window === 'undefined') return;
+
   localStorage.setItem(AUTH_KEYS.TOKEN, authData.token);
   localStorage.setItem(AUTH_KEYS.USER, JSON.stringify(authData.user));
   localStorage.setItem(AUTH_KEYS.ROLE, authData.user.role);
@@ -103,8 +103,8 @@ export function storeAuthData(authData: AuthData): void {
  * Clear all authentication data from localStorage
  */
 export function clearAuthData(): void {
-  if (typeof window === "undefined") return;
-  
+  if (typeof window === 'undefined') return;
+
   localStorage.removeItem(AUTH_KEYS.TOKEN);
   localStorage.removeItem(AUTH_KEYS.USER);
   localStorage.removeItem(AUTH_KEYS.ROLE);
@@ -113,14 +113,14 @@ export function clearAuthData(): void {
 /**
  * Get the dashboard route for a specific role
  */
-export function getDashboardRoute(role: User["role"]): string {
+export function getDashboardRoute(role: User['role']): string {
   return DASHBOARD_ROUTES[role] || DASHBOARD_ROUTES.FARMER;
 }
 
 /**
  * Check if user has a specific role
  */
-export function hasRole(role: User["role"]): boolean {
+export function hasRole(role: User['role']): boolean {
   const userRole = getUserRole();
   return userRole === role;
 }
@@ -128,7 +128,7 @@ export function hasRole(role: User["role"]): boolean {
 /**
  * Check if user has any of the specified roles
  */
-export function hasAnyRole(roles: User["role"][]): boolean {
+export function hasAnyRole(roles: User['role'][]): boolean {
   const userRole = getUserRole();
   return userRole ? roles.includes(userRole) : false;
 }
@@ -136,14 +136,17 @@ export function hasAnyRole(roles: User["role"][]): boolean {
 /**
  * Redirect to appropriate dashboard based on user role
  */
-export function redirectToDashboard(router: { push: (path: string) => void }, role?: User["role"]): void {
+export function redirectToDashboard(
+  router: { push: (path: string) => void },
+  role?: User['role']
+): void {
   const userRole = role || getUserRole();
   if (!userRole) {
-    console.warn("No role found, redirecting to farmer dashboard");
+    console.warn('No role found, redirecting to farmer dashboard');
     router.push(DASHBOARD_ROUTES.FARMER);
     return;
   }
-  
+
   const dashboardRoute = getDashboardRoute(userRole);
   console.log(`Redirecting to ${dashboardRoute} for role: ${userRole}`);
   router.push(dashboardRoute);
@@ -153,13 +156,13 @@ export function redirectToDashboard(router: { push: (path: string) => void }, ro
  * Logout user and clear all authentication data
  */
 export function logout(router?: { push: (path: string) => void }): void {
-  console.log("Logging out user");
+  console.log('Logging out user');
   clearAuthData();
-  
+
   if (router) {
-    router.push("/signin?logout=true");
-  } else if (typeof window !== "undefined") {
-    window.location.href = "/signin?logout=true";
+    router.push('/signin?logout=true');
+  } else if (typeof window !== 'undefined') {
+    window.location.href = '/signin?logout=true';
   }
 }
 
@@ -167,18 +170,18 @@ export function logout(router?: { push: (path: string) => void }): void {
  * Make authenticated API request with token
  */
 export async function authenticatedFetch(
-  url: string, 
+  url: string,
   options: RequestInit = {}
 ): Promise<Response> {
   const token = getAuthToken();
-  
+
   if (!token) {
-    throw new Error("No authentication token found");
+    throw new Error('No authentication token found');
   }
 
   const headers = {
     ...options.headers,
-    'Authorization': `Bearer ${token}`,
+    Authorization: `Bearer ${token}`,
     'Content-Type': 'application/json',
   };
 
@@ -193,7 +196,7 @@ export async function authenticatedFetch(
  */
 export async function refreshToken(): Promise<boolean> {
   // TODO: Implement token refresh logic when backend supports it
-  console.warn("Token refresh not implemented yet");
+  console.warn('Token refresh not implemented yet');
   return false;
 }
 
@@ -210,7 +213,7 @@ export function isTokenExpired(): boolean {
     const currentTime = Date.now() / 1000;
     return payload.exp < currentTime;
   } catch (error) {
-    console.error("Error checking token expiration:", error);
+    console.error('Error checking token expiration:', error);
     return true;
   }
 }

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { toast as hotToast, ToastOptions } from 'react-hot-toast';
 

@@ -1,10 +1,9 @@
-"use client";
+'use client';
 
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300 py-20">
       <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-6">
-        
         {/* Logo and  Description */}
         <div>
           <p className="font-bold text-white">🌱 UmuhinziLink</p>
@@ -50,8 +49,12 @@ export default function Footer() {
             </li>
           </ul>
           <div className="flex gap-2 mt-3">
-            <button className="px-3 py-1 bg-gray-800 rounded text-sm cursor-pointer">English</button>
-            <button className="px-3 py-1 bg-green-600 rounded text-sm text-white  cursor-pointer">Kinyarwanda</button>
+            <button className="px-3 py-1 bg-gray-800 rounded text-sm cursor-pointer">
+              English
+            </button>
+            <button className="px-3 py-1 bg-green-600 rounded text-sm text-white  cursor-pointer">
+              Kinyarwanda
+            </button>
           </div>
         </div>
       </div>

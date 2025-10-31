@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function AddProduce() {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    cropName: "",
-    quantity: "",
-    price: "",
-    location: "",
-    harvestDate: "",
+    cropName: '',
+    quantity: '',
+    price: '',
+    location: '',
+    harvestDate: '',
   });
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -38,31 +38,31 @@ export default function AddProduce() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api";
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api';
 
     const data = new FormData();
-    data.append("cropName", formData.cropName);
-    data.append("quantity", formData.quantity);
-    data.append("price", formData.price);
-    data.append("location", formData.location);
-    data.append("harvestDate", formData.harvestDate);
+    data.append('cropName', formData.cropName);
+    data.append('quantity', formData.quantity);
+    data.append('price', formData.price);
+    data.append('location', formData.location);
+    data.append('harvestDate', formData.harvestDate);
     if (imageFile) {
-      data.append("image", imageFile);
+      data.append('image', imageFile);
     }
 
     try {
       const res = await fetch(`${apiUrl}/produce`, {
-        method: "POST",
+        method: 'POST',
         body: data,
       });
 
-      if (!res.ok) throw new Error("Failed to add produce");
+      if (!res.ok) throw new Error('Failed to add produce');
 
-      alert("Produce added successfully!");
-      router.push("/farmer_dashboard/products");
+      alert('Produce added successfully!');
+      router.push('/farmer_dashboard/products');
     } catch (error) {
       console.error(error);
-      alert("Error adding produce");
+      alert('Error adding produce');
     }
   };
 

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 const LucideIcons = {
   Phone: (
@@ -121,36 +121,36 @@ const LucideIcons = {
 export default function WhoWeServe() {
   const data = [
     {
-      title: "Farmers",
-      color: "bg-green-50",
-      iconColor: "text-green-600",
+      title: 'Farmers',
+      color: 'bg-green-50',
+      iconColor: 'text-green-600',
       items: [
-        { icon: LucideIcons.Phone, text: "Mobile OTP & Kinyarwanda support" },
-        { icon: LucideIcons.Leaf, text: "AI-powered agronomy tips" },
-        { icon: LucideIcons.CreditCard, text: "Credit access for inputs" },
-        { icon: LucideIcons.ChartBar, text: "Market price trends" },
+        { icon: LucideIcons.Phone, text: 'Mobile OTP & Kinyarwanda support' },
+        { icon: LucideIcons.Leaf, text: 'AI-powered agronomy tips' },
+        { icon: LucideIcons.CreditCard, text: 'Credit access for inputs' },
+        { icon: LucideIcons.ChartBar, text: 'Market price trends' },
       ],
     },
     {
-      title: "Suppliers",
-      color: "bg-blue-50",
-      iconColor: "text-blue-600",
+      title: 'Suppliers',
+      color: 'bg-blue-50',
+      iconColor: 'text-blue-600',
       items: [
-        { icon: LucideIcons.ClipboardList, text: "List agri-inputs & inventory" },
-        { icon: LucideIcons.Users, text: "Farmer demand matching" },
-        { icon: LucideIcons.CreditCard, text: "Credit request management" },
-        { icon: LucideIcons.ChartBar, text: "Sales tracking & analytics" },
+        { icon: LucideIcons.ClipboardList, text: 'List agri-inputs & inventory' },
+        { icon: LucideIcons.Users, text: 'Farmer demand matching' },
+        { icon: LucideIcons.CreditCard, text: 'Credit request management' },
+        { icon: LucideIcons.ChartBar, text: 'Sales tracking & analytics' },
       ],
     },
     {
-      title: "Buyers",
-      color: "bg-orange-50",
-      iconColor: "text-orange-600",
+      title: 'Buyers',
+      color: 'bg-orange-50',
+      iconColor: 'text-orange-600',
       items: [
-        { icon: LucideIcons.Search, text: "Browse fresh produce" },
-        { icon: LucideIcons.ClipboardList, text: "Filter by region & price" },
-        { icon: LucideIcons.Phone, text: "Direct farmer contact" },
-        { icon: LucideIcons.Lock, text: "Secure payment processing" },
+        { icon: LucideIcons.Search, text: 'Browse fresh produce' },
+        { icon: LucideIcons.ClipboardList, text: 'Filter by region & price' },
+        { icon: LucideIcons.Phone, text: 'Direct farmer contact' },
+        { icon: LucideIcons.Lock, text: 'Secure payment processing' },
       ],
     },
   ];
@@ -164,11 +164,8 @@ export default function WhoWeServe() {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-          {data.map((group) => (
-            <div
-              key={group.title}
-              className={`${group.color} rounded-lg shadow-sm p-6`}
-            >
+          {data.map(group => (
+            <div key={group.title} className={`${group.color} rounded-lg shadow-sm p-6`}>
               <h3 className="text-lg font-semibold text-gray-900">{group.title}</h3>
               <ul className="mt-4 space-y-3">
                 {group.items.map((item, idx) => (

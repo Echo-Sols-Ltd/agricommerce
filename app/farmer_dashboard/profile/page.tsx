@@ -1,5 +1,5 @@
-"use client";
-import React, { useState, useEffect } from "react";
+'use client';
+import React, { useState, useEffect } from 'react';
 import {
   User,
   Phone,
@@ -16,12 +16,12 @@ import {
   ShoppingCart,
   Settings,
   LogOut,
-} from "lucide-react";
-import Link from "next/link";
+} from 'lucide-react';
+import Link from 'next/link';
 
 // Reusable input style
 const inputClass =
-  "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition";
+  'w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition';
 
 const Logo = () => (
   <span className="font-extrabold text-2xl tracking-tight">
@@ -46,46 +46,46 @@ const menuItems = [
 
 export default function FarmerProfile() {
   const [profile, setProfile] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    email: "",
-    district: "",
-    sector: "",
-    farmName: "",
-    crops: "",
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    email: '',
+    district: '',
+    sector: '',
+    farmName: '',
+    crops: '',
   });
 
   const [isEditing, setIsEditing] = useState(false);
 
   // Load mock profile data
   useEffect(() => {
-    const savedProfile = localStorage.getItem("farmerProfile");
+    const savedProfile = localStorage.getItem('farmerProfile');
     if (savedProfile) {
       setProfile(JSON.parse(savedProfile));
     } else {
       setProfile({
-        firstName: "John",
-        lastName: "Doe",
-        phoneNumber: "0780000000",
-        email: "john.doe@example.com",
-        district: "Gasabo",
-        sector: "Kimironko",
-        farmName: "Green Harvest Farm",
-        crops: "Maize, Beans, Tomatoes",
+        firstName: 'John',
+        lastName: 'Doe',
+        phoneNumber: '0780000000',
+        email: 'john.doe@example.com',
+        district: 'Gasabo',
+        sector: 'Kimironko',
+        farmName: 'Green Harvest Farm',
+        crops: 'Maize, Beans, Tomatoes',
       });
     }
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setProfile((prev) => ({ ...prev, [name]: value }));
+    setProfile(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSave = () => {
-    localStorage.setItem("farmerProfile", JSON.stringify(profile));
+    localStorage.setItem('farmerProfile', JSON.stringify(profile));
     setIsEditing(false);
-    alert("Profile updated successfully!");
+    alert('Profile updated successfully!');
   };
 
   return (
@@ -102,7 +102,7 @@ export default function FarmerProfile() {
             <nav className="mt-4 space-y-2 px-4">
               {menuItems.map((m, index) => {
                 const isActive = m.label === 'Profile';
-                const showDivider = index === 4 || index === 8; 
+                const showDivider = index === 4 || index === 8;
                 return (
                   <div key={m.label}>
                     <Link href={m.href} className="block">
@@ -113,7 +113,9 @@ export default function FarmerProfile() {
                             : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                         }`}
                       >
-                        <m.icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-gray-500'}`} />
+                        <m.icon
+                          className={`w-5 h-5 ${isActive ? 'text-white' : 'text-gray-500'}`}
+                        />
                         <span>{m.label}</span>
                       </div>
                     </Link>
@@ -221,8 +223,6 @@ export default function FarmerProfile() {
                   onChange={handleChange}
                 />
               </Section>
-
-            
             </div>
           </div>
         </main>
@@ -259,13 +259,7 @@ function Field({
     <div>
       <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
       {isEditing ? (
-        <input
-          type="text"
-          name={name}
-          value={value}
-          onChange={onChange}
-          className={inputClass}
-        />
+        <input type="text" name={name} value={value} onChange={onChange} className={inputClass} />
       ) : (
         <div className="flex items-center gap-2 text-gray-900 bg-gray-50 border border-gray-200 rounded-md px-3 py-2">
           {icon}

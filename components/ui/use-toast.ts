@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { toast as hotToast, ToastOptions as HotToastOptions } from 'react-hot-toast';
 
@@ -31,9 +31,9 @@ const toast = ((message: string | ToastOptions, options: ToastOptions = {}) => {
     options = message;
     message = options.description || '';
   }
-  
+
   const toastOptions = createToastOptions(options);
-  
+
   if (options.variant === 'success') {
     return hotToast.success(message, toastOptions);
   } else if (options.variant === 'error') {
@@ -80,9 +80,11 @@ export const useToast = () => ({
       options = message;
       message = options.description || '';
     }
-    
-    const { type = 'default', ...rest } = options as { type?: 'default' | 'success' | 'error' | 'loading' } & Omit<ToastOptions, 'type'>;
-    
+
+    const { type = 'default', ...rest } = options as {
+      type?: 'default' | 'success' | 'error' | 'loading';
+    } & Omit<ToastOptions, 'type'>;
+
     switch (type) {
       case 'success':
         return toast.success(message, { ...rest, variant: 'success' });

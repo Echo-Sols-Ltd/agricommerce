@@ -1,8 +1,8 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import { Plus, Search, Send } from "lucide-react";
-import { BiLeftArrow } from "react-icons/bi";
-import { useRouter } from "next/navigation";
+'use client';
+import React, { useState, useEffect } from 'react';
+import { Plus, Search, Send } from 'lucide-react';
+import { BiLeftArrow } from 'react-icons/bi';
+import { useRouter } from 'next/navigation';
 
 interface Contact {
   id: number;
@@ -24,51 +24,54 @@ interface Conversation {
 }
 
 const mockContacts: Contact[] = [
-  { id: 1, name: "John&apos;s Agro Store", role: "Supplier" },
-  { id: 2, name: "Fresh Market Ltd", role: "Buyer" },
-  { id: 3, name: "Organic Co-op", role: "Buyer" },
-  { id: 4, name: "Farm Tools & More", role: "Supplier" },
+  { id: 1, name: 'John&apos;s Agro Store', role: 'Supplier' },
+  { id: 2, name: 'Fresh Market Ltd', role: 'Buyer' },
+  { id: 3, name: 'Organic Co-op', role: 'Buyer' },
+  { id: 4, name: 'Farm Tools & More', role: 'Supplier' },
 ];
 
 export default function FarmerMessages() {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [activeChat, setActiveChat] = useState<Conversation | null>(null);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
-    const stored = localStorage.getItem("farmerConversations");
+    const stored = localStorage.getItem('farmerConversations');
     if (stored) setConversations(JSON.parse(stored));
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("farmerConversations", JSON.stringify(conversations));
+    localStorage.setItem('farmerConversations', JSON.stringify(conversations));
   }, [conversations]);
 
   const sendMessage = () => {
     if (!message.trim() || !activeChat) return;
-    const updated = conversations.map((conv) =>
+    const updated = conversations.map(conv =>
       conv.id === activeChat.id
         ? {
             ...conv,
             messages: [
               ...conv.messages,
               {
-                sender: "Farmer",
+                sender: 'Farmer',
                 text: message,
-                timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+                timestamp: new Date().toLocaleTimeString([], {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                }),
               },
             ],
           }
         : conv
     );
     setConversations(updated);
-    setMessage("");
+    setMessage('');
   };
 
   const startConversation = (contact: Contact) => {
-    const existing = conversations.find((c) => c.name === contact.name);
+    const existing = conversations.find(c => c.name === contact.name);
     if (existing) {
       setActiveChat(existing);
     } else {
@@ -82,7 +85,7 @@ export default function FarmerMessages() {
       setActiveChat(newConv);
     }
     setIsModalOpen(false);
-    setSearch("");
+    setSearch('');
   };
 
   const router = useRouter();
@@ -93,8 +96,11 @@ export default function FarmerMessages() {
       <div className="w-1/3 bg-white border-r border-gray-200 flex flex-col">
         <div className="p-4 flex items-center justify-between border-b border-gray-200 bg-green-600 text-white">
           <div className="flex gap-2 items-center">
-          <BiLeftArrow className="size-5 text-white cursor-pointer" onClick={() => router.back()}/>
-          <h2 className="text-lg font-semibold">Messages</h2>
+            <BiLeftArrow
+              className="size-5 text-white cursor-pointer"
+              onClick={() => router.back()}
+            />
+            <h2 className="text-lg font-semibold">Messages</h2>
           </div>
           <button
             className="bg-white text-green-600 p-2 rounded-full hover:bg-gray-200 transition"
@@ -112,17 +118,17 @@ export default function FarmerMessages() {
               placeholder="Search..."
               className="flex-1 p-2 bg-transparent outline-none text-sm text-gray-800"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={e => setSearch(e.target.value)}
             />
           </div>
         </div>
 
         <div className="flex-1 overflow-y-auto">
-          {conversations.map((conv) => (
+          {conversations.map(conv => (
             <div
               key={conv.id}
               className={`p-4 cursor-pointer hover:bg-gray-50 border-b border-gray-200 ${
-                activeChat?.id === conv.id ? "bg-green-50" : ""
+                activeChat?.id === conv.id ? 'bg-green-50' : ''
               }`}
               onClick={() => setActiveChat(conv)}
             >
@@ -148,15 +154,13 @@ export default function FarmerMessages() {
               {activeChat.messages.map((msg: Message, i: number) => (
                 <div
                   key={i}
-                  className={`flex ${
-                    msg.sender === "Farmer" ? "justify-end" : "justify-start"
-                  }`}
+                  className={`flex ${msg.sender === 'Farmer' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
                     className={`px-4 py-2 rounded-lg max-w-xs text-sm shadow-sm ${
-                      msg.sender === "Farmer"
-                        ? "bg-green-600 text-white rounded-br-none"
-                        : "bg-white border border-gray-200 text-gray-800 rounded-bl-none"
+                      msg.sender === 'Farmer'
+                        ? 'bg-green-600 text-white rounded-br-none'
+                        : 'bg-white border border-gray-200 text-gray-800 rounded-bl-none'
                     }`}
                   >
                     {msg.text}
@@ -172,7 +176,7 @@ export default function FarmerMessages() {
                 className="flex-1 border border-gray-200 rounded-l-lg p-2 text-sm outline-none text-gray-800"
                 placeholder="Type your message..."
                 value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                onChange={e => setMessage(e.target.value)}
               />
               <button
                 className="bg-green-600 text-white px-4 rounded-r-lg hover:bg-green-700 transition"
@@ -199,12 +203,12 @@ export default function FarmerMessages() {
               placeholder="Search..."
               className="w-full p-2 border border-gray-200 rounded mb-4 text-sm text-gray-800"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={e => setSearch(e.target.value)}
             />
             <div className="max-h-60 overflow-y-auto space-y-2">
               {mockContacts
-                .filter((c) => c.name.toLowerCase().includes(search.toLowerCase()))
-                .map((contact) => (
+                .filter(c => c.name.toLowerCase().includes(search.toLowerCase()))
+                .map(contact => (
                   <div
                     key={contact.id}
                     className="p-3 border border-gray-200 rounded cursor-pointer hover:bg-gray-50 transition"

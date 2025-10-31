@@ -1,48 +1,48 @@
-"use client"
+'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Package, Truck, CheckCircle, DollarSign, Eye, Check } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Package, Truck, CheckCircle, DollarSign, Eye, Check } from 'lucide-react';
 
 const orderStats = [
-  { label: "Pending Orders", value: "42", icon: Package, color: "text-yellow-600" },
-  { label: "In Progress", value: "28", icon: Truck, color: "text-blue-600" },
-  { label: "Completed", value: "178", icon: CheckCircle, color: "text-green-600" },
-  { label: "Total Revenue", value: "$24,580", icon: DollarSign, color: "text-green-600" },
-]
+  { label: 'Pending Orders', value: '42', icon: Package, color: 'text-yellow-600' },
+  { label: 'In Progress', value: '28', icon: Truck, color: 'text-blue-600' },
+  { label: 'Completed', value: '178', icon: CheckCircle, color: 'text-green-600' },
+  { label: 'Total Revenue', value: '$24,580', icon: DollarSign, color: 'text-green-600' },
+];
 
 const orders = [
   {
-    id: "#ORD-2024-001",
-    product: "Organic Tomatoes",
-    customer: "Sarah Johnson",
-    quantity: "50 kg",
-    date: "Jan 15, 2024",
-    status: "Pending",
-    actions: ["👁️", "❌"],
+    id: '#ORD-2024-001',
+    product: 'Organic Tomatoes',
+    customer: 'Sarah Johnson',
+    quantity: '50 kg',
+    date: 'Jan 15, 2024',
+    status: 'Pending',
+    actions: ['👁️', '❌'],
   },
   {
-    id: "#ORD-2024-002",
-    product: "Fresh Lettuce",
-    customer: "Mike Chen",
-    quantity: "25 kg",
-    date: "Jan 14, 2024",
-    status: "In Progress",
-    actions: ["👁️", "✅"],
+    id: '#ORD-2024-002',
+    product: 'Fresh Lettuce',
+    customer: 'Mike Chen',
+    quantity: '25 kg',
+    date: 'Jan 14, 2024',
+    status: 'In Progress',
+    actions: ['👁️', '✅'],
   },
   {
-    id: "#ORD-2024-003",
-    product: "Bell Peppers",
-    customer: "Emma Davis",
-    quantity: "30 kg",
-    date: "Jan 13, 2024",
-    status: "Completed",
-    actions: ["👁️", "✅"],
+    id: '#ORD-2024-003',
+    product: 'Bell Peppers',
+    customer: 'Emma Davis',
+    quantity: '30 kg',
+    date: 'Jan 13, 2024',
+    status: 'Completed',
+    actions: ['👁️', '✅'],
   },
-]
+];
 
 export default function Orders() {
   return (
@@ -105,7 +105,7 @@ export default function Orders() {
                 </tr>
               </thead>
               <tbody>
-                {orders.map((order) => (
+                {orders.map(order => (
                   <tr key={order.id} className="border-b">
                     <td className="p-3 font-medium">{order.id}</td>
                     <td className="p-3">{order.product}</td>
@@ -115,18 +115,18 @@ export default function Orders() {
                     <td className="p-3">
                       <Badge
                         variant={
-                          order.status === "Completed"
-                            ? "default"
-                            : order.status === "In Progress"
-                              ? "secondary"
-                              : "outline"
+                          order.status === 'Completed'
+                            ? 'default'
+                            : order.status === 'In Progress'
+                              ? 'secondary'
+                              : 'outline'
                         }
                         className={
-                          order.status === "Completed"
-                            ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
-                            : order.status === "In Progress"
-                              ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
-                              : "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
+                          order.status === 'Completed'
+                            ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                            : order.status === 'In Progress'
+                              ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
+                              : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
                         }
                       >
                         {order.status}
@@ -170,5 +170,5 @@ export default function Orders() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

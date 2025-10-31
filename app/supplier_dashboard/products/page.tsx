@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, { useState } from 'react';
 import {
   CheckCircle,
@@ -26,7 +26,8 @@ import { Input } from '@/components/ui/input';
 const Logo = () => (
   <div className="flex items-center gap-2 py-2">
     <span className="font-extrabold text-xl tracking-tight">
-      <span className="text-white">Umuhinzi</span><span className="text-white">Link</span>
+      <span className="text-white">Umuhinzi</span>
+      <span className="text-white">Link</span>
     </span>
   </div>
 );
@@ -59,25 +60,97 @@ function ProductsPage() {
     logout(router);
   };
   const [inputs, setInputs] = useState([
-    { id: 1, name: "NPK Fertilizer", category: "Fertilizer", price: 25.00, originalPrice: 30.00, stock: 150, status: "In Stock", image: "/npk-fertilizer.png" },
-    { id: 2, name: "NPK Fertilizer", category: "Fertilizer", price: 25.00, originalPrice: 30.00, stock: 120, status: "In Stock", image: "/npk-fertilizer.png" },
-    { id: 3, name: "NPK Fertilizer", category: "Fertilizer", price: 25.00, originalPrice: 30.00, stock: 95, status: "In Stock", image: "/npk-fertilizer.png" },
-    { id: 4, name: "NPK Fertilizer", category: "Fertilizer", price: 25.00, originalPrice: 30.00, stock: 80, status: "In Stock", image: "/npk-fertilizer.png" },
-    { id: 5, name: "NPK Fertilizer", category: "Fertilizer", price: 25.00, originalPrice: 30.00, stock: 75, status: "In Stock", image: "/npk-fertilizer.png" },
-    { id: 6, name: "NPK Fertilizer", category: "Fertilizer", price: 25.00, originalPrice: 30.00, stock: 60, status: "In Stock", image: "/npk-fertilizer.png" },
-    { id: 7, name: "NPK Fertilizer", category: "Fertilizer", price: 25.00, originalPrice: 30.00, stock: 45, status: "In Stock", image: "/npk-fertilizer.png" },
-    { id: 8, name: "NPK Fertilizer", category: "Fertilizer", price: 25.00, originalPrice: 30.00, stock: 30, status: "In Stock", image: "/npk-fertilizer.png" },
+    {
+      id: 1,
+      name: 'NPK Fertilizer',
+      category: 'Fertilizer',
+      price: 25.0,
+      originalPrice: 30.0,
+      stock: 150,
+      status: 'In Stock',
+      image: '/npk-fertilizer.png',
+    },
+    {
+      id: 2,
+      name: 'NPK Fertilizer',
+      category: 'Fertilizer',
+      price: 25.0,
+      originalPrice: 30.0,
+      stock: 120,
+      status: 'In Stock',
+      image: '/npk-fertilizer.png',
+    },
+    {
+      id: 3,
+      name: 'NPK Fertilizer',
+      category: 'Fertilizer',
+      price: 25.0,
+      originalPrice: 30.0,
+      stock: 95,
+      status: 'In Stock',
+      image: '/npk-fertilizer.png',
+    },
+    {
+      id: 4,
+      name: 'NPK Fertilizer',
+      category: 'Fertilizer',
+      price: 25.0,
+      originalPrice: 30.0,
+      stock: 80,
+      status: 'In Stock',
+      image: '/npk-fertilizer.png',
+    },
+    {
+      id: 5,
+      name: 'NPK Fertilizer',
+      category: 'Fertilizer',
+      price: 25.0,
+      originalPrice: 30.0,
+      stock: 75,
+      status: 'In Stock',
+      image: '/npk-fertilizer.png',
+    },
+    {
+      id: 6,
+      name: 'NPK Fertilizer',
+      category: 'Fertilizer',
+      price: 25.0,
+      originalPrice: 30.0,
+      stock: 60,
+      status: 'In Stock',
+      image: '/npk-fertilizer.png',
+    },
+    {
+      id: 7,
+      name: 'NPK Fertilizer',
+      category: 'Fertilizer',
+      price: 25.0,
+      originalPrice: 30.0,
+      stock: 45,
+      status: 'In Stock',
+      image: '/npk-fertilizer.png',
+    },
+    {
+      id: 8,
+      name: 'NPK Fertilizer',
+      category: 'Fertilizer',
+      price: 25.0,
+      originalPrice: 30.0,
+      stock: 30,
+      status: 'In Stock',
+      image: '/npk-fertilizer.png',
+    },
   ]);
 
   const [formData, setFormData] = useState({
-    name: "",
-    category: "",
-    price: "",
-    originalPrice: "",
-    stock: "",
-    status: "In Stock",
+    name: '',
+    category: '',
+    price: '',
+    originalPrice: '',
+    stock: '',
+    status: 'In Stock',
     image: null as File | null,
-    imagePreview: "",
+    imagePreview: '',
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -90,10 +163,19 @@ function ProductsPage() {
       originalPrice: parseFloat(formData.originalPrice),
       stock: parseInt(formData.stock),
       status: formData.status,
-      image: formData.imagePreview || "/placeholder.png",
+      image: formData.imagePreview || '/placeholder.png',
     };
     setInputs([newItem, ...inputs]);
-    setFormData({ name: "", category: "", price: "", originalPrice: "", stock: "", status: "In Stock", image: null, imagePreview: "" });
+    setFormData({
+      name: '',
+      category: '',
+      price: '',
+      originalPrice: '',
+      stock: '',
+      status: 'In Stock',
+      image: null,
+      imagePreview: '',
+    });
     setShowForm(false);
   };
 
@@ -122,12 +204,13 @@ function ProductsPage() {
                     <Link href={item.href} className="block">
                       <div
                         className={`flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer transition-all text-sm font-medium
-                          ${isActive
-                            ? "bg-white text-green-600 shadow-sm"
-                            : "text-white hover:bg-green-700"
+                          ${
+                            isActive
+                              ? 'bg-white text-green-600 shadow-sm'
+                              : 'text-white hover:bg-green-700'
                           }`}
                       >
-                        <Icon className={`w-4 h-4 ${isActive ? "text-green-600" : "text-white"}`} />
+                        <Icon className={`w-4 h-4 ${isActive ? 'text-green-600' : 'text-white'}`} />
                         <span>{item.label}</span>
                       </div>
                     </Link>
@@ -144,13 +227,16 @@ function ProductsPage() {
           {/* Header */}
           <header className="fixed top-0 left-64 z-30 right-0 bg-white border-b h-16 flex items-center justify-between px-8 shadow-sm">
             {/* Search Section */}
-            <div className='w-1/2 relative'>
+            <div className="w-1/2 relative">
               <Input
-                type='text'
-                placeholder='Search...'
-                className='pl-4 pr-10 h-10 border-gray-300 focus:border-green-500 focus:ring-green-500 rounded-3xl'
+                type="text"
+                placeholder="Search..."
+                className="pl-4 pr-10 h-10 border-gray-300 focus:border-green-500 focus:ring-green-500 rounded-3xl"
               />
-              <Search size={18} className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400' />
+              <Search
+                size={18}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              />
             </div>
 
             {/* Right Section */}
@@ -166,7 +252,7 @@ function ProductsPage() {
           </header>
 
           {/* Content with top margin for fixed header */}
-          <div className='mt-16'>
+          <div className="mt-16">
             {/* Promotional Banner */}
             <div className="bg-gradient-to-r from-green-500 to-teal-500 text-white p-6 rounded-lg mb-6 relative overflow-hidden">
               <div className="flex items-center justify-between">
@@ -200,14 +286,20 @@ function ProductsPage() {
 
             {/* Products Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {inputs.map((item) => (
+              {inputs.map(item => (
                 <div
                   key={item.id}
                   className="bg-white rounded-lg shadow-sm border overflow-hidden hover:shadow-md transition-shadow"
                 >
                   <div className="relative">
                     <div className="w-full h-48 bg-gray-100 flex items-center justify-center overflow-hidden">
-                      <Image src={item.image} alt={item.name} width={300} height={200} className="object-cover w-full h-full" />
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        width={300}
+                        height={200}
+                        className="object-cover w-full h-full"
+                      />
                     </div>
                     <div className="absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm hover:bg-gray-50 transition-colors cursor-pointer">
                       <Heart className="w-4 h-4 text-gray-400 hover:text-red-500 transition-colors" />
@@ -219,9 +311,13 @@ function ProductsPage() {
                   <div className="p-4">
                     <h3 className="font-semibold text-gray-900 mb-2">{item.name}</h3>
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="text-lg font-bold text-gray-900">${item.price.toFixed(2)}</span>
+                      <span className="text-lg font-bold text-gray-900">
+                        ${item.price.toFixed(2)}
+                      </span>
                       {item.originalPrice && (
-                        <span className="text-sm text-gray-500 line-through">${item.originalPrice.toFixed(2)}</span>
+                        <span className="text-sm text-gray-500 line-through">
+                          ${item.originalPrice.toFixed(2)}
+                        </span>
                       )}
                     </div>
                     <div className="flex items-center justify-between">
@@ -251,7 +347,7 @@ function ProductsPage() {
                 type="text"
                 placeholder="Product Name"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={e => setFormData({ ...formData, name: e.target.value })}
                 required
                 className="border rounded-lg px-3 py-2"
               />
@@ -259,7 +355,7 @@ function ProductsPage() {
                 type="text"
                 placeholder="Category"
                 value={formData.category}
-                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                onChange={e => setFormData({ ...formData, category: e.target.value })}
                 required
                 className="border rounded-lg px-3 py-2"
               />
@@ -268,7 +364,7 @@ function ProductsPage() {
                 placeholder="Price"
                 step="0.01"
                 value={formData.price}
-                onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                onChange={e => setFormData({ ...formData, price: e.target.value })}
                 required
                 className="border rounded-lg px-3 py-2"
               />
@@ -277,7 +373,7 @@ function ProductsPage() {
                 placeholder="Original Price"
                 step="0.01"
                 value={formData.originalPrice}
-                onChange={(e) => setFormData({ ...formData, originalPrice: e.target.value })}
+                onChange={e => setFormData({ ...formData, originalPrice: e.target.value })}
                 required
                 className="border rounded-lg px-3 py-2"
               />
@@ -285,13 +381,13 @@ function ProductsPage() {
                 type="number"
                 placeholder="Stock"
                 value={formData.stock}
-                onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
+                onChange={e => setFormData({ ...formData, stock: e.target.value })}
                 required
                 className="border rounded-lg px-3 py-2"
               />
               <select
                 value={formData.status}
-                onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                onChange={e => setFormData({ ...formData, status: e.target.value })}
                 className="border rounded-lg px-3 py-2"
               >
                 <option value="In Stock">In Stock</option>
@@ -301,7 +397,7 @@ function ProductsPage() {
               <input
                 type="file"
                 accept="image/*"
-                onChange={(e) => {
+                onChange={e => {
                   const file = e.target.files?.[0] || null;
                   if (file) {
                     setFormData({

@@ -1,6 +1,6 @@
-"use client"
+'use client';
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react';
 
 interface User {
   id: string;
@@ -17,9 +17,9 @@ interface User {
     harvestDate: string;
   }>;
 }
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import {
   Package,
   ShoppingCart,
@@ -30,68 +30,68 @@ import {
   Sun,
   Brain,
   TrendingUp,
-} from "lucide-react"
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts"
+} from 'lucide-react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 
 const marketData = [
-  { month: "Jan", price: 300 },
-  { month: "Feb", price: 320 },
-  { month: "Mar", price: 280 },
-  { month: "Apr", price: 350 },
-  { month: "May", price: 380 },
-  { month: "Jun", price: 420 },
-  { month: "Jul", price: 450 },
-  { month: "Aug", price: 480 },
-  { month: "Sep", price: 460 },
-  { month: "Oct", price: 490 },
-  { month: "Nov", price: 520 },
-  { month: "Dec", price: 540 },
-]
+  { month: 'Jan', price: 300 },
+  { month: 'Feb', price: 320 },
+  { month: 'Mar', price: 280 },
+  { month: 'Apr', price: 350 },
+  { month: 'May', price: 380 },
+  { month: 'Jun', price: 420 },
+  { month: 'Jul', price: 450 },
+  { month: 'Aug', price: 480 },
+  { month: 'Sep', price: 460 },
+  { month: 'Oct', price: 490 },
+  { month: 'Nov', price: 520 },
+  { month: 'Dec', price: 540 },
+];
 
 const recentOrders = [
   {
-    id: "#ORD001",
-    crop: "Amaru (Beans)",
-    buyer: "Kimisagara Market",
-    amount: "50kg",
-    status: "Delivered",
-    action: "View",
+    id: '#ORD001',
+    crop: 'Amaru (Beans)',
+    buyer: 'Kimisagara Market',
+    amount: '50kg',
+    status: 'Delivered',
+    action: 'View',
   },
   {
-    id: "#ORD002",
-    crop: "Ibirayi (Potatoes)",
-    buyer: "Fresh Foods Ltd",
-    amount: "100kg",
-    status: "Pending",
-    action: "Update",
+    id: '#ORD002',
+    crop: 'Ibirayi (Potatoes)',
+    buyer: 'Fresh Foods Ltd',
+    amount: '100kg',
+    status: 'Pending',
+    action: 'Update',
   },
   {
-    id: "#ORD003",
-    crop: "Inyama (Tomatoes)",
-    buyer: "Hotel des Mille Collines",
-    amount: "25kg",
-    status: "Processing",
-    action: "View",
+    id: '#ORD003',
+    crop: 'Inyama (Tomatoes)',
+    buyer: 'Hotel des Mille Collines',
+    amount: '25kg',
+    status: 'Processing',
+    action: 'View',
   },
-]
+];
 
 export default function Dashboard() {
-  const [currentUser, setCurrentUser] = useState<User | null>(null)
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   useEffect(() => {
     // Get user data from localStorage
-    const userData = localStorage.getItem("currentUser")
+    const userData = localStorage.getItem('currentUser');
     if (userData) {
-      setCurrentUser(JSON.parse(userData))
+      setCurrentUser(JSON.parse(userData));
     }
-  }, [])
+  }, []);
 
   if (!currentUser) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600"></div>
       </div>
-    )
+    );
   }
 
   return (
@@ -111,15 +111,16 @@ export default function Dashboard() {
       <Card className="bg-green-600 text-white border-green-600">
         <CardContent className="p-6">
           <div className="flex items-center gap-4">
-            <img 
-              src={currentUser.avatar} 
+            <img
+              src={currentUser.avatar}
               alt={currentUser.name}
               className="w-16 h-16 rounded-full border-2 border-white/20"
             />
             <div>
               <h2 className="text-xl font-bold mb-2">Welcome back, {currentUser.name}!</h2>
               <p className="text-green-100">
-                Manage your crops ({currentUser.crops.join(", ")}) and connect with buyers in {currentUser.location}
+                Manage your crops {(currentUser.crops ?? []).join(', ')} and connect with buyers in{' '}
+                {currentUser.location}
               </p>
             </div>
           </div>
@@ -230,13 +231,15 @@ export default function Dashboard() {
               <div className="p-3 bg-green-50 dark:bg-green-950/20 rounded-lg">
                 <h4 className="font-medium text-sm">Umusaruro w&apos;amaru</h4>
                 <p className="text-xs text-muted-foreground">
-                  Ku gihe cy&apos;itemberere rya ibigori ni ukwezi kwa mbere rugira inyungu y&apos;amazi
+                  Ku gihe cy&apos;itemberere rya ibigori ni ukwezi kwa mbere rugira inyungu
+                  y&apos;amazi
                 </p>
               </div>
               <div className="p-3 bg-orange-50 dark:bg-orange-950/20 rounded-lg">
                 <h4 className="font-medium text-sm">Weather Alert</h4>
                 <p className="text-xs text-muted-foreground">
-                  Imvura nyinshi itegerejwe mu minsi 3 iri imbere. Kuraguza ibigori byawe kandi witondere amazi
+                  Imvura nyinshi itegerejwe mu minsi 3 iri imbere. Kuraguza ibigori byawe kandi
+                  witondere amazi
                 </p>
               </div>
               <div className="p-3 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
@@ -310,7 +313,7 @@ export default function Dashboard() {
                   dataKey="price"
                   stroke="#22c55e"
                   strokeWidth={2}
-                  dot={{ fill: "#22c55e", strokeWidth: 2, r: 4 }}
+                  dot={{ fill: '#22c55e', strokeWidth: 2, r: 4 }}
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -337,7 +340,7 @@ export default function Dashboard() {
                 </tr>
               </thead>
               <tbody>
-                {recentOrders.map((order) => (
+                {recentOrders.map(order => (
                   <tr key={order.id} className="border-b">
                     <td className="p-2 font-medium">{order.id}</td>
                     <td className="p-2">{order.crop}</td>
@@ -346,18 +349,18 @@ export default function Dashboard() {
                     <td className="p-2">
                       <Badge
                         variant={
-                          order.status === "Delivered"
-                            ? "default"
-                            : order.status === "Pending"
-                              ? "secondary"
-                              : "outline"
+                          order.status === 'Delivered'
+                            ? 'default'
+                            : order.status === 'Pending'
+                              ? 'secondary'
+                              : 'outline'
                         }
                         className={
-                          order.status === "Delivered"
-                            ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
-                            : order.status === "Pending"
-                              ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
-                              : "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                          order.status === 'Delivered'
+                            ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                            : order.status === 'Pending'
+                              ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+                              : 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
                         }
                       >
                         {order.status}
@@ -376,5 +379,5 @@ export default function Dashboard() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

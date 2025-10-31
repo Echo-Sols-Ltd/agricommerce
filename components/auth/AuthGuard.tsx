@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { isAuthenticated, getUserRole, type User } from "@/lib/auth";
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { isAuthenticated, getUserRole, type User } from '@/lib/auth';
 
 interface AuthGuardProps {
   children: React.ReactNode;
-  requiredRoles?: User["role"][];
+  requiredRoles?: User['role'][];
   redirectTo?: string;
   fallback?: React.ReactNode;
 }
 
-export default function AuthGuard({ 
-  children, 
-  requiredRoles, 
-  redirectTo = "/signin",
-  fallback 
+export default function AuthGuard({
+  children,
+  requiredRoles,
+  redirectTo = '/signin',
+  fallback,
 }: AuthGuardProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
@@ -25,7 +25,7 @@ export default function AuthGuard({
     const checkAuth = () => {
       // Check if user is authenticated
       if (!isAuthenticated()) {
-        console.log("User not authenticated, redirecting to signin");
+        console.log('User not authenticated, redirecting to signin');
         router.push(redirectTo);
         return;
       }
@@ -33,10 +33,10 @@ export default function AuthGuard({
       // If specific roles are required, check user role
       if (requiredRoles && requiredRoles.length > 0) {
         const userRole = getUserRole();
-        
+
         if (!userRole || !requiredRoles.includes(userRole)) {
           console.log(`User role ${userRole} not authorized for required roles:`, requiredRoles);
-          router.push("/unauthorized");
+          router.push('/unauthorized');
           return;
         }
       }
@@ -50,13 +50,15 @@ export default function AuthGuard({
 
   // Show loading state
   if (isLoading) {
-    return fallback || (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Verifying access...</p>
+    return (
+      fallback || (
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Verifying access...</p>
+          </div>
         </div>
-      </div>
+      )
     );
   }
 
@@ -70,33 +72,33 @@ export default function AuthGuard({
 }
 
 // Convenience components for specific roles
-export function FarmerGuard({ children, ...props }: Omit<AuthGuardProps, "requiredRoles">) {
+export function FarmerGuard({ children, ...props }: Omit<AuthGuardProps, 'requiredRoles'>) {
   return (
-    <AuthGuard requiredRoles={["FARMER"]} {...props}>
+    <AuthGuard requiredRoles={['FARMER']} {...props}>
       {children}
     </AuthGuard>
   );
 }
 
-export function SupplierGuard({ children, ...props }: Omit<AuthGuardProps, "requiredRoles">) {
+export function SupplierGuard({ children, ...props }: Omit<AuthGuardProps, 'requiredRoles'>) {
   return (
-    <AuthGuard requiredRoles={["SUPPLIER"]} {...props}>
+    <AuthGuard requiredRoles={['SUPPLIER']} {...props}>
       {children}
     </AuthGuard>
   );
 }
 
-export function BuyerGuard({ children, ...props }: Omit<AuthGuardProps, "requiredRoles">) {
+export function BuyerGuard({ children, ...props }: Omit<AuthGuardProps, 'requiredRoles'>) {
   return (
-    <AuthGuard requiredRoles={["BUYER"]} {...props}>
+    <AuthGuard requiredRoles={['BUYER']} {...props}>
       {children}
     </AuthGuard>
   );
 }
 
-export function AdminGuard({ children, ...props }: Omit<AuthGuardProps, "requiredRoles">) {
+export function AdminGuard({ children, ...props }: Omit<AuthGuardProps, 'requiredRoles'>) {
   return (
-    <AuthGuard requiredRoles={["FARMER", "SUPPLIER", "BUYER"]} {...props}>
+    <AuthGuard requiredRoles={['FARMER', 'SUPPLIER', 'BUYER']} {...props}>
       {children}
     </AuthGuard>
   );

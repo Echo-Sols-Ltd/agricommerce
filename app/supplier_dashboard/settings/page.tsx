@@ -1,5 +1,5 @@
-"use client";
-import Link from "next/link";
+'use client';
+import Link from 'next/link';
 import {
   Mail,
   FilePlus,
@@ -11,8 +11,8 @@ import {
   User,
   Bell,
   Lock,
-  Package
-} from "lucide-react";
+  Package,
+} from 'lucide-react';
 
 const Logo = () => (
   <span className="font-extrabold text-2xl tracking-tight">
@@ -22,15 +22,15 @@ const Logo = () => (
 );
 
 const menuItems = [
-  { label: "Dashboard", href: "/supplier_dashboard", icon: CheckCircle },
-  { label: "My Products", href: "/supplier_dashboard/products", icon: Package },
-  { label: "Requests", href: "/supplier_dashboard/requests", icon: FilePlus },
-  { label: "Orders", href: "/supplier_dashboard/orders", icon: ShoppingCart },
-  { label: "Messages", href: "/messages", icon: MessageSquare },
-  { label: "Profile", href: "/supplier_dashboard/profile", icon: User },
-  { label: "Contact", href: "/supplier_dashboard/contact", icon: Mail },
-  { label: "Settings", href: "/supplier_dashboard/settings", icon: Settings },
-  { label: "Logout", href: "/logout", icon: LogOut },
+  { label: 'Dashboard', href: '/supplier_dashboard', icon: CheckCircle },
+  { label: 'My Products', href: '/supplier_dashboard/products', icon: Package },
+  { label: 'Requests', href: '/supplier_dashboard/requests', icon: FilePlus },
+  { label: 'Orders', href: '/supplier_dashboard/orders', icon: ShoppingCart },
+  { label: 'Messages', href: '/messages', icon: MessageSquare },
+  { label: 'Profile', href: '/supplier_dashboard/profile', icon: User },
+  { label: 'Contact', href: '/supplier_dashboard/contact', icon: Mail },
+  { label: 'Settings', href: '/supplier_dashboard/settings', icon: Settings },
+  { label: 'Logout', href: '/logout', icon: LogOut },
 ];
 
 export default function SupplierSettingsPage() {
@@ -47,7 +47,7 @@ export default function SupplierSettingsPage() {
           <div className="p-6"></div>
           <nav className="flex-1 px-4 space-y-2">
             {menuItems.map((m, index) => {
-              const isActive = m.label === "Settings";
+              const isActive = m.label === 'Settings';
               const showDivider = index === 4 || index === 8;
               return (
                 <div key={m.label}>
@@ -55,21 +55,15 @@ export default function SupplierSettingsPage() {
                     <div
                       className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all text-sm font-medium ${
                         isActive
-                          ? "bg-green-600 text-white shadow-sm"
-                          : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                          ? 'bg-green-600 text-white shadow-sm'
+                          : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                       }`}
                     >
-                      <m.icon
-                        className={`w-5 h-5 ${
-                          isActive ? "text-white" : "text-gray-500"
-                        }`}
-                      />
+                      <m.icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-gray-500'}`} />
                       <span>{m.label}</span>
                     </div>
                   </Link>
-                  {showDivider && (
-                    <div className="border-t border-gray-200 my-2 mx-4"></div>
-                  )}
+                  {showDivider && <div className="border-t border-gray-200 my-2 mx-4"></div>}
                 </div>
               );
             })}
@@ -85,15 +79,11 @@ export default function SupplierSettingsPage() {
             <div className="bg-white rounded-xl shadow-sm border p-6 space-y-4">
               <div className="flex items-center gap-2 mb-4">
                 <User className="text-green-600 w-5 h-5" />
-                <h2 className="text-lg font-semibold text-gray-800">
-                  Profile Settings
-                </h2>
+                <h2 className="text-lg font-semibold text-gray-800">Profile Settings</h2>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  First Name
-                </label>
+                <label className="block text-sm font-medium text-gray-700">First Name</label>
                 <input
                   type="text"
                   className="mt-1 w-full border px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-green-300"
@@ -102,9 +92,7 @@ export default function SupplierSettingsPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Last Name
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Last Name</label>
                 <input
                   type="text"
                   className="mt-1 w-full border px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-green-300"
@@ -113,9 +101,7 @@ export default function SupplierSettingsPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Email
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Email</label>
                 <input
                   type="email"
                   className="mt-1 w-full border px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-green-300"
@@ -124,9 +110,7 @@ export default function SupplierSettingsPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Phone
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Phone</label>
                 <input
                   type="tel"
                   className="mt-1 w-full border px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-green-300"
@@ -135,9 +119,7 @@ export default function SupplierSettingsPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  District
-                </label>
+                <label className="block text-sm font-medium text-gray-700">District</label>
                 <input
                   type="text"
                   className="mt-1 w-full border px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-green-300"
@@ -146,9 +128,7 @@ export default function SupplierSettingsPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Sector
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Sector</label>
                 <input
                   type="text"
                   className="mt-1 w-full border px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-green-300"
@@ -165,15 +145,11 @@ export default function SupplierSettingsPage() {
             <div className="bg-white rounded-xl shadow-sm border p-6 space-y-4">
               <div className="flex items-center gap-2 mb-4">
                 <Lock className="text-green-600 w-5 h-5" />
-                <h2 className="text-lg font-semibold text-gray-800">
-                  Change Password
-                </h2>
+                <h2 className="text-lg font-semibold text-gray-800">Change Password</h2>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Current Password
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Current Password</label>
                 <input
                   type="password"
                   className="mt-1 w-full border px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-green-300"
@@ -181,9 +157,7 @@ export default function SupplierSettingsPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  New Password
-                </label>
+                <label className="block text-sm font-medium text-gray-700">New Password</label>
                 <input
                   type="password"
                   className="mt-1 w-full border px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-green-300"
@@ -210,9 +184,7 @@ export default function SupplierSettingsPage() {
           <div className="bg-white rounded-xl shadow-sm border p-6 mt-8">
             <div className="flex items-center gap-2 mb-4">
               <Bell className="text-green-600 w-5 h-5" />
-              <h2 className="text-lg font-semibold text-gray-800">
-                Notifications
-              </h2>
+              <h2 className="text-lg font-semibold text-gray-800">Notifications</h2>
             </div>
 
             <div className="space-y-3">

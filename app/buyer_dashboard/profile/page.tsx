@@ -1,5 +1,5 @@
-"use client";
-import React, { useState, useEffect } from "react";
+'use client';
+import React, { useState, useEffect } from 'react';
 import {
   User,
   Phone,
@@ -14,12 +14,12 @@ import {
   CheckCircle,
   FilePlus,
   GridIcon,
-  UserIcon
-} from "lucide-react";
-import Link from "next/link";
+  UserIcon,
+} from 'lucide-react';
+import Link from 'next/link';
 
 const inputClass =
-  "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition";
+  'w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition';
 
 const Logo = () => (
   <span className="font-extrabold text-2xl tracking-tight">
@@ -29,55 +29,54 @@ const Logo = () => (
 );
 
 const menuItems = [
-  { label: "Dashboard", href: "/buyer_dashboard", icon: CheckCircle },
-  { label: "My Purchase", href: "/buyer_dashboard/purchases", icon: GridIcon },
-  { label: "Browse product", href: "/buyer_dashboard/product", icon: FilePlus },
-  { label: "Saved items", href: "/buyer_dashboard/saved", icon: MessageSquare },
-  { label: "Message", href: "/buyer_dashboard/message", icon: Mail },
-  { label: "Profile", href: "/buyer_dashboard/profile", icon: UserIcon },
-  { label: "Contact", href: "/buyer_dashboard/contact", icon: Phone },
-  { label: "Settings", href: "/buyer_dashboard/settings", icon: Settings },
-  { label: "Logout", href: "/logout", icon: LogOut },
+  { label: 'Dashboard', href: '/buyer_dashboard', icon: CheckCircle },
+  { label: 'My Purchase', href: '/buyer_dashboard/purchases', icon: GridIcon },
+  { label: 'Browse product', href: '/buyer_dashboard/product', icon: FilePlus },
+  { label: 'Saved items', href: '/buyer_dashboard/saved', icon: MessageSquare },
+  { label: 'Message', href: '/buyer_dashboard/message', icon: Mail },
+  { label: 'Profile', href: '/buyer_dashboard/profile', icon: UserIcon },
+  { label: 'Contact', href: '/buyer_dashboard/contact', icon: Phone },
+  { label: 'Settings', href: '/buyer_dashboard/settings', icon: Settings },
+  { label: 'Logout', href: '/logout', icon: LogOut },
 ];
-
 
 export default function BuyerProfile() {
   const [profile, setProfile] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
-    district: "",
-    sector: "",
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    district: '',
+    sector: '',
   });
 
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    const savedProfile = localStorage.getItem("buyerProfile");
+    const savedProfile = localStorage.getItem('buyerProfile');
     if (savedProfile) {
       setProfile(JSON.parse(savedProfile));
     } else {
       setProfile({
-        firstName: "John",
-        lastName: "Doe",
-        phone: "0788000000",
-        email: "john.doe@email.com",
-        district: "Gasabo",
-        sector: "Kacyiru",
+        firstName: 'John',
+        lastName: 'Doe',
+        phone: '0788000000',
+        email: 'john.doe@email.com',
+        district: 'Gasabo',
+        sector: 'Kacyiru',
       });
     }
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setProfile((prev) => ({ ...prev, [name]: value }));
+    setProfile(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSave = () => {
-    localStorage.setItem("buyerProfile", JSON.stringify(profile));
+    localStorage.setItem('buyerProfile', JSON.stringify(profile));
     setIsEditing(false);
-    alert("Buyer profile updated successfully!");
+    alert('Buyer profile updated successfully!');
   };
 
   return (
@@ -88,12 +87,12 @@ export default function BuyerProfile() {
       </header>
 
       <div className="flex flex-1 min-h-0">
-       {/* Sidebar */}
+        {/* Sidebar */}
         <aside className="w-64 bg-white border-r flex flex-col fixed left-0 top-16 h-[calc(100vh-4rem)] overflow-y-auto justify-between shadow-sm min-h-full">
           <div>
             <nav className="mt-4 space-y-2 px-4">
               {menuItems.map((m, index) => {
-                const isActive = m.label === "Profile";
+                const isActive = m.label === 'Profile';
                 const showDivider = index === 3 || index === 8;
                 return (
                   <div key={m.label}>
@@ -101,28 +100,23 @@ export default function BuyerProfile() {
                       <div
                         className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all text-sm font-medium ${
                           isActive
-                            ? "bg-green-600 text-white shadow-sm"
-                            : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                            ? 'bg-green-600 text-white shadow-sm'
+                            : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                         }`}
                       >
                         <m.icon
-                          className={`w-5 h-5 ${
-                            isActive ? "text-white" : "text-gray-500"
-                          }`}
+                          className={`w-5 h-5 ${isActive ? 'text-white' : 'text-gray-500'}`}
                         />
                         <span>{m.label}</span>
                       </div>
                     </Link>
-                    {showDivider && (
-                      <div className="border-t border-gray-200 my-2 mx-4"></div>
-                    )}
+                    {showDivider && <div className="border-t border-gray-200 my-2 mx-4"></div>}
                   </div>
                 );
               })}
             </nav>
           </div>
         </aside>
-
 
         {/* Main Content */}
         <main className="flex-1 p-6 overflow-auto ml-64">
@@ -255,17 +249,9 @@ function Field({
 }) {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">
-        {label}
-      </label>
+      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
       {isEditing ? (
-        <input
-          type="text"
-          name={name}
-          value={value}
-          onChange={onChange}
-          className={inputClass}
-        />
+        <input type="text" name={name} value={value} onChange={onChange} className={inputClass} />
       ) : (
         <div className="flex items-center gap-2 text-gray-900 bg-gray-50 border border-gray-200 rounded-md px-3 py-2">
           {icon}
