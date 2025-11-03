@@ -349,7 +349,7 @@ export default function SignIn() {
           {/* Image */}
           <div className="flex-1 hidden md:block">
             <Image
-              src="/image.png"
+              src="/Image.png"
               alt="thumbnail"
               className="w-full h-screen object-cover"
               width={500}
