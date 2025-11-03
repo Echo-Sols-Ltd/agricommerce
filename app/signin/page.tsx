@@ -13,7 +13,6 @@ import {
   storeAuthData,
   redirectToDashboard,
   isAuthenticated,
-  type LoginResponse,
 } from '@/lib/auth';
 
 export default function SignIn() {
@@ -175,7 +174,7 @@ export default function SignIn() {
 
       // Redirect to dashboard after a short delay
       setTimeout(() => {
-        redirectToDashboard(router, authData.user.role as any);
+        redirectToDashboard(router, authData.user.role);
       }, 1000);
       return;
 

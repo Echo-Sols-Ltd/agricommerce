@@ -140,7 +140,8 @@ export const mockSignup = async (
       mockUsers = [...mockUsers, newUser];
 
       // Create user object without password
-      const { password, ...userWithoutPassword } = newUser;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password: _, ...userWithoutPassword } = newUser;
 
       // Return auth data
       const authData: AuthData = {
@@ -173,7 +174,8 @@ export const mockLogin = async (email: string, password: string): Promise<AuthDa
         mockUsers = mockUsers.map(u => (u.id === user.id ? updatedUser : u));
 
         // Create user object without password
-        const { password, ...userWithoutPassword } = updatedUser;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password: _, ...userWithoutPassword } = updatedUser;
 
         const authData: AuthData = {
           token: `mock-jwt-token-${user.id}`,
