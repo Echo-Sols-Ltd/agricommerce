@@ -62,7 +62,7 @@ export const mockUsers = [
     email: 'admin@gmail.com',
     password: 'password123',
     role: 'ADMIN' as const,
-    names: 'Admin User',
+    names: 'Admin',
     phoneNumber: '+250700000004',
     avatar: null,
     createdAt: new Date().toISOString(),
