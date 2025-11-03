@@ -202,7 +202,7 @@ export default function SignUp() {
 
       // Redirect to dashboard after a short delay
       setTimeout(() => {
-redirectToDashboard(router, authData.user.role);
+        redirectToDashboard(router, authData.user.role);
       }, 2000);
     } catch (error) {
       // Error handling

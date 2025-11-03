@@ -9,11 +9,7 @@ import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import { Eye, EyeOff } from 'lucide-react';
-import {
-  storeAuthData,
-  redirectToDashboard,
-  isAuthenticated,
-} from '@/lib/auth';
+import { storeAuthData, redirectToDashboard, isAuthenticated } from '@/lib/auth';
 
 export default function SignIn() {
   const router = useRouter();
