@@ -1,6 +1,6 @@
 'use client';
 
-import { Mail } from "lucide-react";
+import { Mail } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -41,10 +41,12 @@ export default function Footer() {
           <p className="font-semibold text-white ">Contact Info</p>
           <ul className="mt-2 space-y-2">
             <li className="flex items-center gap-2 ">
-              <PhoneIcon className="w-5 h-5" />+250 793 373 953
+              <PhoneIcon className="w-5 h-5" />
+              +250 793 373 953
             </li>
             <li className="flex items-center gap-2">
-              <Mail className="w-5 h-5" />iamshemaleandre@gmail.com
+              <Mail className="w-5 h-5" />
+              iamshemaleandre@gmail.com
             </li>
             <li className="flex items-center gap-2">
               <MapPinIcon className="w-5 h-5" /> Kigali, Rwanda

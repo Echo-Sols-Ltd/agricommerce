@@ -17,8 +17,8 @@ export const mockUsers = [
     language: 'en',
     address: {
       district: 'Kicukiro',
-      province: 'Kigali'
-    }
+      province: 'Kigali',
+    },
   },
   {
     id: '2',
@@ -35,8 +35,8 @@ export const mockUsers = [
     language: 'rw',
     address: {
       district: 'Musanze',
-      province: 'Northern'
-    }
+      province: 'Northern',
+    },
   },
   {
     id: '3',
@@ -53,8 +53,8 @@ export const mockUsers = [
     language: 'en',
     address: {
       district: 'Gasabo',
-      province: 'Kigali'
-    }
+      province: 'Kigali',
+    },
   },
   // Admin user for testing
   {
@@ -72,9 +72,9 @@ export const mockUsers = [
     language: 'en',
     address: {
       district: 'Nyarugenge',
-      province: 'Kigali'
-    }
-  }
+      province: 'Kigali',
+    },
+  },
 ];
 
 // Mock login function
@@ -82,9 +82,7 @@ export const mockLogin = async (email: string, password: string): Promise<AuthDa
   return new Promise((resolve, reject) => {
     // Simulate API delay
     setTimeout(() => {
-      const user = mockUsers.find(
-        (user) => user.email === email && user.password === password
-      );
+      const user = mockUsers.find(user => user.email === email && user.password === password);
 
       if (user) {
         const authData: AuthData = {
@@ -92,8 +90,8 @@ export const mockLogin = async (email: string, password: string): Promise<AuthDa
           user: {
             ...user,
             // Remove password from user object
-            password: ''
-          }
+            password: '',
+          },
         };
         resolve(authData);
       } else {
@@ -106,14 +104,14 @@ export const mockLogin = async (email: string, password: string): Promise<AuthDa
 // Mock authentication check
 export const checkMockAuth = (): { isAuthenticated: boolean; user: User | null } => {
   if (typeof window === 'undefined') return { isAuthenticated: false, user: null };
-  
+
   const token = localStorage.getItem('authToken');
   const userStr = localStorage.getItem('user');
-  
+
   if (!token || !userStr) {
     return { isAuthenticated: false, user: null };
   }
-  
+
   try {
     const user = JSON.parse(userStr);
     // Verify the token format matches our mock pattern
@@ -129,7 +127,7 @@ export const checkMockAuth = (): { isAuthenticated: boolean; user: User | null }
 
 // Mock logout
 export const mockLogout = (): Promise<void> => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
     localStorage.removeItem('userRole');

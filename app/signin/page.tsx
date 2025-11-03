@@ -143,7 +143,7 @@ export default function SignIn() {
         console.log('Using mock authentication');
         const { mockLogin } = await import('@/lib/mockAuth');
         const authData = await mockLogin(formData.email, formData.password);
-        
+
         // Store auth data if remember me is checked
         if (rememberMe) {
           handleRememberMe(formData.email);
