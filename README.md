@@ -13,7 +13,7 @@ UmuhinziLink-Frontend
 
 ## 🚀 Live Application
 
-🌐 **Visit the live application:** [umuhinzilink.vercel.app](https://umuhinzilink.vercel.app)
+🌐 **Visit the live application:** [umuhinzilink.vercel.app](https://agricommerce.vercel.app/)
 
 ## 📖 About UmuhinziLink
 
