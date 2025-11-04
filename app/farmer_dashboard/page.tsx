@@ -180,7 +180,7 @@ const recentItems: RecentItem[] = [
 
 function Dashboard() {
   const router = useRouter();
-
+  
   const handleLogout = () => {
     logout(router);
   };
@@ -211,14 +211,13 @@ function Dashboard() {
               return (
                 <div key={item.label}>
                   {item.isLogout ? (
-                    <button
+                    <div
                       onClick={handleLogout}
-                      className="w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-                      aria-label="Logout"
+                      className="flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer text-sm font-medium text-gray-700 hover:bg-gray-100"
                     >
-                      <LogoutIcon className="w-5 h-5 text-white" aria-hidden="true" />
-                      <span>{item.label}</span>
-                    </button>
+                      <LogOut className="w-5 h-5 text-gray-500" />
+                      {item.label}
+                    </div>
                   ) : (
                     <Link href={item.href} className="block">
                       <div
