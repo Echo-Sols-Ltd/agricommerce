@@ -15,12 +15,14 @@ import {
   Users,
   Star,
   LayoutGrid,
+  Loader2,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Line } from 'react-chartjs-2';
 import { BuyerGuard } from '@/components/auth/AuthGuard';
 import { getAuthToken, getCurrentUser, logout } from '@/lib/auth';
+import { toast } from '@/components/ui/use-toast';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -57,53 +59,23 @@ const menuItems = [
 ];
 
 
-const produce = [
-  {
-    name: 'Premium Maize',
-    price: '500 RWF/kg',
-    available: '50kg available',
-    farmer: 'Jean Baptiste',
-    image: '/maize.png',
-    rating: '4.8',
-    reviews: '24',
-  },
-  {
-    name: 'Premium Maize',
-    price: '500 RWF/kg',
-    available: '50kg available',
-    farmer: 'Jean Baptiste',
-    image: '/maize.png',
-    rating: '4.8',
-    reviews: '24',
-  },
-  {
-    name: 'Premium Maize',
-    price: '500 RWF/kg',
-    available: '50kg available',
-    farmer: 'Jean Baptiste',
-    image: '/maize.png',
-    rating: '4.8',
-    reviews: '24',
-  },
-  {
-    name: 'Premium Maize',
-    price: '500 RWF/kg',
-    available: '50kg available',
-    farmer: 'Jean Baptiste',
-    image: '/maize.png',
-    rating: '4.8',
-    reviews: '24',
-  },
-  {
-    name: 'Premium Maize',
-    price: '500 RWF/kg',
-    available: '50kg available',
-    farmer: 'Jean Baptiste',
-    image: '/maize.png',
-    rating: '4.8',
-    reviews: '24',
-  },
-];
+type Product = {
+  id: string;
+  name: string;
+  category: string;
+  description?: string;
+  unitPrice: number;
+  measurementUnit: string;
+  image?: string | null;
+  quantity?: number;
+  isNegotiable?: boolean;
+  productStatus?: string;
+  farmer?: {
+    user?: {
+      names?: string;
+    };
+  };
+};
 
 type Order = {
   id: string;
@@ -165,6 +137,10 @@ function BuyerDashboard() {
   const [ordersLoading, setOrdersLoading] = useState(true);
   const [ordersError, setOrdersError] = useState<string | null>(null);
   const [buyerName, setBuyerName] = useState<string>('Buyer');
+  const [recommendedProducts, setRecommendedProducts] = useState<Product[]>([]);
+  const [productsLoading, setProductsLoading] = useState(true);
+  const [productsError, setProductsError] = useState<string | null>(null);
+  const [logoutPending, setLogoutPending] = useState(false);
 
   useEffect(() => {
     const currentUser = getCurrentUser();
@@ -220,6 +196,59 @@ function BuyerDashboard() {
     fetchOrders();
   }, []);
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const token = getAuthToken();
+      try {
+        setProductsLoading(true);
+        const response = await fetch('/api/products?limit=5&status=IN_STOCK', {
+          headers: {
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+        });
+
+        const body = await response.json().catch(() => null);
+
+        const apiSuccess = body?.success;
+        const message =
+          body?.message || 'Failed to load recommended produce. Please try again later.';
+
+        if (!response.ok || apiSuccess === false) {
+          const lowerMessage = message.toLowerCase();
+          if (lowerMessage.includes('no static resource')) {
+            setRecommendedProducts([]);
+            setProductsError(null);
+            return;
+          }
+
+          throw new Error(message);
+        }
+
+        const products: Product[] = body?.data ?? body ?? [];
+        setRecommendedProducts(Array.isArray(products) ? products : []);
+        setProductsError(null);
+      } catch (error: unknown) {
+        console.error('Error fetching products:', error);
+        let message =
+          error instanceof Error ? error.message : 'Unable to load recommended produce.';
+
+        if (typeof message === 'string') {
+          const lowerMessage = message.toLowerCase();
+          if (lowerMessage.includes('no static resource')) {
+            message = 'No produce available at the moment.';
+          }
+        }
+
+        setProductsError(message);
+        setRecommendedProducts([]);
+      } finally {
+        setProductsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   const stats = useMemo(
     () => [
       {
@@ -271,8 +300,54 @@ function BuyerDashboard() {
     });
   };
 
-  const handleLogout = () => {
-    logout(router);
+  const handleLogout = async () => {
+    if (logoutPending) return;
+
+    const token = getAuthToken();
+    setLogoutPending(true);
+
+    try {
+      if (token) {
+        const response = await fetch('/api/auth/logout', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const body = await response.json().catch(() => null);
+
+        if (!response.ok) {
+          const message =
+            (body && (body.message || body.error)) ||
+            'Failed to end the session with the server.';
+          throw new Error(message);
+        }
+
+        toast({
+          title: 'Signed out',
+          description: 'You have been logged out successfully.',
+        });
+      } else {
+        toast({
+          title: 'Signed out',
+          description: 'You have been logged out successfully.',
+        });
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+      const message =
+        error instanceof Error ? error.message : 'Failed to log out. Clearing local session.';
+
+      toast({
+        title: 'Logout Issue',
+        description: message,
+        variant: 'error',
+      });
+    } finally {
+      logout(router);
+      setLogoutPending(false);
+    }
   };
 
   const chartData = {
@@ -312,13 +387,26 @@ function BuyerDashboard() {
               return (
                 <div key={item.label}>
                   {item.isLogout ? (
-                    <div
+                    <button
+                      type="button"
                       onClick={handleLogout}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all text-sm font-medium text-white hover:bg-green-700`}
+                      disabled={logoutPending}
+                      className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-sm font-medium text-white ${
+                        logoutPending ? 'opacity-70 cursor-not-allowed' : 'hover:bg-green-700'
+                      }`}
                     >
-                      <Icon className="w-5 h-5 text-white" />
-                      <span>{item.label}</span>
-                    </div>
+                      {logoutPending ? (
+                        <>
+                          <Loader2 className="w-5 h-5 animate-spin text-white" />
+                          <span>Logging out...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Icon className="w-5 h-5 text-white" />
+                          <span>{item.label}</span>
+                        </>
+                      )}
+                    </button>
                   ) : (
                     <Link href={item.href} className="block">
                       <div
@@ -456,30 +544,68 @@ function BuyerDashboard() {
               </a>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-              {produce.map((item, index) => (
-                <div
-                  key={`${item.name}-${index}`}
-                  className="bg-white rounded-lg shadow-sm border overflow-hidden"
-                >
-                  <img src={item.image} alt={item.name} className="h-32 w-full object-cover" />
-                  <div className="p-3">
-                    <h3 className="font-semibold text-gray-900 text-sm">{item.name}</h3>
-                    <p className="text-xs text-gray-500">by {item.farmer}</p>
-                    <div className="flex items-center gap-1 mt-1">
-                      <Star className="w-3 h-3 text-yellow-400 fill-current" />
-                      <span className="text-xs text-gray-600">{item.rating}</span>
-                      <span className="text-xs text-gray-400">({item.reviews})</span>
-                    </div>
-                    <div className="mt-2">
-                      <p className="text-green-600 font-bold text-sm">{item.price}</p>
-                      <p className="text-xs text-gray-500">{item.available}</p>
-                    </div>
-                    <button className="mt-2 w-full bg-green-600 text-white px-3 py-1.5 rounded text-xs hover:bg-green-700">
-                      Contact
-                    </button>
-                  </div>
+              {productsLoading && (
+                <div className="col-span-full text-center text-gray-500 py-6">Loading produce...</div>
+              )}
+              {!productsLoading && productsError && (
+                <div className="col-span-full text-center text-gray-600 bg-gray-100 border border-gray-200 rounded-lg py-6">
+                  {productsError}
                 </div>
-              ))}
+              )}
+              {!productsLoading && !productsError && recommendedProducts.length === 0 && (
+                <div className="col-span-full text-center text-gray-500 py-6">
+                  No produce available at the moment.
+                </div>
+              )}
+              {!productsLoading &&
+                !productsError &&
+                recommendedProducts.map(product => {
+                  const priceText = `${Number(product.unitPrice || 0).toLocaleString()} RWF/${
+                    product.measurementUnit || ''
+                  }`;
+                  const farmerName = product.farmer?.user?.names || 'Unknown farmer';
+                  const quantityText =
+                    product.quantity !== undefined
+                      ? `${product.quantity?.toLocaleString?.() || product.quantity} ${
+                          product.measurementUnit || ''
+                        } available`
+                      : '';
+
+                  return (
+                    <div
+                      key={product.id}
+                      className="bg-white rounded-lg shadow-sm border overflow-hidden"
+                    >
+                      <div className="h-32 w-full bg-gray-100 flex items-center justify-center">
+                        {product.image ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={product.image}
+                            alt={product.name}
+                            className="h-full w-full object-cover"
+                          />
+                        ) : (
+                          <span className="text-gray-400 text-xs">No image</span>
+                        )}
+                      </div>
+                      <div className="p-3">
+                        <h3 className="font-semibold text-gray-900 text-sm line-clamp-1">
+                          {product.name}
+                        </h3>
+                        <p className="text-xs text-gray-500 mb-1 line-clamp-1">by {farmerName}</p>
+                        <div className="mt-2">
+                          <p className="text-green-600 font-bold text-sm">{priceText}</p>
+                          {quantityText && (
+                            <p className="text-xs text-gray-500">{quantityText}</p>
+                          )}
+                        </div>
+                        <button className="mt-3 w-full bg-green-600 text-white px-3 py-1.5 rounded text-xs hover:bg-green-700">
+                          Contact
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
             </div>
           </div>
 

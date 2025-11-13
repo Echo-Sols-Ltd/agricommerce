@@ -163,7 +163,7 @@ export function logout(router?: { push: (path: string) => void }): void {
   if (router) {
     router.push('/signin?logout=true');
   } else if (typeof window !== 'undefined') {
-    window.location.href = '/signin?logout=true';
+    window.location.assign('/signin?logout=true');
   }
 }
 

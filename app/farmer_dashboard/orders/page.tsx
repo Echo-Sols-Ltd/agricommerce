@@ -1,6 +1,8 @@
 'use client';
 
-import React from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutGrid,
   FilePlus,
@@ -14,20 +16,60 @@ import {
   Package,
   Leaf,
   Download,
+  Loader2,
+  LogOut,
 } from 'lucide-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { toast } from '@/components/ui/use-toast';
+import { getAuthToken, getCurrentUser, logout, type User } from '@/lib/auth';
 
-const Logo = () => (
-  <div className="flex items-center px-6 py-4">
-    <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center mr-3">
-      <Leaf className="w-5 h-5 text-green-600" />
-    </div>
-    <span className="font-bold text-xl text-white">UmuhinziLink</span>
-  </div>
-);
+type FarmerOrder = {
+  id: string;
+  buyer?: {
+    id?: string;
+    names?: string;
+    email?: string;
+    phoneNumber?: string;
+    address?: {
+      district?: string;
+      province?: string;
+    } | null;
+  };
+  product?: {
+    id?: string;
+    name?: string;
+    unitPrice?: number;
+    measurementUnit?: string;
+    quantity?: number;
+    farmer?: {
+      id?: string;
+      user?: {
+        id?: string;
+        names?: string;
+      };
+    };
+  };
+  quantity?: number;
+  totalPrice?: number;
+  isPaid?: boolean;
+  status?: string;
+  paymentMethod?: string;
+  delivery?: {
+    status?: string;
+    deliveryAddress?: string;
+    estimatedDelivery?: string;
+  };
+  createdAt?: string;
+  updatedAt?: string;
+};
 
-const menuItems = [
+type MenuItem = {
+  label: string;
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+  isLogout?: boolean;
+};
+
+const MENU_ITEMS: MenuItem[] = [
   { label: 'Dashboard', href: '/farmer_dashboard', icon: LayoutGrid },
   { label: 'Products', href: '/farmer_dashboard/products', icon: Package },
   { label: 'Input Request', href: '/farmer_dashboard/requests', icon: FilePlus },
@@ -38,291 +80,365 @@ const menuItems = [
   { label: 'Profile', href: '/farmer_dashboard/profile', icon: User },
   { label: 'Orders', href: '/farmer_dashboard/orders', icon: ShoppingCart },
   { label: 'Settings', href: '/farmer_dashboard/settings', icon: Settings },
+  { label: 'Logout', href: '#', icon: LogOut, isLogout: true },
 ];
 
-const orders = [
-  {
-    id: '00001',
-    customer: 'Ange Kagame',
-    address: 'KN 4 Av 20 Nyarugenge Kigali',
-    date: '20 May 2024',
-    product: 'Maize Seeds',
-    amount: '123',
-    status: 'Processing',
-  },
-  {
-    id: '00002',
-    customer: 'Ange Kagame',
-    address: 'KN 4 Av 20 Nyarugenge Kigali',
-    date: '20 May 2024',
-    product: 'Maize Seeds',
-    amount: '123',
-    status: 'Processing',
-  },
-  {
-    id: '00003',
-    customer: 'David Gakwaya',
-    address: 'KN 3 Av 15 Kicukiro',
-    date: '22 May 2024',
-    product: 'Milk Products',
-    amount: '123',
-    status: 'Shipped',
-  },
-  {
-    id: '00004',
-    customer: 'Gilbert Jomason',
-    address: 'KG 2 Av 10 Gasabo 500',
-    date: '01 Jun 2024',
-    product: 'Maize Seeds',
-    amount: '123',
-    status: 'Completed',
-  },
-  {
-    id: '00005',
-    customer: 'Ange Kagame',
-    address: 'KN 4 Av 20 Nyarugenge Kigali',
-    date: '20 May 2024',
-    product: 'Tomato Seeds',
-    amount: '123',
-    status: 'Processing',
-  },
-  {
-    id: '00006',
-    customer: 'Ange Kagame',
-    address: 'KN 4 Av 20 Nyarugenge Kigali',
-    date: '20 May 2024',
-    product: 'Tomato Seeds',
-    amount: '123',
-    status: 'Processing',
-  },
-  {
-    id: '00007',
-    customer: 'Ange Kagame',
-    address: 'KN 4 Av 20 Nyarugenge Kigali',
-    date: '20 May 2024',
-    product: 'Tomato Seeds',
-    amount: '123',
-    status: 'Processing',
-  },
-  {
-    id: '00008',
-    customer: 'Ange Kagame',
-    address: 'KN 4 Av 20 Nyarugenge Kigali',
-    date: '20 May 2024',
-    product: 'Tomato Seeds',
-    amount: '123',
-    status: 'Processing',
-  },
-  {
-    id: '00009',
-    customer: 'John Kagiri',
-    address: 'KN 4 Av 20 Nyarugenge Kigali',
-    date: '20 Jul 2024',
-    product: 'Tomato Seeds',
-    amount: '123',
-    status: 'Processing',
-  },
-  {
-    id: '00010',
-    customer: 'John Kagiri',
-    address: 'KN 4 Av 20 Nyarugenge Kigali',
-    date: '20 Jul 2024',
-    product: 'Tomato Seeds',
-    amount: '123',
-    status: 'Processing',
-  },
-  {
-    id: '00011',
-    customer: 'Ange Kagame',
-    address: 'KN 4 Av 20 Nyarugenge Kigali',
-    date: '20 Jul 2024',
-    product: 'Tomato Seeds',
-    amount: '123',
-    status: 'Processing',
-  },
-  {
-    id: '00012',
-    customer: 'Ange Kagame',
-    address: 'KN 4 Av 20 Nyarugenge Kigali',
-    date: '20 Jul 2024',
-    product: 'Tomato Seeds',
-    amount: '123',
-    status: 'Processing',
-  },
-  {
-    id: '00013',
-    customer: 'Ange Kagame',
-    address: 'KN 4 Av 20 Nyarugenge Kigali',
-    date: '20 Jul 2024',
-    product: 'Tomato Seeds',
-    amount: '123',
-    status: 'Processing',
-  },
-  {
-    id: '00014',
-    customer: 'Ange Kagame',
-    address: 'KN 4 Av 20 Nyarugenge Kigali',
-    date: '20 Jul 2024',
-    product: 'Tomato Seeds',
-    amount: '123',
-    status: 'Processing',
-  },
-  {
-    id: '00015',
-    customer: 'Ange Kagame',
-    address: 'KN 4 Av 20 Nyarugenge Kigali',
-    date: '20 Jul 2024',
-    product: 'Tomato Seeds',
-    amount: '123',
-    status: 'Processing',
-  },
-];
+const ORDER_STATUS_META: Record<string, { label: string; badge: string }> = {
+  pending: { label: 'Pending', badge: 'bg-yellow-100 text-yellow-700' },
+  processing: { label: 'Processing', badge: 'bg-purple-100 text-purple-700' },
+  shipped: { label: 'Shipped', badge: 'bg-blue-100 text-blue-700' },
+  delivered: { label: 'Delivered', badge: 'bg-green-100 text-green-700' },
+  completed: { label: 'Completed', badge: 'bg-green-100 text-green-700' },
+  cancelled: { label: 'Cancelled', badge: 'bg-red-100 text-red-700' },
+};
 
-export default function OrdersPage() {
+function formatDate(value?: string) {
+  if (!value) return '—';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString(undefined, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+
+function formatNumber(value: number, options?: Intl.NumberFormatOptions) {
+  return value.toLocaleString(undefined, { maximumFractionDigits: 0, ...options });
+}
+
+export default function FarmerOrdersPage() {
+  const router = useRouter();
   const pathname = usePathname();
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [orders, setOrders] = useState<FarmerOrder[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [logoutPending, setLogoutPending] = useState(false);
+  const [statusFilter, setStatusFilter] = useState('all');
+
+  useEffect(() => {
+    setCurrentUser(getCurrentUser());
+  }, []);
+
+  useEffect(() => {
+    const token = getAuthToken();
+    if (!token) {
+      setLoading(false);
+      setError('You need to sign in to view your orders.');
+      return;
+    }
+
+    let cancelled = false;
+
+    const fetchOrders = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch('/api/orders/farmer', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const body = await response.json().catch(() => null);
+
+        if (!response.ok) {
+          const message = body?.message || 'Failed to load orders.';
+          throw new Error(message);
+        }
+
+        if (!cancelled) {
+          const data = (body?.data || body || []) as FarmerOrder[];
+          setOrders(Array.isArray(data) ? data : []);
+          setError(null);
+        }
+      } catch (err) {
+        console.error('Error fetching farmer orders:', err);
+        if (!cancelled) {
+          const message = err instanceof Error ? err.message : 'Unable to load orders.';
+          setError(message);
+          setOrders([]);
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+
+    fetchOrders();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const filteredOrders = useMemo(() => {
+    if (statusFilter === 'all') return orders;
+    return orders.filter(order => (order.status || '').toLowerCase() === statusFilter);
+  }, [orders, statusFilter]);
+
+  const metrics = useMemo(() => {
+    const total = orders.length;
+    const totalRevenue = orders.reduce((sum, order) => sum + (Number(order.totalPrice) || 0), 0);
+    const paid = orders.filter(order => order.isPaid).length;
+    const pending = orders.filter(order => (order.status || '').toLowerCase() === 'pending').length;
+    return { total, totalRevenue, paid, pending };
+  }, [orders]);
+
+  const handleLogout = async () => {
+    if (logoutPending) return;
+    const token = getAuthToken();
+    setLogoutPending(true);
+
+    try {
+      if (token) {
+        const response = await fetch('/api/auth/logout', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const body = await response.json().catch(() => null);
+
+        if (!response.ok) {
+          const message =
+            (body && (body.message || body.error)) ||
+            'Failed to end the session with the server.';
+          throw new Error(message);
+        }
+      }
+
+      toast({
+        title: 'Signed out',
+        description: 'You have been logged out successfully.',
+      });
+    } catch (err) {
+      console.error('Error during logout:', err);
+      const message = err instanceof Error ? err.message : 'Failed to log out. Clearing local session.';
+      toast({
+        title: 'Logout Issue',
+        description: message,
+        variant: 'error',
+      });
+    } finally {
+      logout(router);
+      setLogoutPending(false);
+    }
+  };
+
+  const displayName = currentUser?.names || 'Farmer';
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      {/* Sidebar */}
       <aside className="w-64 bg-[#00A63E] flex flex-col fixed left-0 top-0 h-screen overflow-y-auto">
-        <Logo />
+        <div className="flex items-center px-6 py-4">
+          <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center mr-3">
+            <Leaf className="w-5 h-5 text-green-600" />
+          </div>
+          <span className="font-bold text-xl text-white">UmuhinziLink</span>
+        </div>
         <nav className="flex-1 px-4 py-6 space-y-2">
-          {menuItems.map((item, index) => {
+          {MENU_ITEMS.map((item, index) => {
             const isActive = pathname === item.href;
             const Icon = item.icon;
-            const showDivider = index === 4 || index === 8;
+            const showDivider = index === 4 || index === 9;
+
             return (
               <div key={item.label}>
-                <Link href={item.href} className="block">
-                  <div
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all text-sm font-medium
-                      ${isActive ? 'bg-white text-green-600 shadow-sm rounded-lg' : 'text-white'}`}
+                {item.isLogout ? (
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    disabled={logoutPending}
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-sm font-medium text-white ${
+                      logoutPending ? 'opacity-70 cursor-not-allowed' : 'hover:bg-green-700'
+                    }`}
                   >
-                    <Icon className={`w-5 h-5 ${isActive ? 'text-green-600' : 'text-white'}`} />
-                    <span>{item.label}</span>
-                  </div>
-                </Link>
-                {showDivider && <div className="border-t border-gray-200 my-2 mx-4"></div>}
+                    {logoutPending ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin text-white" />
+                        <span>Logging out...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Icon className="w-5 h-5 text-white" />
+                        <span>{item.label}</span>
+                      </>
+                    )}
+                  </button>
+                ) : (
+                  <Link href={item.href} className="block">
+                    <div
+                      className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all text-sm font-medium ${
+                        isActive ? 'bg-white text-green-600 shadow-sm' : 'text-white hover:bg-green-700'
+                      }`}
+                    >
+                      <Icon className={`w-5 h-5 ${isActive ? 'text-green-600' : 'text-white'}`} />
+                      <span>{item.label}</span>
+                    </div>
+                  </Link>
+                )}
+                {showDivider && <div className="border-t border-gray-200 my-2 mx-4" />}
               </div>
             );
           })}
         </nav>
       </aside>
 
-      {/* Main Content */}
       <main className="flex-1 ml-64 bg-gray-50">
-        {/* Header */}
         <header className="bg-white border-b h-16 flex items-center justify-between px-8 shadow-sm">
-          <h1 className="text-xl font-semibold text-gray-900">Order</h1>
+          <div>
+            <h1 className="text-xl font-semibold text-gray-900">Orders</h1>
+            <p className="text-xs text-gray-500">Order overview for {displayName.split(' ')[0]}</p>
+          </div>
           <button className="bg-orange-500 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-orange-600 transition">
-            <Download className="w-4 h-4" />
-            Export
+            <Download className="w-4 h-4" /> Export
           </button>
         </header>
 
-        <div className="p-6">
-          {/* Orders Table */}
-          <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
+        <div className="p-6 space-y-6">
+          <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+            <SummaryCard title="Total orders" value={formatNumber(metrics.total)} caption="All time" />
+            <SummaryCard
+              title="Revenue"
+              value={`RWF ${formatNumber(metrics.totalRevenue)}`}
+              caption="Gross value"
+            />
+            <SummaryCard
+              title="Paid"
+              value={formatNumber(metrics.paid)}
+              caption="Orders fully paid"
+              accent="text-green-600"
+            />
+            <SummaryCard
+              title="Pending"
+              value={formatNumber(metrics.pending)}
+              caption="Awaiting fulfilment"
+              accent="text-yellow-600"
+            />
+          </section>
+
+          <section className="bg-white border border-gray-100 rounded-xl shadow-sm p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex flex-wrap items-center gap-3">
+              <label className="flex items-center gap-2 text-sm text-gray-600">
+                <span>Status</span>
+                <select
+                  value={statusFilter}
+                  onChange={event => setStatusFilter(event.target.value)}
+                  className="pl-3 pr-8 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-green-500"
+                >
+                  <option value="all">All</option>
+                  <option value="pending">Pending</option>
+                  <option value="processing">Processing</option>
+                  <option value="shipped">Shipped</option>
+                  <option value="delivered">Delivered</option>
+                  <option value="completed">Completed</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+              </label>
+              {statusFilter !== 'all' && (
+                <button
+                  onClick={() => setStatusFilter('all')}
+                  className="text-sm text-red-500 flex items-center gap-1"
+                >
+                  <span>Clear filter</span>
+                </button>
+              )}
+            </div>
+          </section>
+
+          <section className="bg-white rounded-lg shadow-sm border overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-gray-200 bg-gray-50">
-                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">ID</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
-                      CUSTOMER
-                    </th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
-                      ADDRESS
-                    </th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">DATE</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
-                      Product
-                    </th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
-                      AMOUNT
-                    </th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
-                      STATUS
-                    </th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">
-                      ACTION
-                    </th>
+                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Order ID</th>
+                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Buyer</th>
+                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Address</th>
+                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Date</th>
+                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Product</th>
+                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Quantity</th>
+                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Amount</th>
+                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Status</th>
+                    <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {orders.map((order, index) => (
-                    <tr
-                      key={order.id}
-                      className={index !== orders.length - 1 ? 'border-b border-gray-100' : ''}
-                    >
-                      <td className="py-4 px-4 font-medium text-gray-900 text-xs">#{order.id}</td>
-                      <td className="py-4 px-4 text-gray-900 text-xs">{order.customer}</td>
-                      <td className="py-4 px-4 text-gray-900 text-xs">{order.address}</td>
-                      <td className="py-4 px-4 text-gray-900 text-xs">{order.date}</td>
-                      <td className="py-4 px-4 text-gray-900 text-xs">{order.product}</td>
-                      <td className="py-4 px-4 text-gray-900 text-xs">{order.amount}</td>
-                      <td className="py-4 px-4">
-                        <span
-                          className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            order.status === 'Processing'
-                              ? 'bg-purple-100 text-purple-700'
-                              : order.status === 'Completed'
-                                ? 'bg-green-100 text-green-700'
-                                : order.status === 'Shipped'
-                                  ? 'bg-orange-100 text-orange-700'
-                                  : 'bg-gray-100 text-gray-700'
-                          }`}
-                        >
-                          {order.status}
-                        </span>
-                      </td>
-                      <td className="py-4 px-4">
-                        <button className="text-green-600 hover:text-green-800 text-sm font-medium">
-                          View Details
-                        </button>
+                  {loading ? (
+                    <tr>
+                      <td colSpan={9} className="py-6 px-4 text-center text-gray-500">
+                        <Loader2 className="w-5 h-5 animate-spin inline mr-2" /> Loading orders...
                       </td>
                     </tr>
-                  ))}
+                  ) : error ? (
+                    <tr>
+                      <td colSpan={9} className="py-6 px-4 text-center text-red-600">
+                        {error}
+                      </td>
+                    </tr>
+                  ) : filteredOrders.length === 0 ? (
+                    <tr>
+                      <td colSpan={9} className="py-6 px-4 text-center text-gray-500">
+                        No orders match the selected filter.
+                      </td>
+                    </tr>
+                  ) : (
+                    filteredOrders.map(order => {
+                      const statusKey = (order.status || 'pending').toLowerCase();
+                      const statusMeta = ORDER_STATUS_META[statusKey] || ORDER_STATUS_META.pending;
+                      const buyerAddress = order.buyer?.address
+                        ? `${order.buyer.address.district || ''}${order.buyer.address.province ? `, ${order.buyer.address.province}` : ''}`.trim()
+                        : '—';
+                      const quantity = Number(order.quantity) || Number(order.product?.quantity) || 0;
+                      const amount = Number(order.totalPrice) ||
+                        (Number(order.product?.unitPrice) || 0) * quantity;
+
+                      return (
+                        <tr key={order.id} className="border-b border-gray-100 hover:bg-gray-50">
+                          <td className="py-4 px-4 text-sm font-medium text-gray-900">#{order.id}</td>
+                          <td className="py-4 px-4 text-sm text-gray-900">
+                            {order.buyer?.names || order.buyer?.email || 'Unknown buyer'}
+                          </td>
+                          <td className="py-4 px-4 text-sm text-gray-600">{buyerAddress || '—'}</td>
+                          <td className="py-4 px-4 text-sm text-gray-600">{formatDate(order.createdAt)}</td>
+                          <td className="py-4 px-4 text-sm text-gray-900">{order.product?.name || '—'}</td>
+                          <td className="py-4 px-4 text-sm text-gray-600">
+                            {quantity ? `${formatNumber(quantity)} ${order.product?.measurementUnit || ''}` : '—'}
+                          </td>
+                          <td className="py-4 px-4 text-sm text-gray-900">
+                            RWF {formatNumber(amount)}
+                          </td>
+                          <td className="py-4 px-4">
+                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusMeta.badge}`}>
+                              {statusMeta.label}
+                            </span>
+                          </td>
+                          <td className="py-4 px-4">
+                            <button className="text-green-600 hover:text-green-800 text-sm font-medium">
+                              View details
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  )}
                 </tbody>
               </table>
             </div>
-          </div>
-
-          {/* Pagination */}
-          <div className="flex justify-between items-center mt-6">
-            <p className="text-sm text-gray-600">Showing 1 to 15 of 15 results</p>
-            <div className="flex items-center gap-1">
-              <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
-                &lt;
-              </button>
-              <button className="bg-green-600 text-white w-8 h-8 rounded text-sm font-medium">
-                1
-              </button>
-              <button className="w-8 h-8 text-gray-600 hover:text-gray-900 transition-colors text-sm">
-                2
-              </button>
-              <button className="w-8 h-8 text-gray-600 hover:text-gray-900 transition-colors text-sm">
-                3
-              </button>
-              <button className="w-8 h-8 text-gray-600 hover:text-gray-900 transition-colors text-sm">
-                4
-              </button>
-              <button className="w-8 h-8 text-gray-600 hover:text-gray-900 transition-colors text-sm">
-                5
-              </button>
-              <button className="w-8 h-8 text-gray-600 hover:text-gray-900 transition-colors text-sm">
-                6
-              </button>
-              <button className="w-8 h-8 text-gray-600 hover:text-gray-900 transition-colors text-sm">
-                7
-              </button>
-              <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
-                &gt;
-              </button>
-            </div>
-          </div>
+          </section>
         </div>
       </main>
+    </div>
+  );
+}
+
+type SummaryCardProps = {
+  title: string;
+  value: string;
+  caption: string;
+  accent?: string;
+};
+
+function SummaryCard({ title, value, caption, accent }: SummaryCardProps) {
+  return (
+    <div className="bg-white border border-gray-100 rounded-xl shadow-sm p-4 flex flex-col gap-1">
+      <p className="text-sm text-gray-500">{title}</p>
+      <p className="text-2xl font-semibold text-gray-900">{value}</p>
+      <p className={`text-xs ${accent ?? 'text-gray-400'}`}>{caption}</p>
     </div>
   );
 }

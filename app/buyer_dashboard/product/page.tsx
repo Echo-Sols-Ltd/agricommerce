@@ -17,8 +17,12 @@ import {
   Phone,
   Settings,
   LogOut,
+  Loader2,
 } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { toast } from '@/components/ui/use-toast';
+import { getAuthToken, logout } from '@/lib/auth';
 
 const menuItems = [
   { label: 'Dashboard', href: '/buyer_dashboard', icon: CheckCircle },
@@ -29,7 +33,7 @@ const menuItems = [
   { label: 'Profile', href: '/buyer_dashboard/profile', icon: UserIcon },
   { label: 'Contact', href: '/buyer_dashboard/contact', icon: Phone },
   { label: 'Settings', href: '/buyer_dashboard/settings', icon: Settings },
-  { label: 'Logout', href: '/logout', icon: LogOut },
+  { label: 'Logout', href: '#', icon: LogOut, isLogout: true },
 ];
 
 const productsList = [
@@ -106,6 +110,8 @@ export default function ProductsPage() {
   const [search, setSearch] = useState('');
   const [cropFilter, setCropFilter] = useState('All Crops');
   const [locationFilter, setLocationFilter] = useState('All Locations');
+  const [logoutPending, setLogoutPending] = useState(false);
+  const router = useRouter();
 
   const filteredProducts = productsList.filter(p => {
     const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase());
@@ -114,6 +120,50 @@ export default function ProductsPage() {
       locationFilter === 'All Locations' || p.location.includes(locationFilter);
     return matchesSearch && matchesCrop && matchesLocation;
   });
+
+  const handleLogout = async () => {
+    if (logoutPending) return;
+
+    const token = getAuthToken();
+    setLogoutPending(true);
+
+    try {
+      if (token) {
+        const response = await fetch('/api/auth/logout', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const body = await response.json().catch(() => null);
+
+        if (!response.ok) {
+          const message =
+            (body && (body.message || body.error)) ||
+            'Failed to end the session with the server.';
+          throw new Error(message);
+        }
+      }
+
+      toast({
+        title: 'Signed out',
+        description: 'You have been logged out successfully.',
+      });
+    } catch (error) {
+      console.error('Error during logout:', error);
+      const message =
+        error instanceof Error ? error.message : 'Failed to log out. Clearing local session.';
+
+      toast({
+        title: 'Logout Issue',
+        description: message,
+        variant: 'error',
+      });
+    } finally {
+      logout(router);
+      setLogoutPending(false);
+    }
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -134,19 +184,39 @@ export default function ProductsPage() {
             const showDivider = index === 3 || index === 8;
             return (
               <div key={item.label}>
-                <Link href={item.href} className="block">
-                  <div
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all text-sm font-medium
+                {item.isLogout ? (
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    disabled={logoutPending}
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-sm font-medium ${
+                      logoutPending
+                        ? 'text-gray-400 bg-gray-100 cursor-not-allowed'
+                        : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                    }`}
+                  >
+                    {logoutPending ? (
+                      <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
+                    ) : (
+                      <Icon className="w-5 h-5 text-gray-500" />
+                    )}
+                    <span>{logoutPending ? 'Logging out...' : item.label}</span>
+                  </button>
+                ) : (
+                  <Link href={item.href} className="block">
+                    <div
+                      className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all text-sm font-medium
                       ${
                         isActive
                           ? 'bg-green-600 text-white shadow-sm'
                           : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                       }`}
-                  >
-                    <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-gray-500'}`} />
-                    <span>{item.label}</span>
-                  </div>
-                </Link>
+                    >
+                      <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-gray-500'}`} />
+                      <span>{item.label}</span>
+                    </div>
+                  </Link>
+                )}
                 {showDivider && <div className="border-t border-gray-200 my-2 mx-4"></div>}
               </div>
             );
