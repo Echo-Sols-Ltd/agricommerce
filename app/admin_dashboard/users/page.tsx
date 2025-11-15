@@ -164,7 +164,7 @@ function UserManagement() {
         <div className="flex items-center justify-between h-16 px-6">
           <div className="flex items-center space-x-2">
             
-            <span className="font-bold text-xl text-white">UmuhiniLink</span>
+            <span className="font-bold text-xl text-white">UmuhinziLink</span>
           </div>
           <button onClick={() => setSidebarOpen(false)} className="lg:hidden text-white">
             <X className="w-6 h-6" />

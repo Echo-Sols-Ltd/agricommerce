@@ -4,40 +4,47 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
-  ShoppingCart,
   Search,
-  Filter,
-  ChevronLeft,
+  LayoutGrid,
+  Users,
+  ArrowUpDown,
+  Bell,
+  User as UserIcon,
+  Settings,
+  Menu,
+  X,
   Eye,
-  Package,
-  DollarSign,
-  Calendar,
-  User,
-  CheckCircle,
-  XCircle,
-  Clock,
-  Truck,
-  MapPin
+  Trash2
 } from 'lucide-react';
 import { getCurrentUser } from '@/lib/auth';
 
-interface Order {
+interface Transaction {
   id: string;
-  orderNumber: string;
-  customer: string;
-  customerEmail: string;
-  farmer: string;
-  product: string;
-  quantity: number;
-  price: number;
-  totalAmount: number;
-  status: 'pending' | 'confirmed' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
-  orderDate: string;
-  deliveryDate: string;
-  deliveryAddress: string;
-  paymentMethod: string;
-  paymentStatus: 'pending' | 'paid' | 'failed';
+  senderType: string;
+  senderName: string;
+  receiverType: string;
+  receiverName: string;
+  date: string;
+  status: 'Completed' | 'Processing' | 'Failed';
 }
+
+interface MenuItem {
+  label: string;
+  href: string;
+  icon: any;
+}
+
+const MENU_ITEMS: MenuItem[] = [
+  { label: 'Dashboard', href: '/admin_dashboard', icon: LayoutGrid },
+  { label: 'Users', href: '/admin_dashboard/users', icon: Users },
+  { label: 'Payments', href: '/admin_dashboard/orders', icon: ArrowUpDown },
+  { label: 'Notifications', href: '/admin_dashboard/reports', icon: Bell },
+];
+
+const MENU_ITEMS_BOTTOM: MenuItem[] = [
+  { label: 'Profile', href: '/admin_dashboard/settings', icon: UserIcon },
+  { label: 'Settings', href: '/admin_dashboard/settings', icon: Settings },
+];
 
 const AdminGuard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [loading, setLoading] = useState(true);
@@ -75,330 +82,244 @@ const AdminGuard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 function OrderManagement() {
   const router = useRouter();
-  const [orders, setOrders] = useState<Order[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterStatus, setFilterStatus] = useState('all');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     // Mock data - replace with actual API calls
-    setOrders([
+    setTransactions([
       {
         id: '1',
-        orderNumber: 'ORD-2024-001',
-        customer: 'Mary Buyer',
-        customerEmail: 'mary@buy.com',
-        farmer: 'John Farmer',
-        product: 'Fresh Tomatoes',
-        quantity: 50,
-        price: 2.50,
-        totalAmount: 125.00,
-        status: 'confirmed',
-        orderDate: '2024-03-15',
-        deliveryDate: '2024-03-18',
-        deliveryAddress: 'Kigali, Rwanda',
-        paymentMethod: 'Mobile Money',
-        paymentStatus: 'paid',
+        senderType: 'Farmer',
+        senderName: 'Christine Brooks',
+        receiverType: 'Supplier',
+        receiverName: 'Gilbert Johnston',
+        date: '2 Nov 2025',
+        status: 'Completed',
       },
       {
         id: '2',
-        orderNumber: 'ORD-2024-002',
-        customer: 'David Customer',
-        customerEmail: 'david@email.com',
-        farmer: 'Jane Farmer',
-        product: 'Organic Lettuce',
-        quantity: 30,
-        price: 3.00,
-        totalAmount: 90.00,
-        status: 'processing',
-        orderDate: '2024-03-16',
-        deliveryDate: '2024-03-19',
-        deliveryAddress: 'Kigali, Rwanda',
-        paymentMethod: 'Bank Transfer',
-        paymentStatus: 'paid',
+        senderType: 'Farmer',
+        senderName: 'Rosie Pearson',
+        receiverType: 'Supplier',
+        receiverName: '28 May 2019',
+        date: '2 Nov 2025',
+        status: 'Processing',
       },
       {
         id: '3',
-        orderNumber: 'ORD-2024-003',
-        customer: 'Sarah Shopper',
-        customerEmail: 'sarah@shop.com',
-        farmer: 'John Farmer',
-        product: 'Fresh Carrots',
-        quantity: 25,
-        price: 1.80,
-        totalAmount: 45.00,
-        status: 'pending',
-        orderDate: '2024-03-17',
-        deliveryDate: '2024-03-20',
-        deliveryAddress: 'Kigali, Rwanda',
-        paymentMethod: 'Cash on Delivery',
-        paymentStatus: 'pending',
+        senderType: 'Buyer',
+        senderName: 'Darrell Caldwell',
+        receiverType: 'Farmer',
+        receiverName: '23 Nov 2019',
+        date: '2 Nov 2025',
+        status: 'Failed',
+      },
+      {
+        id: '4',
+        senderType: 'Buyer',
+        senderName: 'Gilbert Johnston',
+        receiverType: 'Farmer',
+        receiverName: '05 Feb 2019',
+        date: '2 Nov 2025',
+        status: 'Completed',
+      },
+      {
+        id: '5',
+        senderType: 'Farmer',
+        senderName: 'Alan Cain',
+        receiverType: 'Supplier',
+        receiverName: '29 Jul 2019',
+        date: '2 Nov 2025',
+        status: 'Processing',
+      },
+      {
+        id: '6',
+        senderType: 'Farmer',
+        senderName: 'Alan Cain',
+        receiverType: 'Supplier',
+        receiverName: '29 Jul 2019',
+        date: '2 Nov 2025',
+        status: 'Processing',
+      },
+      {
+        id: '7',
+        senderType: 'Buyer',
+        senderName: 'Darrell Caldwell',
+        receiverType: 'Farmer',
+        receiverName: '23 Nov 2019',
+        date: '2 Nov 2025',
+        status: 'Failed',
+      },
+      {
+        id: '8',
+        senderType: 'Farmer',
+        senderName: 'Christine Brooks',
+        receiverType: 'Supplier',
+        receiverName: 'Gilbert Johnston',
+        date: '2 Nov 2025',
+        status: 'Completed',
+      },
+      {
+        id: '9',
+        senderType: 'Farmer',
+        senderName: 'Christine Brooks',
+        receiverType: 'Supplier',
+        receiverName: 'Gilbert Johnston',
+        date: '2 Nov 2025',
+        status: 'Completed',
       },
     ]);
   }, []);
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'pending':
-        return <Clock className="w-4 h-4 text-yellow-500" />;
-      case 'confirmed':
-        return <CheckCircle className="w-4 h-4 text-blue-500" />;
-      case 'processing':
-        return <Package className="w-4 h-4 text-purple-500" />;
-      case 'shipped':
-        return <Truck className="w-4 h-4 text-orange-500" />;
-      case 'delivered':
-        return <CheckCircle className="w-4 h-4 text-green-500" />;
-      case 'cancelled':
-        return <XCircle className="w-4 h-4 text-red-500" />;
-      default:
-        return <Clock className="w-4 h-4 text-gray-500" />;
-    }
-  };
-
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'pending':
-        return 'bg-yellow-100 text-yellow-800';
-      case 'confirmed':
-        return 'bg-blue-100 text-blue-800';
-      case 'processing':
+      case 'Completed':
+        return 'bg-green-100 text-green-800';
+      case 'Processing':
         return 'bg-purple-100 text-purple-800';
-      case 'shipped':
-        return 'bg-orange-100 text-orange-800';
-      case 'delivered':
-        return 'bg-green-100 text-green-800';
-      case 'cancelled':
+      case 'Failed':
         return 'bg-red-100 text-red-800';
       default:
         return 'bg-gray-100 text-gray-800';
     }
   };
 
-  const getPaymentStatusColor = (status: string) => {
-    switch (status) {
-      case 'paid':
-        return 'bg-green-100 text-green-800';
-      case 'pending':
-        return 'bg-yellow-100 text-yellow-800';
-      case 'failed':
-        return 'bg-red-100 text-red-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
-    }
-  };
-
-  const filteredOrders = orders.filter(order => {
-    const matchesSearch = order.orderNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         order.customer.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         order.product.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = filterStatus === 'all' || order.status === filterStatus;
-    
-    return matchesSearch && matchesStatus;
+  const filteredTransactions = transactions.filter(transaction => {
+    const matchesSearch = transaction.senderName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         transaction.receiverName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         transaction.senderType.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         transaction.receiverType.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesSearch;
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-4">
-              <Link href="/admin_dashboard" className="flex items-center text-gray-600 hover:text-gray-900">
-                <ChevronLeft className="w-5 h-5 mr-1" />
-                Back to Dashboard
+    <div className="min-h-screen bg-white flex">
+      {/* Sidebar - Green */}
+      <div className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} fixed inset-y-0 left-0 z-50 w-64 bg-green-600 shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
+        <div className="flex items-center justify-between h-16 px-6">
+          <div className="flex items-center space-x-2">
+            <span className="font-bold text-xl text-white">UmuhiniLink</span>
+          </div>
+          <button onClick={() => setSidebarOpen(false)} className="lg:hidden text-white">
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+
+        <nav className="flex-1 px-4 py-6 space-y-2">
+          {MENU_ITEMS.map((item) => {
+            const isActive = item.label === 'Payments';
+            const Icon = item.icon;
+
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+                  isActive
+                    ? 'bg-white text-green-600'
+                    : 'text-white hover:bg-green-700'
+                }`}
+              >
+                <Icon className="w-5 h-5" />
+                <span className="font-medium">{item.label}</span>
               </Link>
-              <h1 className="text-xl font-semibold text-gray-900">Order Management</h1>
-            </div>
-          </div>
-        </div>
-      </header>
+            );
+          })}
+          
+          <div className="border-t border-green-500 my-4"></div>
+          
+          {MENU_ITEMS_BOTTOM.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className="flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors text-white hover:bg-green-700"
+              >
+                <Icon className="w-5 h-5" />
+                <span className="font-medium">{item.label}</span>
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
 
-      <main className="p-6">
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="flex items-center">
-              <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
-                <ShoppingCart className="w-6 h-6 text-white" />
-              </div>
-              <div className="ml-4">
-                <p className="text-sm text-gray-500">Total Orders</p>
-                <p className="text-2xl font-bold text-gray-900">{orders.length}</p>
-              </div>
-            </div>
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col">
+        {/* Header - White with Search */}
+        <header className="bg-white border-b h-16 flex items-center px-6">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="lg:hidden mr-4"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+          <div className="relative flex-1 max-w-md">
+            <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <input
+              type="text"
+              placeholder="Search here..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-4 pr-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+            />
           </div>
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="flex items-center">
-              <div className="w-12 h-12 bg-yellow-500 rounded-lg flex items-center justify-center">
-                <Clock className="w-6 h-6 text-white" />
-              </div>
-              <div className="ml-4">
-                <p className="text-sm text-gray-500">Pending</p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {orders.filter(o => o.status === 'pending').length}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="flex items-center">
-              <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
-                <CheckCircle className="w-6 h-6 text-white" />
-              </div>
-              <div className="ml-4">
-                <p className="text-sm text-gray-500">Delivered</p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {orders.filter(o => o.status === 'delivered').length}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="flex items-center">
-              <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
-                <DollarSign className="w-6 h-6 text-white" />
-              </div>
-              <div className="ml-4">
-                <p className="text-sm text-gray-500">Total Revenue</p>
-                <p className="text-2xl font-bold text-gray-900">
-                  ${orders.reduce((sum, o) => sum + o.totalAmount, 0).toFixed(2)}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        </header>
 
-        {/* Filters */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <div className="flex flex-col lg:flex-row gap-4">
-            <div className="flex-1">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  type="text"
-                  placeholder="Search orders..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                />
-              </div>
+        {/* Main Content Area */}
+        <main className="flex-1 bg-white p-6">
+          {/* Transactions Table */}
+          <div className="bg-white rounded-xl border shadow-sm">
+            <div className="p-6 border-b">
+              <h2 className="text-2xl font-bold text-gray-900">Transactions</h2>
             </div>
-            <select
-              value={filterStatus}
-              onChange={(e) => setFilterStatus(e.target.value)}
-              className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-            >
-              <option value="all">All Status</option>
-              <option value="pending">Pending</option>
-              <option value="confirmed">Confirmed</option>
-              <option value="processing">Processing</option>
-              <option value="shipped">Shipped</option>
-              <option value="delivered">Delivered</option>
-              <option value="cancelled">Cancelled</option>
-            </select>
-          </div>
-        </div>
-
-        {/* Orders Table */}
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50 border-b">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Order
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Customer
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Product
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Amount
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Payment
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {filteredOrders.map((order) => (
-                  <tr key={order.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div>
-                        <div className="text-sm font-medium text-gray-900">{order.orderNumber}</div>
-                        <div className="text-sm text-gray-500">ID: {order.id}</div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div>
-                        <div className="text-sm font-medium text-gray-900">{order.customer}</div>
-                        <div className="text-sm text-gray-500">{order.customerEmail}</div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div>
-                        <div className="text-sm text-gray-900">{order.product}</div>
-                        <div className="text-sm text-gray-500">Qty: {order.quantity} × ${order.price}</div>
-                        <div className="text-sm text-gray-500">Farmer: {order.farmer}</div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
-                        ${order.totalAmount.toFixed(2)}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center space-x-2">
-                        {getStatusIcon(order.status)}
-                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(order.status)}`}>
-                          {order.status}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div>
-                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getPaymentStatusColor(order.paymentStatus)}`}>
-                          {order.paymentStatus}
-                        </span>
-                        <div className="text-xs text-gray-500 mt-1">{order.paymentMethod}</div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div>
-                        <div className="text-sm text-gray-900">{order.orderDate}</div>
-                        <div className="text-sm text-gray-500">Delivery: {order.deliveryDate}</div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <div className="flex items-center space-x-2">
-                        <button className="text-blue-600 hover:text-blue-900">
-                          <Eye className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </td>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50 border-b">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sender</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Receiver</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">STATUS</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ACTION</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {filteredTransactions.map((transaction) => (
+                    <tr key={transaction.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{transaction.senderType}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{transaction.senderName}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{transaction.receiverType}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.receiverName}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.date}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${getStatusColor(transaction.status)}`}>
+                          {transaction.status}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <div className="flex items-center space-x-4">
+                          <button className="text-green-600 hover:text-green-800">View</button>
+                          <button className="text-red-600 hover:text-red-800">Delete</button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 }
 
-export default function OrderManagementPage() {
+export default function TransactionsPage() {
   return (
     <AdminGuard>
       <OrderManagement />
