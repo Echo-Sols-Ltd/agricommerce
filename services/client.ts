@@ -1,14 +1,12 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosProgressEvent, CancelToken } from 'axios';
 import { API_CONFIG, HTTP_STATUS } from './constants';
-import { ApiResponse, ApiError } from '@/types';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { router } from 'expo-router';
+import { ApiResponse } from '@/types';
+
 
 class ApiClient {
   private axiosInstance: AxiosInstance;
 
   private logoutListeners: (() => void)[] = [];
-  private refreshAttempts: number = 0;
   private maxRefreshAttempts: number = 3;
 
   constructor() {
@@ -92,7 +90,7 @@ class ApiClient {
 
   private async getAuthToken(): Promise<string | null> {
     try {
-      return await SecureStore.getItemAsync('auth_token')
+      return await localStorage.getItemAsync('auth_token')
     } catch {
       this.logout();
       return null;
@@ -132,19 +130,13 @@ class ApiClient {
   public async logout() {
     try {
 
-      await SecureStore.deleteItemAsync('auth_token')
-      await SecureStore.deleteItemAsync('user')
-      await SecureStore.deleteItemAsync('farmer')
-      await SecureStore.deleteItemAsync('supplier')
-      await SecureStore.deleteItemAsync('buyer')
-      await AsyncStorage.clear()
-      this.logoutListeners.forEach((callback) => {
-        try {
-          router.replace('/')
-          callback();
-        } catch {
-        }
-      });
+      await localStorage.removeItemAsync('auth_token')
+      await localStorage.removeItemAsync('user')
+      await localStorage.removeItemAsync('farmer')
+      await localStorage.removeItemAsync('supplier')
+      await localStorage.removeItemAsync('buyer')
+      await localStorage.clear()
+     
 
     } catch {
     } finally {
@@ -242,7 +234,7 @@ class ApiClient {
         uri: fileUri,
         type,
         name: filename,
-      } as any);
+      }as any);
 
       const response = await this.axiosInstance.post<ApiResponse<T>>(endpoint, formData, {
         headers: {

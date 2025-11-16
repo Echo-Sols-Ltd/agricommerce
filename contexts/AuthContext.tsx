@@ -1,18 +1,17 @@
-import * as SecureStore from "expo-secure-store";
 import React, { createContext, useContext, useState } from 'react'
 import { BuyerRequest, FarmerRequest, LoginRequest, SupplierRequest, User, UserRequest, Farmer, Supplier, Buyer } from "@/types";
 import { UserType } from '@/types/enums';
 import { authService } from "@/services/auth";
-import { useToast } from "@/components/ui/toast/Toast";
-import { router } from "expo-router";
+
 import { farmerService } from "@/services/farmers";
 import { buyerService } from "@/services/buyers";
 import { supplierService } from "@/services/suppliers";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRouter } from 'next/navigation';
+import { toast } from '@/hooks/use-toast';
 
 
 interface AuthContextType {
-    login: (data: any) => Promise<void>
+    login: (data: LoginRequest) => Promise<void>
     loading: boolean
     loadAuthState: () => Promise<void>
     user: User | null
@@ -40,7 +39,7 @@ function useAuth(): AuthContextType {
 }
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
-    const { showToast } = useToast()
+    const router = useRouter()
     const [loading, setLoading] = useState(false)
     const [user, setUser] = useState<User | null>(null)
     const [farmer, setFarmer] = useState<Farmer | null>(null)
@@ -51,12 +50,10 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         try {
             const res = await farmerService.getMe()
             if (!res.success) {
-                showToast({
-                    title: 'Fetching farmer failed'
-                })
+               console.error('Failed to fetch farmer:', res.error)
             }
             if (res.data) {
-                await SecureStore.setItemAsync('farmer', JSON.stringify(res.data))
+                await localStorage.setItemAsync('farmer', JSON.stringify(res.data))
                 if (!res.data) {
                     router.push('/auth/farmerSignup')
                     return
@@ -64,11 +61,8 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
                 setFarmer(res.data)
             }
 
-        } catch (error) {
-          showToast({
-            title: 'Fetching farmer failed',
-            type: 'error'
-          })
+        } catch  {
+         toast({ title: 'Fetching farmer failed', description: 'Please try again later', variant: 'destructive' })
         }
     }
 
@@ -76,12 +70,10 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         try {
             const res = await buyerService.getMe()
             if (!res.success) {
-                showToast({
-                    title: 'Fetching Buyer failed'
-                })
+                toast({ title: 'Fetching Buyer failed', description: 'Please try again later', variant: 'destructive' })
             }
             if (res.data) {
-                await SecureStore.setItemAsync('buyer', JSON.stringify(res.data))
+                await localStorage.setItemAsync('buyer', JSON.stringify(res.data))
                 if (!res.data) {
                     router.push('/auth/buyerSignup')
                     return
@@ -89,11 +81,8 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
                 setBuyer(res.data)
             }
 
-        } catch (error) {
-          showToast({
-            title: 'Fetching buyer failed',
-            type: 'error'
-          })
+        } catch  {
+            toast({ title: 'Fetching buyer failed', description: 'Please try again later', variant: 'destructive' })
         }
     }
 
@@ -102,12 +91,10 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         try {
             const res = await supplierService.getMe()
             if (!res.success) {
-                showToast({
-                    title: 'Fetching supplier failed'
-                })
+                toast({ title: 'Fetching supplier failed', description: 'Please try again later', variant: 'destructive' })
             }
             if (res.data) {
-                await SecureStore.setItemAsync('supplier', JSON.stringify(res.data))
+                await localStorage.setItemAsync('supplier', JSON.stringify(res.data))
                 if (!res.data) {
                     router.push('/auth/supplierSignup')
                     return
@@ -115,38 +102,35 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
                 setSupplier(res.data)
             }
 
-        } catch (error) {
-          showToast({
-            title: 'Fetching farmer failed',
-            type: 'error'
-          })
+        } catch  {
+            toast({ title: 'Fetching supplier failed', description: 'Please try again later', variant: 'destructive' })
         }
     }
 
 
     const getUser = async () => {
-        const stringUser = await SecureStore.getItemAsync('user')
+        const stringUser = await localStorage.getItemAsync('user')
         if (!stringUser) return null
         const user: User = JSON.parse(stringUser)
         return user
     }
 
     const getFarmer = async () => {
-        const stringUser = await SecureStore.getItemAsync('farmer')
+        const stringUser = await localStorage.getItemAsync('farmer')
         if (!stringUser) return null
         const user: Farmer = JSON.parse(stringUser)
         return user
     }
 
     const getBuyer = async () => {
-        const stringUser = await SecureStore.getItemAsync('buyer')
+        const stringUser = await localStorage.getItemAsync('buyer')
         if (!stringUser) return null
         const user: Buyer = JSON.parse(stringUser)
         return user
     }
 
     const getSupplier = async () => {
-        const stringUser = await SecureStore.getItemAsync('supplier')
+        const stringUser = await    localStorage.getItemAsync('supplier')
         if (!stringUser) return null
         const user: Supplier = JSON.parse(stringUser)
         return user
@@ -156,9 +140,9 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const loadAuthState = async () => {
         try {
-            // await SecureStore.deleteItemAsync('auth_token')
+            // await localStorage.removeItemAsync('auth_token')
 
-            const token = await SecureStore.getItemAsync('auth_token')
+            const token = await localStorage.getItemAsync('auth_token')
             const user = await getUser()
             const farmer = await getFarmer()
             const supplier = await getSupplier()
@@ -207,10 +191,11 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
                 return
             }
             router.replace('/auth')
-        } catch (error) {
-            showToast({
+        } catch  {
+            toast({
                 title: 'Loading auth state failed',
-                type: 'error'
+                description: 'Please try again later',
+                variant: 'destructive'
             })
             router.replace('/auth')
         }
@@ -222,16 +207,16 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
             setLoading(true)
             const res = await authService.login(data)
             if (!res.success) {
-                showToast({
+                toast({
                     title: "Login Failed",
                     description: res.message,
-                    type: "error"
+                    variant: "destructive"
                 })
             }
             if (res.success && res.data) {
 
-                await SecureStore.setItemAsync('auth_token', res.data.token)
-                await SecureStore.setItemAsync('user', JSON.stringify(res.data.user))
+                await localStorage.setItemAsync('auth_token', res.data.token)
+                await localStorage.setItemAsync('user', JSON.stringify(res.data.user))
                 setUser(res.data.user)
 
                 if (res.data.user.role === UserType.BUYER) {
@@ -246,11 +231,11 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
                 router.replace('/')
             }
 
-        } catch (error) {
-            showToast({
+        } catch  {
+                toast({
                 title: 'Error logging in',
-                description:'Please try again',
-                type: 'error'
+                description: 'Please try again',
+                variant: 'destructive'
             })
         } finally {
             setLoading(false)
@@ -263,24 +248,25 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 
             const res = await authService.register(data)
             if (!res.success) {
-                showToast({
+                toast({
                     title: "Register Failed",
                     description: res.message,
-                    type: "error"
+                    variant: "destructive"
                 })
             }
 
             if (res.success && res.data) {
 
-                await SecureStore.setItemAsync('auth_token', res.data.token)
-                await SecureStore.setItemAsync('user', JSON.stringify(res.data.user))
+                await localStorage.setItemAsync('auth_token', res.data.token)
+                await localStorage.setItemAsync('user', JSON.stringify(res.data.user))
                 setUser(res.data.user)
                 router.push('/auth/profileCreate')
             }
-        } catch (error) {
-            showToast({
+        } catch  {
+            toast({
                 title: 'Error registering',
-                type: 'error'
+                description: 'Please try again',
+                variant: 'destructive'
             })
         } finally {
             setLoading(false)
@@ -292,21 +278,22 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
             setLoading(true)
             const res = await authService.registerBuyer(data)
             if (!res.success) {
-                showToast({
+                toast({
                     title: "Register Failed",
                     description: res.message,
-                    type: "error"
+                    variant: "destructive"
                 })
             }
             if (res.success && res.data) {
-                await SecureStore.setItemAsync('buyer', JSON.stringify(res.data))
+                await localStorage.setItemAsync('buyer', JSON.stringify(res.data))
                 setBuyer(res.data)
                 router.replace('/')
             }
-        } catch (error) {
-            showToast({
+        } catch  {
+            toast({
                 title: 'Error registering buyer',
-                type: 'error'
+                description: 'Please try again',
+                variant: 'destructive'
             })
         } finally {
             setLoading(false)
@@ -318,21 +305,22 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
             setLoading(true)
             const res = await authService.registerSupplier(data)
             if (!res.success) {
-                showToast({
+                toast({
                     title: "Register Failed",
                     description: res.message,
-                    type: "error"
+                    variant: "destructive"
                 })
             }
             if (res.success && res.data) {
-                await SecureStore.setItemAsync('supplier', JSON.stringify(res.data))
+                await localStorage.setItemAsync('supplier', JSON.stringify(res.data))
                 setSupplier(res.data)
                 router.replace('/')
             }
-        } catch (error) {
-            showToast({
+        } catch  {
+            toast({
                 title: 'Error registering supplier',
-                type: 'error'
+                description: 'Please try again',
+                variant: 'destructive'
             })
         } finally {
             setLoading(false)
@@ -344,21 +332,22 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
             setLoading(true)
             const res = await authService.registerFarmer(data)
             if (!res.success) {
-                showToast({
+                toast({
                     title: "Register Failed",
                     description: res.message,
-                    type: "error"
+                    variant: "destructive"
                 })
             }
             if (res.success && res.data) {
-                await SecureStore.setItemAsync('farmer', JSON.stringify(res.data))
+                await localStorage.setItemAsync('farmer', JSON.stringify(res.data))
                 setFarmer(res.data)
                 router.replace('/')
             }
-        } catch (error) {
-            showToast({
+        } catch  {
+            toast({
                 title: 'Error registering farmer',
-                type: 'error'
+                description: 'Please try again',
+                variant: 'destructive'
             })
         } finally {
             setLoading(false)
@@ -370,22 +359,23 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
             setLoading(true)
             const res = await authService.verifyOtp(data)
             if (!res.success) {
-                showToast({
+                toast({
                     title: "Verify Failed",
                     description: res.message,
-                    type: "error"
+                    variant: "destructive"
                 })
             }
             if (res.success && res.data && user) {
                 user.verified = true
-                await SecureStore.setItemAsync('user', JSON.stringify(user))
+                await localStorage.setItemAsync('user', JSON.stringify(user))
                 setUser(user)
                 router.replace('/')
             }
-        } catch (error) {
-            showToast({
+        } catch  {
+            toast({
                 title: 'Error verifying',
-                type: 'error'
+                description: 'Please try again',
+                variant: 'destructive'
             })
         } finally {
             setLoading(false)
@@ -397,17 +387,18 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
             setLoading(true)
             const res = await authService.askOtpCode()
             if (!res.success) {
-                showToast({
+                toast({
                     title: "Ask OTP Failed",
                     description: res.message,
-                    type: "error"
+                    variant: "destructive"
                 })
             }
 
-        } catch (error) {
-            showToast({
+        } catch  {
+                toast({
                 title: 'Error asking for OTP',
-                type: 'error'
+                description: 'Please try again',
+                variant: 'destructive'
             })
         } finally {
             setLoading(false)
@@ -415,12 +406,12 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     const logout = async () => {
-        await SecureStore.deleteItemAsync('auth_token')
-        await SecureStore.deleteItemAsync('user')
-        await SecureStore.deleteItemAsync('farmer')
-        await SecureStore.deleteItemAsync('supplier')
-        await SecureStore.deleteItemAsync('buyer')
-        await AsyncStorage.clear()
+        await localStorage.removeItemAsync('auth_token')
+        await localStorage.removeItemAsync('user')
+        await localStorage.removeItemAsync('farmer')
+        await localStorage.removeItemAsync('supplier')
+        await localStorage.removeItemAsync('buyer')
+        await localStorage.clear()
         setUser(null)
         setFarmer(null)
         setSupplier(null)
@@ -435,7 +426,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
             prev.avatar = data
             return prev
         })
-        await SecureStore.setItemAsync('user', JSON.stringify(user))
+        await localStorage.setItemAsync('user', JSON.stringify(user))
 
     }
 
